@@ -88,9 +88,16 @@ def post_tweet(text):
     req.add_header('Authorization', auth_header)
     req.add_header('Content-Type', 'application/json')
 
-    response = urlopen(req)
-    result = json.loads(response.read().decode('utf-8'))
-    return result
+    try:
+        response = urlopen(req)
+        result = json.loads(response.read().decode('utf-8'))
+        return result
+    except Exception as e:
+        # Try to read the error body for more details
+        if hasattr(e, 'read'):
+            error_body = e.read().decode('utf-8', errors='replace')
+            print(f"API error body: {error_body}")
+        raise
 
 
 # ─── Tweet Generation ────────────────────────────────────────────────────
