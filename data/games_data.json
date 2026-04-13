@@ -19,11 +19,14 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$197",
+      "price": "~$197.07",
       "target": "$284.80",
       "upside": "+44%",
       "upside_class": "green",
-      "catalyst": { "es": "GTA VI — 19 Nov 2026", "en": "GTA VI — Nov 19, 2026" }
+      "catalyst": {
+        "es": "GTA VI — 19 Nov 2026",
+        "en": "GTA VI — Nov 19, 2026"
+      }
     },
     {
       "rank": 2,
@@ -31,11 +34,14 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$11.11",
+      "price": "~$10.41",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
-      "catalyst": { "es": "Pragmata + Onimusha + no anunciados", "en": "Pragmata + Onimusha + unannounced" }
+      "catalyst": {
+        "es": "Pragmata + Onimusha + no anunciados",
+        "en": "Pragmata + Onimusha + unannounced"
+      }
     },
     {
       "rank": 3,
@@ -43,12 +49,15 @@
       "ticker": "KNAMF",
       "rating": "Buy",
       "rating_class": "buy",
-      "price": "~$61.77",
+      "price": "~$124.51",
       "price_note": "(post-div)",
       "target": "—",
       "upside": "—",
       "upside_class": "",
-      "catalyst": { "es": "Revival: MGS + Silent Hill + Castlevania", "en": "Revival: MGS + Silent Hill + Castlevania" }
+      "catalyst": {
+        "es": "Revival: MGS + Silent Hill + Castlevania",
+        "en": "Revival: MGS + Silent Hill + Castlevania"
+      }
     },
     {
       "rank": 4,
@@ -56,11 +65,14 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$13.91",
+      "price": "~$13.0",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
-      "catalyst": { "es": "Zelda OoT Remake + Star Fox (2H 2026)", "en": "Zelda OoT Remake + Star Fox (2H 2026)" }
+      "catalyst": {
+        "es": "Zelda OoT Remake + Star Fox (2H 2026)",
+        "en": "Zelda OoT Remake + Star Fox (2H 2026)"
+      }
     },
     {
       "rank": 5,
@@ -68,11 +80,14 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~246 PLN",
+      "price": "~242.1 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
-      "catalyst": { "es": "Witcher IV (2027+) — esperar ventana", "en": "Witcher IV (2027+) — wait for window" }
+      "catalyst": {
+        "es": "Witcher IV (2027+) — esperar ventana",
+        "en": "Witcher IV (2027+) — wait for window"
+      }
     },
     {
       "rank": 6,
@@ -84,7 +99,10 @@
       "target": "—",
       "upside": "Caida brutal",
       "upside_class": "red",
-      "catalyst": { "es": "FF VII Rebirth ports / KH IV (2027)", "en": "FF VII Rebirth ports / KH IV (2027)" }
+      "catalyst": {
+        "es": "FF VII Rebirth ports / KH IV (2027)",
+        "en": "FF VII Rebirth ports / KH IV (2027)"
+      }
     },
     {
       "rank": 7,
@@ -92,11 +110,14 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "Muy golpeada",
+      "price": "~$0.89",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
-      "catalyst": { "es": "Cancelo 6 juegos, cierre estudios", "en": "Cancelled 6 games, closing studios" }
+      "catalyst": {
+        "es": "Cancelo 6 juegos, cierre estudios",
+        "en": "Cancelled 6 games, closing studios"
+      }
     }
   ],
   "games": {
@@ -105,11 +126,20 @@
         "name": "GTA VI",
         "company": "Rockstar Games / Take-Two Interactive",
         "ticker": "TTWO",
-        "signal": { "es": "Strong Buy", "en": "Strong Buy" },
+        "signal": {
+          "es": "Strong Buy",
+          "en": "Strong Buy"
+        },
         "signal_class": "strong-buy",
-        "release": { "es": "19 Nov 2026", "en": "Nov 19, 2026" },
+        "release": {
+          "es": "19 Nov 2026",
+          "en": "Nov 19, 2026"
+        },
         "days_left": "~220",
-        "company_type": { "es": "Grande (juego = 30-40% valor)", "en": "Large (game = 30-40% value)" },
+        "company_type": {
+          "es": "Grande (juego = 30-40% valor)",
+          "en": "Large (game = 30-40% value)"
+        },
         "score": 79,
         "bar_class": "green",
         "description": {
@@ -117,20 +147,38 @@
           "en": "No new delays. Summer marketing confirmed by Take-Two. 15 analysts Buy, target $284.80 (+44%). The biggest entertainment event of the year."
         },
         "tags": [
-          { "text": "Large Cap", "class": "large-cap" },
-          { "text": { "es": "Patron: DOMINANTE", "en": "Pattern: DOMINANT" }, "class": "dominante" },
-          { "text": "16 Buy ratings", "style": "border-color:var(--green); color:var(--green);" }
+          {
+            "text": "Large Cap",
+            "class": "large-cap"
+          },
+          {
+            "text": {
+              "es": "Patron: DOMINANTE",
+              "en": "Pattern: DOMINANT"
+            },
+            "class": "dominante"
+          },
+          {
+            "text": "16 Buy ratings",
+            "style": "border-color:var(--green); color:var(--green);"
+          }
         ]
       },
       {
         "name": "The Witcher IV",
         "company": "CD Projekt RED",
         "ticker": "CDR.WA",
-        "signal": { "es": "Esperar", "en": "Wait" },
+        "signal": {
+          "es": "Esperar",
+          "en": "Wait"
+        },
         "signal_class": "wait",
         "release": "2027+",
         "days_left": "~400+",
-        "company_type": { "es": "Mid-cap (senal pura)", "en": "Mid-cap (pure signal)" },
+        "company_type": {
+          "es": "Mid-cap (senal pura)",
+          "en": "Mid-cap (pure signal)"
+        },
         "score": 32,
         "bar_class": "blue",
         "description": {
@@ -138,20 +186,44 @@
           "en": "$778M budget. This IS CDR's entire investment thesis. Witcher 4-5-6 trilogy planned. Wait for 90-day window."
         },
         "tags": [
-          { "text": "Mid-Cap", "class": "mid-cap" },
-          { "text": { "es": "Patron esperado: CRESCENDO", "en": "Expected pattern: CRESCENDO" }, "class": "crescendo" },
-          { "text": { "es": "5B PLN objetivo 2026-2029", "en": "5B PLN target 2026-2029" }, "style": "border-color:var(--orange); color:var(--orange);" }
+          {
+            "text": "Mid-Cap",
+            "class": "mid-cap"
+          },
+          {
+            "text": {
+              "es": "Patron esperado: CRESCENDO",
+              "en": "Expected pattern: CRESCENDO"
+            },
+            "class": "crescendo"
+          },
+          {
+            "text": {
+              "es": "5B PLN objetivo 2026-2029",
+              "en": "5B PLN target 2026-2029"
+            },
+            "style": "border-color:var(--orange); color:var(--orange);"
+          }
         ]
       },
       {
         "name": "Marvel's Wolverine",
         "company": "Insomniac Games / Sony",
         "ticker": "SONY",
-        "signal": { "es": "Diluido", "en": "Diluted" },
+        "signal": {
+          "es": "Diluido",
+          "en": "Diluted"
+        },
         "signal_class": "neutral",
-        "release": { "es": "15 Sep 2026", "en": "Sep 15, 2026" },
+        "release": {
+          "es": "15 Sep 2026",
+          "en": "Sep 15, 2026"
+        },
         "days_left": "~155",
-        "company_type": { "es": "Mega-cap (diluido)", "en": "Mega-cap (diluted)" },
+        "company_type": {
+          "es": "Mega-cap (diluido)",
+          "en": "Mega-cap (diluted)"
+        },
         "score": 22,
         "bar_class": "purple",
         "description": {
@@ -159,19 +231,36 @@
           "en": "PS5 exclusive. Sony pulling games from PC. Diluted impact on mega-cap."
         },
         "tags": [
-          { "text": "Mega-Cap", "class": "mega-cap" },
-          { "text": { "es": "Exclusiva PS5", "en": "PS5 Exclusive" } }
+          {
+            "text": "Mega-Cap",
+            "class": "mega-cap"
+          },
+          {
+            "text": {
+              "es": "Exclusiva PS5",
+              "en": "PS5 Exclusive"
+            }
+          }
         ]
       },
       {
         "name": "Fable",
         "company": "Playground Games / Microsoft",
         "ticker": "MSFT",
-        "signal": { "es": "Diluido", "en": "Diluted" },
+        "signal": {
+          "es": "Diluido",
+          "en": "Diluted"
+        },
         "signal_class": "neutral",
-        "release": { "es": "Otono 2026", "en": "Fall 2026" },
+        "release": {
+          "es": "Otono 2026",
+          "en": "Fall 2026"
+        },
         "days_left": "~170",
-        "company_type": { "es": "Mega-cap (diluido)", "en": "Mega-cap (diluted)" },
+        "company_type": {
+          "es": "Mega-cap (diluido)",
+          "en": "Mega-cap (diluted)"
+        },
         "score": 18,
         "bar_class": "purple",
         "description": {
@@ -179,118 +268,561 @@
           "en": "A single game barely moves the needle at Microsoft."
         },
         "tags": [
-          { "text": "Mega-Cap", "class": "mega-cap" }
+          {
+            "text": "Mega-Cap",
+            "class": "mega-cap"
+          }
         ]
       }
     ],
     "tier2": [
-      { "name": "Pragmata", "company": "Capcom", "ticker": "CCOEY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": { "es": "17 Abr 2026", "en": "Apr 17, 2026" }, "tags_class": "mid-cap", "urgent": true, "urgent_text": { "es": "4 DIAS", "en": "4 DAYS" } },
-      { "name": "Onimusha: Way of the Sword", "company": "Capcom", "ticker": "CCOEY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": "2026", "tags_class": "mid-cap", "extra_tag": "Revival" },
-      { "name": "Ace Combat 8", "company": "Bandai Namco", "ticker": "NCBDY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": "2026", "tags_class": "mid-cap" },
-      { "name": "Little Nightmares VR", "company": "Bandai Namco", "ticker": "NCBDY", "signal_class": "neutral", "signal": { "es": "Neutro", "en": "Neutral" }, "release": "2026", "tags_class": "mid-cap" },
-      { "name": "Silent Hill: Townfall", "company": "Konami", "ticker": "KNAMF", "signal_class": "buy", "signal": { "es": "Compra", "en": "Buy" }, "release": "2026", "tags_class": "mid-cap", "extra_tag": "Revival" },
-      { "name": "Castlevania: Belmont's Curse", "company": "Konami", "ticker": "KNAMF", "signal_class": "buy", "signal": { "es": "Compra", "en": "Buy" }, "release": "2026", "tags_class": "mid-cap", "extra_tag": "Revival" },
-      { "name": "MGS Master Collection Vol. 2", "company": "Konami", "ticker": "KNAMF", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": "2026", "tags_class": "mid-cap" },
-      { "name": "FF VII Rebirth (Switch 2/Xbox)", "company": "Square Enix", "ticker": "SQNXF", "signal_class": "neutral", "signal": { "es": "Neutro", "en": "Neutral" }, "release": "2026", "tags_class": "large-cap" },
-      { "name": "Zelda: OoT Remake (filtrado)", "company": "Nintendo", "ticker": "NTDOY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": "2H 2026", "tags_class": "mid-cap" },
-      { "name": "Star Fox (nuevo, filtrado)", "company": "Nintendo", "ticker": "NTDOY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": { "es": "Verano 2026", "en": "Summer 2026" }, "tags_class": "mid-cap" }
+      {
+        "name": "Pragmata",
+        "company": "Capcom",
+        "ticker": "CCOEY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": {
+          "es": "17 Abr 2026",
+          "en": "Apr 17, 2026"
+        },
+        "tags_class": "mid-cap",
+        "urgent": true,
+        "urgent_text": {
+          "es": "4 DIAS",
+          "en": "4 DAYS"
+        }
+      },
+      {
+        "name": "Onimusha: Way of the Sword",
+        "company": "Capcom",
+        "ticker": "CCOEY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap",
+        "extra_tag": "Revival"
+      },
+      {
+        "name": "Ace Combat 8",
+        "company": "Bandai Namco",
+        "ticker": "NCBDY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap"
+      },
+      {
+        "name": "Little Nightmares VR",
+        "company": "Bandai Namco",
+        "ticker": "NCBDY",
+        "signal_class": "neutral",
+        "signal": {
+          "es": "Neutro",
+          "en": "Neutral"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap"
+      },
+      {
+        "name": "Silent Hill: Townfall",
+        "company": "Konami",
+        "ticker": "KNAMF",
+        "signal_class": "buy",
+        "signal": {
+          "es": "Compra",
+          "en": "Buy"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap",
+        "extra_tag": "Revival"
+      },
+      {
+        "name": "Castlevania: Belmont's Curse",
+        "company": "Konami",
+        "ticker": "KNAMF",
+        "signal_class": "buy",
+        "signal": {
+          "es": "Compra",
+          "en": "Buy"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap",
+        "extra_tag": "Revival"
+      },
+      {
+        "name": "MGS Master Collection Vol. 2",
+        "company": "Konami",
+        "ticker": "KNAMF",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": "2026",
+        "tags_class": "mid-cap"
+      },
+      {
+        "name": "FF VII Rebirth (Switch 2/Xbox)",
+        "company": "Square Enix",
+        "ticker": "SQNXF",
+        "signal_class": "neutral",
+        "signal": {
+          "es": "Neutro",
+          "en": "Neutral"
+        },
+        "release": "2026",
+        "tags_class": "large-cap"
+      },
+      {
+        "name": "Zelda: OoT Remake (filtrado)",
+        "company": "Nintendo",
+        "ticker": "NTDOY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": "2H 2026",
+        "tags_class": "mid-cap"
+      },
+      {
+        "name": "Star Fox (nuevo, filtrado)",
+        "company": "Nintendo",
+        "ticker": "NTDOY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": {
+          "es": "Verano 2026",
+          "en": "Summer 2026"
+        },
+        "tags_class": "mid-cap"
+      }
     ],
     "tier3": [
-      { "name": "Kingdom Hearts IV", "company": "Square Enix", "ticker": "SQNXF", "signal_class": "wait", "signal": { "es": "Esperar", "en": "Wait" }, "release": "2027+" },
-      { "name": "FF VII Remake Part 3", "company": "Square Enix", "ticker": "SQNXF", "signal_class": "wait", "signal": { "es": "Esperar", "en": "Wait" }, "release": "2028+" },
-      { "name": "Dragon Quest XII", "company": "Square Enix", "ticker": "SQNXF", "signal_class": "wait", "signal": { "es": "Esperar", "en": "Wait" }, "release": "2027+" },
-      { "name": "Metroid Prime 4", "company": "Retro Studios / Nintendo", "ticker": "NTDOY", "signal_class": "watch", "signal": { "es": "Vigilar", "en": "Watch" }, "release": "2026" },
-      { "name": "Hollow Knight: Silksong", "company": "Team Cherry", "ticker": "—", "signal_class": "neutral", "signal": { "es": "Sin ticker", "en": "No ticker" }, "release": "TBD" }
+      {
+        "name": "Kingdom Hearts IV",
+        "company": "Square Enix",
+        "ticker": "SQNXF",
+        "signal_class": "wait",
+        "signal": {
+          "es": "Esperar",
+          "en": "Wait"
+        },
+        "release": "2027+"
+      },
+      {
+        "name": "FF VII Remake Part 3",
+        "company": "Square Enix",
+        "ticker": "SQNXF",
+        "signal_class": "wait",
+        "signal": {
+          "es": "Esperar",
+          "en": "Wait"
+        },
+        "release": "2028+"
+      },
+      {
+        "name": "Dragon Quest XII",
+        "company": "Square Enix",
+        "ticker": "SQNXF",
+        "signal_class": "wait",
+        "signal": {
+          "es": "Esperar",
+          "en": "Wait"
+        },
+        "release": "2027+"
+      },
+      {
+        "name": "Metroid Prime 4",
+        "company": "Retro Studios / Nintendo",
+        "ticker": "NTDOY",
+        "signal_class": "watch",
+        "signal": {
+          "es": "Vigilar",
+          "en": "Watch"
+        },
+        "release": "2026"
+      },
+      {
+        "name": "Hollow Knight: Silksong",
+        "company": "Team Cherry",
+        "ticker": "—",
+        "signal_class": "neutral",
+        "signal": {
+          "es": "Sin ticker",
+          "en": "No ticker"
+        },
+        "release": "TBD"
+      }
     ]
   },
   "correlations": [
-    { "value": "0.749", "label": { "es": "Consistencia Trends → Pre-60d Stock", "en": "Trends Consistency → Pre-60d Stock" }, "stars": 4 },
-    { "value": "0.621", "label": { "es": "Aceleracion Trends → Pre-30d Stock", "en": "Trends Acceleration → Pre-30d Stock" }, "stars": 3 },
-    { "value": "0.33", "label": { "es": "Pico Trends → Post-30d Stock", "en": "Peak Trends → Post-30d Stock" }, "stars": 2 },
-    { "value": "0.18", "label": { "es": "Nivel Trends → Post-90d Stock", "en": "Trends Level → Post-90d Stock" }, "stars": 1 }
+    {
+      "value": "0.749",
+      "label": {
+        "es": "Consistencia Trends → Pre-60d Stock",
+        "en": "Trends Consistency → Pre-60d Stock"
+      },
+      "stars": 4
+    },
+    {
+      "value": "0.621",
+      "label": {
+        "es": "Aceleracion Trends → Pre-30d Stock",
+        "en": "Trends Acceleration → Pre-30d Stock"
+      },
+      "stars": 3
+    },
+    {
+      "value": "0.33",
+      "label": {
+        "es": "Pico Trends → Post-30d Stock",
+        "en": "Peak Trends → Post-30d Stock"
+      },
+      "stars": 2
+    },
+    {
+      "value": "0.18",
+      "label": {
+        "es": "Nivel Trends → Post-90d Stock",
+        "en": "Trends Level → Post-90d Stock"
+      },
+      "stars": 1
+    }
   ],
   "historical": [
-    { "game": "GTA V (2013)", "ticker": "TTWO", "pre60": "-5.5%", "pre30": "+1.9%", "post30": "+0.9%", "post90": "+8.3%" },
-    { "game": "The Witcher 3 (2015)", "ticker": "CDR.WA", "pre60": "+10.4%", "pre30": "+27.7%", "post30": "+3.0%", "post90": "+4.7%" },
-    { "game": "Cyberpunk 2077 (2020)", "ticker": "CDR.WA", "pre60": "-1.0%", "pre30": "-2.4%", "post30": "-33.7%", "post90": "0.0%" },
-    { "game": "Elden Ring (2022)", "ticker": "NCBDY", "pre60": "+7.1%", "pre30": "-7.4%", "post30": "+2.8%", "post90": "+6.1%" },
-    { "game": "Animal Crossing NH (2020)", "ticker": "NTDOY", "pre60": "-4.3%", "pre30": "-11.1%", "post30": "+21.6%", "post90": "+26.7%" },
-    { "game": "Hogwarts Legacy (2023)", "ticker": "WBD", "pre60": "+12.9%", "pre30": "+26.2%", "post30": "-1.4%", "post90": "+12.1%" }
+    {
+      "game": "GTA V (2013)",
+      "ticker": "TTWO",
+      "pre60": "-5.5%",
+      "pre30": "+1.9%",
+      "post30": "+0.9%",
+      "post90": "+8.3%"
+    },
+    {
+      "game": "The Witcher 3 (2015)",
+      "ticker": "CDR.WA",
+      "pre60": "+10.4%",
+      "pre30": "+27.7%",
+      "post30": "+3.0%",
+      "post90": "+4.7%"
+    },
+    {
+      "game": "Cyberpunk 2077 (2020)",
+      "ticker": "CDR.WA",
+      "pre60": "-1.0%",
+      "pre30": "-2.4%",
+      "post30": "-33.7%",
+      "post90": "0.0%"
+    },
+    {
+      "game": "Elden Ring (2022)",
+      "ticker": "NCBDY",
+      "pre60": "+7.1%",
+      "pre30": "-7.4%",
+      "post30": "+2.8%",
+      "post90": "+6.1%"
+    },
+    {
+      "game": "Animal Crossing NH (2020)",
+      "ticker": "NTDOY",
+      "pre60": "-4.3%",
+      "pre30": "-11.1%",
+      "post30": "+21.6%",
+      "post90": "+26.7%"
+    },
+    {
+      "game": "Hogwarts Legacy (2023)",
+      "ticker": "WBD",
+      "pre60": "+12.9%",
+      "pre30": "+26.2%",
+      "post30": "-1.4%",
+      "post90": "+12.1%"
+    }
   ],
   "patterns": {
     "es": [
-      { "name": "Crescendo", "color": "accent2", "desc": "Interes creciendo semana a semana de forma sostenida.", "action": "Entrar 60-90 dias antes", "example": "Ej: The Witcher 3, Hogwarts Legacy" },
-      { "name": "Dominante", "color": "orange", "desc": "Interes alto y constante desde meses antes.", "action": "Entrar 90+ dias, salir en lanzamiento", "example": "Ej: GTA VI (en curso)" },
-      { "name": "Explosion", "color": "red", "desc": "Interes muerto hasta ultimas 2 semanas, luego pico.", "action": "Imposible anticipar. Esperar POST", "example": "Ej: Pokemon GO, Animal Crossing" },
-      { "name": "Ruido", "color": "text-dim", "desc": "Sin patron claro de interes.", "action": "Ignorar", "example": "Ej: Halo Infinite" }
+      {
+        "name": "Crescendo",
+        "color": "accent2",
+        "desc": "Interes creciendo semana a semana de forma sostenida.",
+        "action": "Entrar 60-90 dias antes",
+        "example": "Ej: The Witcher 3, Hogwarts Legacy"
+      },
+      {
+        "name": "Dominante",
+        "color": "orange",
+        "desc": "Interes alto y constante desde meses antes.",
+        "action": "Entrar 90+ dias, salir en lanzamiento",
+        "example": "Ej: GTA VI (en curso)"
+      },
+      {
+        "name": "Explosion",
+        "color": "red",
+        "desc": "Interes muerto hasta ultimas 2 semanas, luego pico.",
+        "action": "Imposible anticipar. Esperar POST",
+        "example": "Ej: Pokemon GO, Animal Crossing"
+      },
+      {
+        "name": "Ruido",
+        "color": "text-dim",
+        "desc": "Sin patron claro de interes.",
+        "action": "Ignorar",
+        "example": "Ej: Halo Infinite"
+      }
     ],
     "en": [
-      { "name": "Crescendo", "color": "accent2", "desc": "Interest growing week over week in a sustained manner.", "action": "Enter 60-90 days before", "example": "E.g.: The Witcher 3, Hogwarts Legacy" },
-      { "name": "Dominant", "color": "orange", "desc": "High and constant interest for months.", "action": "Enter 90+ days, exit at launch", "example": "E.g.: GTA VI (ongoing)" },
-      { "name": "Explosion", "color": "red", "desc": "Dead interest until last 2 weeks, then spike.", "action": "Impossible to anticipate. Wait POST", "example": "E.g.: Pokemon GO, Animal Crossing" },
-      { "name": "Noise", "color": "text-dim", "desc": "No clear interest pattern.", "action": "Ignore", "example": "E.g.: Halo Infinite" }
+      {
+        "name": "Crescendo",
+        "color": "accent2",
+        "desc": "Interest growing week over week in a sustained manner.",
+        "action": "Enter 60-90 days before",
+        "example": "E.g.: The Witcher 3, Hogwarts Legacy"
+      },
+      {
+        "name": "Dominant",
+        "color": "orange",
+        "desc": "High and constant interest for months.",
+        "action": "Enter 90+ days, exit at launch",
+        "example": "E.g.: GTA VI (ongoing)"
+      },
+      {
+        "name": "Explosion",
+        "color": "red",
+        "desc": "Dead interest until last 2 weeks, then spike.",
+        "action": "Impossible to anticipate. Wait POST",
+        "example": "E.g.: Pokemon GO, Animal Crossing"
+      },
+      {
+        "name": "Noise",
+        "color": "text-dim",
+        "desc": "No clear interest pattern.",
+        "action": "Ignore",
+        "example": "E.g.: Halo Infinite"
+      }
     ]
   },
   "signal_formula": {
     "es": [
-      { "pct": "40%", "name": "Nivel Trends", "desc": "Interes actual (0-100) en Google Trends" },
-      { "pct": "25%", "name": "Ventana Temporal", "desc": "Optima: 20-75 dias. Penaliza lejos o cerca" },
-      { "pct": "20%", "name": "Aceleracion", "desc": "Media 4 semanas recientes vs primeras 4" },
-      { "pct": "15%", "name": "Consistencia", "desc": "Ratio media/pico. Sostenido > pico aislado" }
+      {
+        "pct": "40%",
+        "name": "Nivel Trends",
+        "desc": "Interes actual (0-100) en Google Trends"
+      },
+      {
+        "pct": "25%",
+        "name": "Ventana Temporal",
+        "desc": "Optima: 20-75 dias. Penaliza lejos o cerca"
+      },
+      {
+        "pct": "20%",
+        "name": "Aceleracion",
+        "desc": "Media 4 semanas recientes vs primeras 4"
+      },
+      {
+        "pct": "15%",
+        "name": "Consistencia",
+        "desc": "Ratio media/pico. Sostenido > pico aislado"
+      }
     ],
     "en": [
-      { "pct": "40%", "name": "Trends Level", "desc": "Current interest (0-100) on Google Trends" },
-      { "pct": "25%", "name": "Time Window", "desc": "Optimal: 20-75 days. Penalizes too far or too close" },
-      { "pct": "20%", "name": "Acceleration", "desc": "Average of last 4 weeks vs first 4" },
-      { "pct": "15%", "name": "Consistency", "desc": "Average/peak ratio. Sustained > isolated spike" }
+      {
+        "pct": "40%",
+        "name": "Trends Level",
+        "desc": "Current interest (0-100) on Google Trends"
+      },
+      {
+        "pct": "25%",
+        "name": "Time Window",
+        "desc": "Optimal: 20-75 days. Penalizes too far or too close"
+      },
+      {
+        "pct": "20%",
+        "name": "Acceleration",
+        "desc": "Average of last 4 weeks vs first 4"
+      },
+      {
+        "pct": "15%",
+        "name": "Consistency",
+        "desc": "Average/peak ratio. Sustained > isolated spike"
+      }
     ]
   },
   "score_legend": {
-    "es": ["0-14: Ignorar", "15-29: Neutro", "30-49: Vigilar", "50-69: Compra", "70-100: Compra Fuerte"],
-    "en": ["0-14: Ignore", "15-29: Neutral", "30-49: Watch", "50-69: Buy", "70-100: Strong Buy"]
+    "es": [
+      "0-14: Ignorar",
+      "15-29: Neutro",
+      "30-49: Vigilar",
+      "50-69: Compra",
+      "70-100: Compra Fuerte"
+    ],
+    "en": [
+      "0-14: Ignore",
+      "15-29: Neutral",
+      "30-49: Watch",
+      "50-69: Buy",
+      "70-100: Strong Buy"
+    ]
   },
   "trading_rules": {
     "es": [
-      { "num": "01", "title": "Regla de Entrada", "desc": "Si Trends lleva >4 semanas por encima de 30/100 y sigue creciendo, senal de entrada 60-90 dias antes del lanzamiento." },
-      { "num": "02", "title": "Senal de Salida", "desc": "Si el hype explota en las ultimas 2 semanas (de 10 a 100), demasiado tarde para entrada PRE-lanzamiento." },
-      { "num": "03", "title": "Empresa Optima", "desc": "Mid-cap, donde el juego represente >30% de ingresos futuros. Evitar gigantes donde el impacto queda diluido." },
-      { "num": "04", "title": "Factor Cyberpunk", "desc": "Hype extremo + gap expectativas/realidad = crash. No confiar ciegamente en la aceleracion de Trends." }
+      {
+        "num": "01",
+        "title": "Regla de Entrada",
+        "desc": "Si Trends lleva >4 semanas por encima de 30/100 y sigue creciendo, senal de entrada 60-90 dias antes del lanzamiento."
+      },
+      {
+        "num": "02",
+        "title": "Senal de Salida",
+        "desc": "Si el hype explota en las ultimas 2 semanas (de 10 a 100), demasiado tarde para entrada PRE-lanzamiento."
+      },
+      {
+        "num": "03",
+        "title": "Empresa Optima",
+        "desc": "Mid-cap, donde el juego represente >30% de ingresos futuros. Evitar gigantes donde el impacto queda diluido."
+      },
+      {
+        "num": "04",
+        "title": "Factor Cyberpunk",
+        "desc": "Hype extremo + gap expectativas/realidad = crash. No confiar ciegamente en la aceleracion de Trends."
+      }
     ],
     "en": [
-      { "num": "01", "title": "Entry Rule", "desc": "If Trends has been above 30/100 for 4+ weeks and still growing, entry signal 60-90 days before launch." },
-      { "num": "02", "title": "Exit Signal", "desc": "If hype explodes in last 2 weeks (10 to 100), too late for PRE-launch entry." },
-      { "num": "03", "title": "Optimal Company", "desc": "Mid-cap, where the game represents >30% of future revenue. Avoid giants where impact is diluted." },
-      { "num": "04", "title": "Cyberpunk Factor", "desc": "Extreme hype + expectations/reality gap = crash. Don't blindly trust Trends acceleration." }
+      {
+        "num": "01",
+        "title": "Entry Rule",
+        "desc": "If Trends has been above 30/100 for 4+ weeks and still growing, entry signal 60-90 days before launch."
+      },
+      {
+        "num": "02",
+        "title": "Exit Signal",
+        "desc": "If hype explodes in last 2 weeks (10 to 100), too late for PRE-launch entry."
+      },
+      {
+        "num": "03",
+        "title": "Optimal Company",
+        "desc": "Mid-cap, where the game represents >30% of future revenue. Avoid giants where impact is diluted."
+      },
+      {
+        "num": "04",
+        "title": "Cyberpunk Factor",
+        "desc": "Extreme hype + expectations/reality gap = crash. Don't blindly trust Trends acceleration."
+      }
     ]
   },
   "news": {
     "es": [
-      { "color": "green", "html": "<strong>Pragmata lanza en 4 dias (17 abr).</strong> Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Senal de test para CCOEY." },
-      { "color": "green", "html": "<strong>GTA VI: sin nuevos retrasos.</strong> TTWO confirma campana de marketing este verano. 15 analistas Buy, target consenso $284.80." },
-      { "color": "blue", "html": "<strong>Star Fox: anuncio inminente.</strong> Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online." },
-      { "color": "blue", "html": "<strong>Zelda: OoT Remake confirmado para 2H 2026</strong> cerca de navidades. Remake completo desde cero. Coincide con 40 aniversario de la saga." },
-      { "color": "yellow", "html": "<strong>Konami: dividendo especial $107.50/accion</strong> (ex-date 30 mar 2026). Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio." },
-      { "color": "yellow", "html": "<strong>GTA VI retrasado a Nov 2026</strong> (antes mayo). TTWO cayo ~8% pero analistas lo ven como oportunidad." },
-      { "color": "red", "html": "<strong>Nintendo recorta produccion Switch 2</strong> un 33%. Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91." },
-      { "color": "red", "html": "<strong>Ubisoft en crisis:</strong> cancelo 6 juegos, cerrara estudios, perdida operativa ~1B EUR esperada." },
-      { "color": "blue", "html": "<strong>Sony retira juegos de PC:</strong> Wolverine, Ghost of Yotei, Saros exclusivos PS5." },
-      { "color": "red", "html": "<strong>Aranceles de Trump:</strong> arancel efectivo EEUU subio al 22.5%, indice gaming cayo 300+ pts en Q1 2026." },
-      { "color": "green", "html": "<strong>CD Projekt sube objetivos</strong> a 5B PLN (2026-2029), trilogia Witcher 4-5-6. Witcher IV no llega a diciembre 2026." },
-      { "color": "green", "html": "<strong>Capcom anuncia mas juegos</strong> sin revelar para antes de marzo 2027." }
+      {
+        "color": "green",
+        "html": "<strong>Pragmata lanza en 4 dias (17 abr).</strong> Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Senal de test para CCOEY."
+      },
+      {
+        "color": "green",
+        "html": "<strong>GTA VI: sin nuevos retrasos.</strong> TTWO confirma campana de marketing este verano. 15 analistas Buy, target consenso $284.80."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Star Fox: anuncio inminente.</strong> Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Zelda: OoT Remake confirmado para 2H 2026</strong> cerca de navidades. Remake completo desde cero. Coincide con 40 aniversario de la saga."
+      },
+      {
+        "color": "yellow",
+        "html": "<strong>Konami: dividendo especial $107.50/accion</strong> (ex-date 30 mar 2026). Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio."
+      },
+      {
+        "color": "yellow",
+        "html": "<strong>GTA VI retrasado a Nov 2026</strong> (antes mayo). TTWO cayo ~8% pero analistas lo ven como oportunidad."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Nintendo recorta produccion Switch 2</strong> un 33%. Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Ubisoft en crisis:</strong> cancelo 6 juegos, cerrara estudios, perdida operativa ~1B EUR esperada."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Sony retira juegos de PC:</strong> Wolverine, Ghost of Yotei, Saros exclusivos PS5."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Aranceles de Trump:</strong> arancel efectivo EEUU subio al 22.5%, indice gaming cayo 300+ pts en Q1 2026."
+      },
+      {
+        "color": "green",
+        "html": "<strong>CD Projekt sube objetivos</strong> a 5B PLN (2026-2029), trilogia Witcher 4-5-6. Witcher IV no llega a diciembre 2026."
+      },
+      {
+        "color": "green",
+        "html": "<strong>Capcom anuncia mas juegos</strong> sin revelar para antes de marzo 2027."
+      }
     ],
     "en": [
-      { "color": "green", "html": "<strong>Pragmata launches in 4 days (Apr 17).</strong> First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY." },
-      { "color": "green", "html": "<strong>GTA VI: no new delays.</strong> TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80." },
-      { "color": "blue", "html": "<strong>Star Fox: announcement imminent.</strong> Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer." },
-      { "color": "blue", "html": "<strong>Zelda: OoT Remake confirmed for 2H 2026</strong> near holidays. Complete remake from scratch. Coincides with saga's 40th anniversary." },
-      { "color": "yellow", "html": "<strong>Konami: special dividend $107.50/share</strong> (ex-date Mar 30, 2026). KNAMF price adjusted to ~$61.77. Does not reflect business deterioration." },
-      { "color": "yellow", "html": "<strong>GTA VI delayed to Nov 2026</strong> (from May). TTWO dropped ~8% but analysts see it as opportunity." },
-      { "color": "red", "html": "<strong>Nintendo cuts Switch 2 production</strong> by 33%. Cooling demand in US/Europe. NTDOY recovering from $13.65 to $13.91." },
-      { "color": "red", "html": "<strong>Ubisoft in crisis:</strong> cancelled 6 games, closing studios, ~1B EUR operating loss expected." },
-      { "color": "blue", "html": "<strong>Sony pulling games from PC:</strong> Wolverine, Ghost of Yotei, Saros PS5 exclusives." },
-      { "color": "red", "html": "<strong>Trump tariffs:</strong> effective US tariff rose to 22.5%, gaming index dropped 300+ pts in Q1 2026." },
-      { "color": "green", "html": "<strong>CD Projekt raises targets</strong> to 5B PLN (2026-2029), Witcher 4-5-6 trilogy. Witcher IV won't make December 2026." },
-      { "color": "green", "html": "<strong>Capcom announces more games</strong> unannounced before March 2027." }
+      {
+        "color": "green",
+        "html": "<strong>Pragmata launches in 4 days (Apr 17).</strong> First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY."
+      },
+      {
+        "color": "green",
+        "html": "<strong>GTA VI: no new delays.</strong> TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Star Fox: announcement imminent.</strong> Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Zelda: OoT Remake confirmed for 2H 2026</strong> near holidays. Complete remake from scratch. Coincides with saga's 40th anniversary."
+      },
+      {
+        "color": "yellow",
+        "html": "<strong>Konami: special dividend $107.50/share</strong> (ex-date Mar 30, 2026). KNAMF price adjusted to ~$61.77. Does not reflect business deterioration."
+      },
+      {
+        "color": "yellow",
+        "html": "<strong>GTA VI delayed to Nov 2026</strong> (from May). TTWO dropped ~8% but analysts see it as opportunity."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Nintendo cuts Switch 2 production</strong> by 33%. Cooling demand in US/Europe. NTDOY recovering from $13.65 to $13.91."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Ubisoft in crisis:</strong> cancelled 6 games, closing studios, ~1B EUR operating loss expected."
+      },
+      {
+        "color": "blue",
+        "html": "<strong>Sony pulling games from PC:</strong> Wolverine, Ghost of Yotei, Saros PS5 exclusives."
+      },
+      {
+        "color": "red",
+        "html": "<strong>Trump tariffs:</strong> effective US tariff rose to 22.5%, gaming index dropped 300+ pts in Q1 2026."
+      },
+      {
+        "color": "green",
+        "html": "<strong>CD Projekt raises targets</strong> to 5B PLN (2026-2029), Witcher 4-5-6 trilogy. Witcher IV won't make December 2026."
+      },
+      {
+        "color": "green",
+        "html": "<strong>Capcom announces more games</strong> unannounced before March 2027."
+      }
     ]
   }
 }
