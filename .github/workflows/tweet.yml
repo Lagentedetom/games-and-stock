@@ -1,0 +1,104 @@
+name: Auto Tweet
+
+on:
+  schedule:
+    # Monday-Friday: 9:00 CET (07:00 UTC)
+    - cron: '0 7 * * 1-5'
+    # Monday-Friday: 13:00 CET (11:00 UTC)
+    - cron: '0 11 * * 1-5'
+    # Monday-Friday: 18:00 CET (16:00 UTC)
+    - cron: '0 16 * * 1-5'
+    # Saturday: 12:00 CET (10:00 UTC)
+    - cron: '0 10 * * 6'
+    # Sunday: 17:00 CET (15:00 UTC)
+    - cron: '0 15 * * 0'
+    # Friday: 20:00 CET (18:00 UTC) — Weekly summary
+    - cron: '0 18 * * 5'
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'Time slot'
+        required: true
+        default: 'morning'
+        type: choice
+        options:
+          - morning
+          - midday
+          - evening
+          - weekend
+      test_mode:
+        description: 'Test mode (do not publish)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    env:
+      X_API_KEY: ${{ secrets.X_API_KEY }}
+      X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Determine time slot
+        id: slot
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "slot=${{ inputs.slot }}" >> $GITHUB_OUTPUT
+          else
+            HOUR=$(date -u +%H)
+            DOW=$(date -u +%u)
+            if [ "$DOW" -ge 6 ]; then
+              echo "slot=weekend" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" -le 8 ]; then
+              echo "slot=morning" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" -le 12 ]; then
+              echo "slot=midday" >> $GITHUB_OUTPUT
+            else
+              echo "slot=evening" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Check if weekly summary
+        id: check_summary
+        run: |
+          HOUR=$(date -u +%H)
+          DOW=$(date -u +%u)
+          if [ "$DOW" = "5" ] && [ "$HOUR" -ge 17 ]; then
+            echo "is_summary=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_summary=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate and publish tweet
+        if: steps.check_summary.outputs.is_summary == 'false'
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.test_mode }}" = "true" ]; then
+            python scripts/tweet.py --slot ${{ steps.slot.outputs.slot }} --test
+          else
+            python scripts/tweet.py --slot ${{ steps.slot.outputs.slot }}
+          fi
+
+      - name: Generate and publish weekly summary
+        if: steps.check_summary.outputs.is_summary == 'true'
+        run: python scripts/weekly_summary.py
+
+      - name: Commit logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/tweets_log.csv data/weekly_summaries/ || true
+          git diff --cached --quiet || git commit -m "Log tweet $(date -u +%Y-%m-%d_%H:%M)"
+          git push
