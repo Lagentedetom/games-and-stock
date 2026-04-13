@@ -95,6 +95,9 @@ def post_tweet(text):
 
 # ─── Tweet Generation ────────────────────────────────────────────────────
 
+DASHBOARD_URL = "https://lagentedetom.github.io/games-and-stock/"
+
+
 def load_data():
     with open(DATA_PATH, 'r', encoding='utf-8') as f:
         return json.load(f)
@@ -115,20 +118,34 @@ def load_recent_tweets(max_days=7):
 def get_tweet_type(slot, weekday):
     """Determine tweet type based on slot and day of week."""
     if slot == 'weekend':
-        return random.choice(['gaming_casual', 'week_preview'])
+        return random.choice([
+            'gaming_opinion', 'game_hype_check', 'platform_story',
+            'engagement', 'gaming_casual',
+        ])
 
     schedule = {
-        'morning': ['market_data', 'investment_signal', 'market_data', 'investment_signal', 'weekly_recap'],
-        'midday': ['game_analysis', 'sector_context', 'game_comparison', 'game_analysis', 'gaming_fact'],
-        'evening': ['engagement', 'dashboard_highlight', 'poll', 'dashboard_highlight', 'weekend_question'],
+        'morning': [
+            'market_data', 'game_hype_check', 'market_opinion',
+            'investment_signal', 'weekly_recap',
+        ],
+        'midday': [
+            'game_analysis', 'game_disappointment', 'gaming_fact',
+            'sector_context', 'platform_story',
+        ],
+        'evening': [
+            'engagement', 'platform_highlight', 'gaming_opinion',
+            'engagement', 'platform_highlight',
+        ],
     }
 
     types = schedule.get(slot, ['market_data'])
     return types[weekday] if weekday < len(types) else types[0]
 
 
+# ─── MARKET & DATA tweets ───────────────────────────────────────────────
+
 def generate_market_data(data):
-    """Generate a tweet about a specific ticker/signal."""
+    """Market data tweet with a conversational touch."""
     analysts = data.get('analysts', [])
     pick = random.choice([a for a in analysts if a.get('upside_class') == 'green'] or analysts)
     ticker = pick['ticker']
@@ -137,15 +154,27 @@ def generate_market_data(data):
     catalyst = pick['catalyst']['en']
 
     templates = [
-        f"${ticker} — {rating}\n\nCurrent: {price}\nKey catalyst: {catalyst}\n\nFull analysis on our dashboard.\n\n#Gaming #Stocks #Investment",
-        f"Analyst consensus on ${ticker}: {rating}\n\nPrice: {price}\nWhat's driving it: {catalyst}\n\nMore data at Games & Stock dashboard.\n\n#GameInvesting #StockMarket",
-        f"${ticker} update:\nRating: {rating}\nPrice: {price}\n\n{catalyst}\n\nTrack all gaming stocks on our dashboard.\n\n#GamingStocks #{ticker}",
+        f"Quick update on ${ticker}:\n\nAnalysts say {rating} at {price}.\nThe catalyst? {catalyst}.\n\nWe track this daily on our dashboard.\n\n{DASHBOARD_URL}",
+        f"${ticker} is rated {rating} right now ({price}).\n\n{catalyst} — that's the key driver according to analysts.\n\nAll data free on our dashboard.\n\n{DASHBOARD_URL}",
+        f"Been watching ${ticker} closely.\n\nRating: {rating}\nPrice: {price}\n\nWhat's behind it: {catalyst}\n\nWe update this every single day.\n\n{DASHBOARD_URL}",
+        f"Analysts are {rating.lower()} on ${ticker} ({price}).\n\nMain catalyst: {catalyst}\n\nIs this the right time to pay attention? We think so.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(templates)
+
+
+def generate_market_opinion(data):
+    """Market data with personal opinion layer."""
+    kpis = data['kpis']
+    templates = [
+        f"The best upside we're tracking right now: {kpis['best_upside']} on {kpis['best_upside_note']}.\n\nThat's not a small number. Whether it plays out depends on execution, but the analysts are clearly bullish.\n\n{DASHBOARD_URL}",
+        f"Interesting to see how gaming stocks are moving this year.\n\nBest case historically: {kpis['historical_max']} ({kpis['historical_max_note']})\nWorst case: {kpis['worst_crash']} ({kpis['worst_crash_note']})\n\nTiming is everything.\n\n{DASHBOARD_URL}",
+        f"People ask us: can a single game really move a stock?\n\nPokemon GO moved Nintendo {kpis['historical_max']} in 10 days. Cyberpunk crashed CDR {kpis['worst_crash']} in a month.\n\nSo yes. Yes it can.\n\n{DASHBOARD_URL}",
     ]
     return random.choice(templates)
 
 
 def generate_investment_signal(data):
-    """Generate a tweet about investment signals from the dashboard."""
+    """Investment signal with human commentary."""
     tier1 = data['games']['tier1']
     game = random.choice(tier1)
     name = game['name']
@@ -153,131 +182,198 @@ def generate_investment_signal(data):
     signal = game['signal']['en']
     score = game.get('score', '?')
     desc = game['description']['en']
-
     short_desc = desc[:100] + '...' if len(desc) > 100 else desc
 
     templates = [
-        f"{name} — Signal: {signal}\n\nSignal Score: {score}/100\n${ticker}\n\n{short_desc}\n\n#Gaming #Investing",
-        f"Our Signal Score for {name}: {score}/100 ({signal})\n\nTicker: ${ticker}\n{short_desc}\n\nFull breakdown on our dashboard.\n\n#GamingStocks",
+        f"Our signal on {name}: {signal} ({score}/100)\n\nTicker: ${ticker}\n\n{short_desc}\n\nWhat do you think — does this one have legs?\n\n{DASHBOARD_URL}",
+        f"Signal Score update — {name}\n\nScore: {score}/100 ({signal})\n${ticker}\n\n{short_desc}\n\nAll scores updated daily, free.\n\n{DASHBOARD_URL}",
+        f"We've been tracking {name} for a while now.\n\nOur score: {score}/100 — {signal}\n${ticker}\n\nThe data tells a clear story here.\n\n{DASHBOARD_URL}",
     ]
     return random.choice(templates)
 
 
+# ─── GAME OPINION tweets ────────────────────────────────────────────────
+
+def generate_game_hype_check(data):
+    """Tweet about highly anticipated games and whether the hype is justified."""
+    hype_takes = [
+        "GTA VI is 7 months away and the hype hasn't slowed down one bit.\n\n$TTWO analysts have a +44% upside target. 15 out of 16 say Buy.\n\nThis might be the most predictable stock play in gaming history. Or the biggest trap.\n\nWhat's your read?",
+        "Everyone's talking about GTA VI, but Pragmata launches THIS WEEK.\n\nCapcom's first new IP in years. If it hits, $CCOEY has room to run. If it flops, it tells us a lot about Capcom's pipeline risk.\n\nWe're watching closely.",
+        f"Zelda OoT Remake — a complete rebuild from scratch for the 40th anniversary.\n\nNintendo rarely misses with Zelda. But $NTDOY is a mega-cap — how much can one game really move it?\n\nHistorically? More than you'd think.\n\n{DASHBOARD_URL}",
+        "The Witcher IV has a $778M budget. That's not a game — that's a bet-the-company moment for CD Projekt.\n\nOur signal: Wait (32/100). Too early. But when the window opens, $CDR.WA could be one of the most interesting plays in gaming.\n\nPatience.",
+        "Silent Hill: Townfall. Castlevania: Belmont's Curse. MGS Master Collection Vol. 2.\n\nKonami is reviving EVERYTHING. The question is: can nostalgia alone move $KNAMF?\n\nOur signal says Buy. History says... it depends.",
+        f"Star Fox announcement reportedly imminent.\n\nA new Star Fox with online multiplayer? In 2026? If Nintendo plays this right, it could be a sleeper hit for $NTDOY.\n\nWe'll be tracking the Google Trends data as soon as it drops.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(hype_takes)
+
+
+def generate_game_disappointment(data):
+    """Tweet about games/companies not generating expected hype."""
+    disappointment_takes = [
+        "Ubisoft cancelled 6 games this year. Closing studios. Expected operating loss of ~1B EUR.\n\n$UBSFY is at $0.89. Not a typo.\n\nSometimes the signal isn't about what's launching — it's about what's NOT launching.",
+        "Square Enix is in a tough spot.\n\nFF VII Rebirth ports. Kingdom Hearts IV in 2027. Nothing with real momentum right now.\n\n$SQNXF rated Risk on our dashboard. Sometimes the best signal is 'stay away'.\n\nNot every gaming stock is a buy.",
+        "Fable is coming this fall. Looks great. But here's the thing:\n\nMicrosoft is so big that one game barely moves the needle on $MSFT. Our signal: Diluted (18/100).\n\nNot every great game is a great stock play.",
+        "Hot take: Marvel's Wolverine will be a great game but a terrible stock catalyst.\n\nSony is a mega-cap. One PS5 exclusive, even a big one, gets diluted.\n\nOur score: 22/100. Play the game, skip the stock.\n\nNot investment advice, obviously.",
+        "Remember Cyberpunk 2077?\n\nMassive hype. Broken launch. $CDR.WA crashed -33.7% in 30 days.\n\nThat's why we built the 'Cyberpunk Factor' into our model. Extreme hype + expectations gap = danger zone.\n\nLesson learned.",
+        f"Nintendo cut Switch 2 production by 33%. Demand cooling in the US and Europe.\n\n$NTDOY has been recovering, but this is worth watching. Hardware cycles matter as much as game launches.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(disappointment_takes)
+
+
+def generate_gaming_opinion(data):
+    """General gaming + stock opinion with personality."""
+    opinions = [
+        "Unpopular opinion: Google Trends is a better predictor of gaming stock moves than analyst reports.\n\nOur data shows r = 0.749 correlation between sustained Trends interest and pre-launch stock gains.\n\nAnalysts are smart. The crowd is smarter.",
+        "The gaming industry generated more revenue than movies and music COMBINED last year.\n\nBut most investors still treat gaming stocks as 'entertainment bets' rather than serious positions.\n\nWe think that's a mistake.",
+        f"We've been building Games & Stock because we noticed something: nobody was connecting game launch data with stock performance in a systematic way.\n\n19 games. 7 companies. Correlations. Signals. All free, updated daily.\n\n{DASHBOARD_URL}",
+        "The pre-launch window is where the money is.\n\n60-90 days before launch, if Google Trends shows sustained interest, stocks tend to move.\n\nAfter launch? It's already priced in.\n\nTiming > hype.",
+        "Three things we've learned tracking gaming stocks:\n\n1. Mid-caps move more than mega-caps\n2. Consistent hype beats peak hype\n3. Post-launch is usually too late\n\nSimple rules. Hard to follow.",
+        f"Trump tariffs hit gaming stocks hard this quarter — the index dropped 300+ points in Q1.\n\nBut the best gaming companies adapt. The question is which ones.\n\nWe track 7 companies daily to find out.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(opinions)
+
+
+# ─── PLATFORM / PROJECT tweets ──────────────────────────────────────────
+
+def generate_platform_story(data):
+    """Tweets about what Games & Stock is and why it exists."""
+    kpis = data['kpis']
+    stories = [
+        f"What is Games & Stock?\n\nA free dashboard that tracks how upcoming game launches affect stock prices.\n\n{kpis['games_watchlist']} games monitored, 7 companies, updated daily.\n\nNo paywalls. No subscriptions. Just data.\n\n{DASHBOARD_URL}",
+        f"We built Games & Stock because we couldn't find this data anywhere else.\n\nGoogle Trends hype vs stock performance. Signal Scores. Historical patterns.\n\nAll in one place, all free.\n\n{DASHBOARD_URL}",
+        f"How does our Signal Score work?\n\n40% — Google Trends level\n25% — Time window to launch\n20% — Trend acceleration\n15% — Consistency\n\n0 to 100. Updated daily. It's not magic, it's math.\n\n{DASHBOARD_URL}",
+        f"We've identified 4 hype patterns that predict stock movement:\n\nCrescendo — best for investing (steady growth)\nDominant — high and constant (like GTA VI)\nExplosion — too late to catch\nNoise — ignore it\n\nFull breakdown on our dashboard.\n\n{DASHBOARD_URL}",
+        f"Games & Stock is available in English and Spanish.\n\nSame data, same updates, two languages.\n\nBecause gaming stocks don't care what language you speak.\n\n{DASHBOARD_URL}",
+        f"Why do we do this for free?\n\nBecause this data should be accessible to everyone, not locked behind expensive terminals.\n\n{kpis['games_watchlist']} games. 7 companies. Daily updates.\n\nBookmark it. Use it. Tell a friend.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(stories)
+
+
+def generate_platform_highlight(data):
+    """Highlight a specific feature or data point from the dashboard."""
+    kpis = data['kpis']
+    highlights = [
+        f"Dashboard update: {kpis['games_watchlist']} games tracked, prices refreshed today.\n\nBest current upside: {kpis['best_upside']} ({kpis['best_upside_note']})\nTop correlation: r = {kpis['top_correlation']}\n\nCheck it yourself.\n\n{DASHBOARD_URL}",
+        f"Did you know we track trading rules on our dashboard?\n\nRule #1: Enter 60-90 days before launch if Trends > 30/100 for 4+ weeks.\nRule #4: Beware the Cyberpunk Factor — extreme hype can = crash.\n\nAll 4 rules explained here.\n\n{DASHBOARD_URL}",
+        f"New to our dashboard? Here's what you'll find:\n\nSignal Scores for {kpis['games_watchlist']} upcoming games\nAnalyst consensus for 7 companies\nHistorical correlation data\n4 trading rules\n\nAll free. Bookmark it.\n\n{DASHBOARD_URL}",
+        f"Our dashboard shows real analyst data:\n\n$TTWO — Strong Buy (target $284.80)\n$NTDOY — Overweight (+29%)\n$CCOEY — Outperform\n$KNAMF — Buy\n\nUpdated daily with live prices.\n\n{DASHBOARD_URL}",
+    ]
+    return random.choice(highlights)
+
+
+# ─── ENGAGEMENT tweets ───────────────────────────────────────────────────
+
+def generate_engagement(data):
+    """Engagement tweets — questions, polls, conversation starters."""
+    templates = [
+        "Which game launch will impact stocks the most in 2026?\n\nA) GTA VI ($TTWO)\nB) Zelda OoT Remake ($NTDOY)\nC) Silent Hill Townfall ($KNAMF)\nD) Pragmata ($CCOEY)\n\nReply with your pick!",
+        "Hot take: GTA VI will move $TTWO more than any single game has moved a stock in the last 10 years.\n\nAgree or disagree?",
+        "What's your gaming stock strategy?\n\n1. Buy pre-launch, sell at release\n2. Buy post-launch dip\n3. Hold long term\n4. Avoid gaming stocks entirely\n\nLet us know!",
+        "Do you check Google Trends before investing in gaming stocks?\n\nOur data shows a strong correlation between sustained hype and pre-launch stock gains.\n\nCurious if anyone else does this.",
+        "Honest question: do you think gaming stocks are undervalued or overvalued right now?\n\nWe see opportunities in mid-caps like $KNAMF and $CCOEY. But mega-caps? Hard to move the needle.\n\nWhat's your take?",
+        "If you could only invest in ONE gaming stock for the rest of 2026, which one?\n\n$TTWO — GTA VI play\n$KNAMF — Konami revival\n$CCOEY — Capcom pipeline\n$CDR.WA — Witcher IV (long)\n\nReply below.",
+        "We're curious — how many of you follow gaming stocks?\n\nIs this a niche thing or are more people connecting the dots between game launches and stock performance?\n\nRetweet if you think this is underrated.",
+        "Name a game that SHOULD move its company's stock but probably won't because the company is too big.\n\nWe'll start: Fable ($MSFT). Great game, invisible stock impact.",
+    ]
+    return random.choice(templates)
+
+
+# ─── ANALYSIS & FACTS tweets ────────────────────────────────────────────
+
 def generate_game_analysis(data):
-    """Generate a tweet analyzing a specific game's stock impact."""
+    """Game analysis with conversational tone."""
     all_games = data['games']['tier1'] + data['games']['tier2']
     game = random.choice(all_games)
     name = game['name']
     ticker = game['ticker']
-    company = game['company']
+    company = game.get('company', '')
     signal = game['signal']['en']
 
     templates = [
-        f"{name} by {company}\n\nStock signal: {signal}\nTicker: ${ticker}\n\nHow will this launch affect the stock? We track it on our dashboard.\n\n#GameAnalysis #Stocks",
-        f"Tracking: {name} ({company})\n\nOur signal: {signal} | ${ticker}\n\nWe analyze the correlation between game launches and stock movements.\n\n#GamingInvestor",
+        f"Let's talk about {name}.\n\nCompany: {company}\nTicker: ${ticker}\nOur signal: {signal}\n\nHow will this launch affect the stock? That's exactly what we track.\n\n{DASHBOARD_URL}",
+        f"Keeping an eye on {name} ({company}).\n\nSignal: {signal} | ${ticker}\n\nThe correlation between game launches and stock movements is real — and we have the data to prove it.\n\n{DASHBOARD_URL}",
+        f"{name} — is the market paying attention?\n\nOur signal for ${ticker}: {signal}\n\nSometimes the best opportunities are the ones nobody's talking about.\n\n{DASHBOARD_URL}",
     ]
     return random.choice(templates)
 
 
 def generate_sector_context(data):
-    """Generate a tweet about gaming sector trends."""
+    """Sector context with storytelling."""
     kpis = data['kpis']
     corr = data['correlations'][0]
 
     templates = [
-        f"Did you know?\n\nThe correlation between sustained Google Trends hype and pre-launch stock movement is r = {corr['value']}.\n\nConsistent interest predicts stock gains better than peak hype.\n\nData from 6 major launches.\n\n#GamingStocks #DataDriven",
-        f"Gaming stocks tracker:\n\n{kpis['games_watchlist']} games monitored\nBest upside: {kpis['best_upside']} ({kpis['best_upside_note']})\nTop correlation: r = {kpis['top_correlation']}\n\nUpdated daily on our dashboard.\n\n#GamingIndustry #StockMarket",
-        f"Historical insight:\n\nBest case: {kpis['historical_max']} ({kpis['historical_max_note']})\nWorst case: {kpis['worst_crash']} ({kpis['worst_crash_note']})\n\nThe gaming-stock connection is real — but timing matters.\n\n#Investing #Gaming",
-    ]
-    return random.choice(templates)
-
-
-def generate_engagement(data):
-    """Generate an engagement tweet (question/poll)."""
-    templates = [
-        "Which game launch will impact stocks the most in 2026?\n\nA) GTA VI ($TTWO)\nB) Zelda OoT Remake ($NTDOY)\nC) Silent Hill Townfall ($KNAMF)\nD) Pragmata ($CCOEY)\n\nReply with your pick!\n\n#GamingStocks #Poll",
-        "Hot take: GTA VI will move $TTWO more than any single game has moved a stock in the last 10 years.\n\nAgree or disagree?\n\n#GTAVI #TTWO #GamingInvestor",
-        "What's your gaming stock strategy?\n\n1. Buy pre-launch, sell at release\n2. Buy post-launch dip\n3. Hold long term\n4. Avoid gaming stocks entirely\n\nLet us know!\n\n#StockStrategy #Gaming",
-        "Quick poll: Do you check Google Trends before investing in gaming stocks?\n\nOur data shows a 0.749 correlation between Trends consistency and pre-launch stock gains.\n\nThoughts?\n\n#DataDriven #Investing",
-    ]
-    return random.choice(templates)
-
-
-def generate_dashboard_highlight(data):
-    """Generate a tweet highlighting a specific dashboard feature."""
-    templates = [
-        f"Games & Stock Dashboard — updated daily\n\n{data['kpis']['games_watchlist']} games tracked\n7 companies analyzed\nSignal Scores based on Google Trends + timing + acceleration\n\nCheck it out (link in bio)\n\n#GamingStocks #Dashboard",
-        "Our Signal Score formula:\n\n40% — Google Trends level\n25% — Time window to launch\n20% — Trend acceleration\n15% — Consistency\n\n0-100 scale. Free. Updated daily.\n\nLink in bio.\n\n#StockAnalysis #Gaming",
-        "We identified 4 hype patterns that predict stock movement:\n\nCrescendo — steady rise (best for investing)\nDominant — high and constant\nExplosion — unpredictable spike\nNoise — skip it\n\nFull analysis on our dashboard.\n\n#TradingPatterns",
+        f"Here's a stat that surprised us:\n\nThe correlation between Google Trends consistency and pre-launch stock movement is r = {corr['value']}.\n\nNot the PEAK of hype — the CONSISTENCY of it.\n\nSustained interest > viral moments.\n\n{DASHBOARD_URL}",
+        f"Gaming stocks snapshot:\n\n{kpis['games_watchlist']} games on our watchlist\nBest upside: {kpis['best_upside']} ({kpis['best_upside_note']})\nTop correlation: r = {kpis['top_correlation']}\n\nUpdated daily.\n\n{DASHBOARD_URL}",
+        f"The gaming-stock connection in one tweet:\n\nBest case: {kpis['historical_max']} ({kpis['historical_max_note']})\nWorst case: {kpis['worst_crash']} ({kpis['worst_crash_note']})\n\nThe opportunity is real. So is the risk.\n\n{DASHBOARD_URL}",
     ]
     return random.choice(templates)
 
 
 def generate_weekly_recap(data):
-    """Generate a Friday recap tweet."""
+    """Friday recap with human touch."""
     news = data['news']['en']
     top_news = random.sample(news[:4], min(2, len(news[:4])))
     bullets = '\n'.join(f"- {n['html'].split('</strong>')[0].replace('<strong>', '')}" for n in top_news)
 
-    return f"Weekly Gaming Stocks Recap:\n\n{bullets}\n\nFull dashboard with {data['kpis']['games_watchlist']} games tracked, updated daily.\n\n#WeeklyRecap #GamingStocks"
+    return f"Week in gaming stocks:\n\n{bullets}\n\nHave a good weekend. We'll be back Monday with fresh data.\n\n{DASHBOARD_URL}"
 
 
 def generate_gaming_casual(data):
-    """Weekend casual gaming tweet."""
+    """Weekend casual — relaxed, human tone."""
     templates = [
-        "Weekend gaming plans?\n\nWhile you play, we track how game launches affect stock prices.\n\n19 titles. 7 companies. Updated daily.\n\nHappy gaming!\n\n#WeekendGaming #GamesAndStock",
-        "Sunday check-in:\n\nMost anticipated game this year?\n\nOur top signal: GTA VI (Score: 79/100)\nOur top watch: Pragmata (Capcom test case)\n\nWhat are you watching?\n\n#GamingCommunity",
+        "Weekend mode.\n\nWhile you're gaming, we're updating the dashboard for Monday.\n\n19 titles. 7 companies. Prices refreshed daily.\n\nEnjoy your weekend.\n\n" + DASHBOARD_URL,
+        "What are you playing this weekend?\n\nWe're tracking 19 game launches and their stock impact. But sometimes you just need to disconnect and play.\n\nTell us what you're into right now.",
+        "Sunday thought:\n\nThe best time to research gaming stocks is when the market is closed.\n\nOur dashboard is always open. Free. Updated daily.\n\nHappy Sunday.\n\n" + DASHBOARD_URL,
+        "Quick Sunday check-in.\n\nMost anticipated game this year?\n\nOur top signal: GTA VI (79/100)\nBiggest question mark: Pragmata (Capcom's test)\n\nWhat's on your radar?",
     ]
     return random.choice(templates)
 
 
-def generate_game_comparison(data):
-    """Compare two games/stocks."""
-    tier1 = data['games']['tier1']
-    if len(tier1) >= 2:
-        a, b = random.sample(tier1, 2)
-        return (
-            f"{a['name']} vs {b['name']}\n\n"
-            f"${a['ticker']} — Signal: {a['signal']['en']} ({a.get('score', '?')}/100)\n"
-            f"${b['ticker']} — Signal: {b['signal']['en']} ({b.get('score', '?')}/100)\n\n"
-            f"Which one has more stock potential? Full data on our dashboard.\n\n"
-            f"#GamingStocks #Comparison"
-        )
-    return generate_market_data(data)
-
-
 def generate_gaming_fact(data):
-    """Interesting gaming/stock fact."""
+    """Historical fact with context and opinion."""
     historical = data.get('historical', [])
     if historical:
         pick = random.choice(historical)
-        return (
-            f"Historical data point:\n\n"
-            f"{pick['game']} (${pick['ticker']})\n"
-            f"PRE-60d: {pick['pre60']}\n"
-            f"PRE-30d: {pick['pre30']}\n"
-            f"POST-30d: {pick['post30']}\n"
-            f"POST-90d: {pick['post90']}\n\n"
-            f"The pre-launch window is where it happens.\n\n"
-            f"#GamingHistory #StockData"
-        )
+        game = pick['game']
+        ticker = pick['ticker']
+
+        templates = [
+            (
+                f"History lesson: {game}\n\n"
+                f"${ticker} moved:\n"
+                f"PRE-60d: {pick['pre60']}\n"
+                f"PRE-30d: {pick['pre30']}\n"
+                f"POST-30d: {pick['post30']}\n"
+                f"POST-90d: {pick['post90']}\n\n"
+                f"The pattern is almost always the same: the pre-launch window is where it happens."
+            ),
+            (
+                f"Did you know?\n\n"
+                f"When {game} launched, ${ticker} did {pick['post30']} in the first month.\n\n"
+                f"But the real move was BEFORE launch: {pick['pre30']} in the 30 days prior.\n\n"
+                f"This is why we focus on pre-launch signals.\n\n{DASHBOARD_URL}"
+            ),
+        ]
+        return random.choice(templates)
     return generate_sector_context(data)
 
 
 GENERATORS = {
     'market_data': generate_market_data,
+    'market_opinion': generate_market_opinion,
     'investment_signal': generate_investment_signal,
     'game_analysis': generate_game_analysis,
+    'game_hype_check': generate_game_hype_check,
+    'game_disappointment': generate_game_disappointment,
+    'gaming_opinion': generate_gaming_opinion,
     'sector_context': generate_sector_context,
     'engagement': generate_engagement,
-    'dashboard_highlight': generate_dashboard_highlight,
+    'platform_story': generate_platform_story,
+    'platform_highlight': generate_platform_highlight,
     'weekly_recap': generate_weekly_recap,
     'gaming_casual': generate_gaming_casual,
-    'game_comparison': generate_game_comparison,
     'gaming_fact': generate_gaming_fact,
-    'poll': generate_engagement,
-    'weekend_question': generate_engagement,
-    'week_preview': generate_dashboard_highlight,
 }
 
 
