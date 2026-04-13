@@ -104,6 +104,18 @@ def post_tweet(text):
 
 DASHBOARD_URL = "https://lagentedetom.github.io/games-and-stock/"
 
+import re
+
+def enforce_single_cashtag(text):
+    """X free tier allows max 1 cashtag per tweet. Keep the first, remove $ from the rest."""
+    matches = list(re.finditer(r'\$([A-Z][A-Z0-9_.]{1,10})', text))
+    if len(matches) <= 1:
+        return text
+    # Keep the first cashtag, remove $ from subsequent ones
+    for m in reversed(matches[1:]):
+        text = text[:m.start()] + m.group(1) + text[m.end():]
+    return text
+
 
 def load_data():
     with open(DATA_PATH, 'r', encoding='utf-8') as f:
@@ -207,7 +219,7 @@ def generate_game_hype_check(data):
         "GTA VI is 7 months away and the hype hasn't slowed down one bit.\n\n$TTWO analysts have a +44% upside target. 15 out of 16 say Buy.\n\nThis might be the most predictable stock play in gaming history. Or the biggest trap.\n\nWhat's your read?",
         "Everyone's talking about GTA VI, but Pragmata launches THIS WEEK.\n\nCapcom's first new IP in years. If it hits, $CCOEY has room to run. If it flops, it tells us a lot about Capcom's pipeline risk.\n\nWe're watching closely.",
         f"Zelda OoT Remake — a complete rebuild from scratch for the 40th anniversary.\n\nNintendo rarely misses with Zelda. But $NTDOY is a mega-cap — how much can one game really move it?\n\nHistorically? More than you'd think.\n\n{DASHBOARD_URL}",
-        "The Witcher IV has a $778M budget. That's not a game — that's a bet-the-company moment for CD Projekt.\n\nOur signal: Wait (32/100). Too early. But when the window opens, $CDR.WA could be one of the most interesting plays in gaming.\n\nPatience.",
+        "The Witcher IV has a 778M USD budget. That's not a game — that's a bet-the-company moment for CD Projekt.\n\nOur signal: Wait (32/100). Too early. But when the window opens, $CDR.WA could be one of the most interesting plays in gaming.\n\nPatience.",
         "Silent Hill: Townfall. Castlevania: Belmont's Curse. MGS Master Collection Vol. 2.\n\nKonami is reviving EVERYTHING. The question is: can nostalgia alone move $KNAMF?\n\nOur signal says Buy. History says... it depends.",
         f"Star Fox announcement reportedly imminent.\n\nA new Star Fox with online multiplayer? In 2026? If Nintendo plays this right, it could be a sleeper hit for $NTDOY.\n\nWe'll be tracking the Google Trends data as soon as it drops.\n\n{DASHBOARD_URL}",
     ]
@@ -433,6 +445,7 @@ def main():
     args = parser.parse_args()
 
     text, tweet_type = generate_tweet(args.slot)
+    text = enforce_single_cashtag(text)
     print(f"[{args.slot}] Type: {tweet_type}")
     print(f"[{len(text)} chars]")
     print(f"\n{text}\n")
