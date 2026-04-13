@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games & Stock Dashboard — Correlacion Gaming vs Bolsa</title>
+<meta name="description" content="Dashboard que analiza la correlacion entre lanzamientos de videojuegos AAA y movimientos bursatiles. Datos de analistas, senales de inversion y patrones de hype.">
+<meta property="og:title" content="Games & Stock Dashboard">
+<meta property="og:description" content="Correlacion lanzamientos gaming vs movimientos bursatiles. Datos actualizados diariamente.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Games_and_Stock">
+<link rel="canonical" href="https://gamesandstock.github.io/">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00d2a0;
+    --green-dim: rgba(0,210,160,0.15);
+    --red: #ff6b6b;
+    --red-dim: rgba(255,107,107,0.15);
+    --yellow: #ffd93d;
+    --yellow-dim: rgba(255,217,61,0.15);
+    --blue: #4fc3f7;
+    --blue-dim: rgba(79,195,247,0.15);
+    --orange: #ff9f43;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  /* Language Switcher */
+  .lang-switcher {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lang-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--accent);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) {
+    color: var(--text);
+  }
+
+  /* Disclaimer Banner */
+  .disclaimer-banner {
+    background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(255,107,107,0.08));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .disclaimer-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .disclaimer-text {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .disclaimer-text strong {
+    color: var(--yellow);
+    font-weight: 700;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--accent), #a29bfe);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .header h1 span { color: var(--accent2); }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .date-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .kpi-card.green::before { background: var(--green); }
+  .kpi-card.red::before { background: var(--red); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.yellow::before { background: var(--yellow); }
+  .kpi-card.purple::before { background: var(--accent); }
+  .kpi-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .kpi-value { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+  .kpi-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Section */
+  .section { margin-bottom: 32px; }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 20px; }
+  .tier-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .tier-1 { background: rgba(255,215,0,0.15); color: #ffd700; }
+  .tier-2 { background: rgba(192,192,192,0.15); color: #c0c0c0; }
+  .tier-3 { background: rgba(205,127,50,0.15); color: #cd7f32; }
+
+  /* Game Cards */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
+  .game-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .game-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .game-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .game-name { font-size: 16px; font-weight: 700; }
+  .game-company { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .signal-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .signal-strong-buy { background: var(--green-dim); color: var(--green); }
+  .signal-buy { background: rgba(0,210,160,0.08); color: #66d4b0; }
+  .signal-watch { background: var(--yellow-dim); color: var(--yellow); }
+  .signal-neutral { background: rgba(136,136,160,0.15); color: var(--text-dim); }
+  .signal-avoid { background: var(--red-dim); color: var(--red); }
+  .signal-wait { background: var(--blue-dim); color: var(--blue); }
+
+  .game-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .meta-item { font-size: 12px; }
+  .meta-label { color: var(--text-dim); margin-bottom: 2px; }
+  .meta-value { font-weight: 600; }
+
+  .game-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .game-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+  .bar-green { background: linear-gradient(90deg, #00d2a0, #00f5b8); }
+  .bar-yellow { background: linear-gradient(90deg, #ffd93d, #ffe066); }
+  .bar-blue { background: linear-gradient(90deg, #4fc3f7, #81d4fa); }
+  .bar-red { background: linear-gradient(90deg, #ff6b6b, #ff8e8e); }
+  .bar-purple { background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
+
+  .score-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .game-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--surface2);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .tag.mid-cap { border-color: var(--green); color: var(--green); }
+  .tag.large-cap { border-color: var(--yellow); color: var(--yellow); }
+  .tag.mega-cap { border-color: var(--text-dim); }
+  .tag.crescendo { border-color: var(--accent2); color: var(--accent2); }
+  .tag.dominante { border-color: var(--orange); color: var(--orange); }
+  .tag.revival { border-color: var(--blue); color: var(--blue); }
+
+  /* Stock Table */
+  .stock-table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .stock-table { width: 100%; border-collapse: collapse; }
+  .stock-table th {
+    text-align: left;
+    padding: 14px 16px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .stock-table td {
+    padding: 14px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(42,42,58,0.5);
+  }
+  .stock-table tr:last-child td { border-bottom: none; }
+  .stock-table tr:hover td { background: rgba(108,92,231,0.04); }
+  .ticker { font-weight: 700; color: var(--accent2); font-family: monospace; font-size: 14px; }
+  .rating-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .rating-strong-buy { background: var(--green-dim); color: var(--green); }
+  .rating-buy { background: rgba(0,210,160,0.08); color: #66d4b0; }
+  .rating-overweight { background: var(--blue-dim); color: var(--blue); }
+  .rating-hold { background: var(--yellow-dim); color: var(--yellow); }
+  .rating-avoid { background: var(--red-dim); color: var(--red); }
+  .upside-green { color: var(--green); font-weight: 700; }
+  .upside-red { color: var(--red); font-weight: 700; }
+
+  /* Correlations */
+  .corr-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .corr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .corr-value { font-size: 36px; font-weight: 900; letter-spacing: -1px; }
+  .corr-label { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.4; }
+  .corr-stars { margin-top: 6px; font-size: 14px; }
+
+  /* Historical Table */
+  .hist-table { width: 100%; border-collapse: collapse; }
+  .hist-table th {
+    text-align: left; padding: 12px 14px; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim);
+    background: var(--surface2); border-bottom: 1px solid var(--border);
+  }
+  .hist-table td {
+    padding: 12px 14px; font-size: 13px;
+    border-bottom: 1px solid rgba(42,42,58,0.5);
+  }
+  .hist-table tr:last-child td { border-bottom: none; }
+  .pos { color: var(--green); font-weight: 600; }
+  .neg { color: var(--red); font-weight: 600; }
+
+  /* Hype Patterns */
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .pattern-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .pattern-name { font-size: 16px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .pattern-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; margin-bottom: 10px; }
+  .pattern-action {
+    font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* News */
+  .news-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .news-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .news-item .bullet {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Rules */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .rule-num {
+    font-size: 36px; font-weight: 900; color: var(--accent);
+    opacity: 0.3; margin-bottom: 8px;
+  }
+  .rule-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .rule-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+  /* Score Formula */
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .formula-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .formula-pct { font-size: 32px; font-weight: 900; color: var(--accent2); }
+  .formula-name { font-size: 13px; font-weight: 600; margin-top: 6px; }
+  .formula-desc { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  .score-legend {
+    display: flex; gap: 12px; margin-top: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .score-item {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .score-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  /* Footer Disclaimer */
+  .footer-disclaimer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 32px;
+    margin-top: 40px;
+  }
+  .footer-disclaimer h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yellow);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-disclaimer p {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .footer-disclaimer p:last-child { margin-bottom: 0; }
+
+  /* Countdown */
+  .countdown {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+    display: inline-block;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+    .corr-grid, .patterns-grid, .formula-grid { grid-template-columns: repeat(2, 1fr); }
+    .games-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .news-list, .rules-grid { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .lang-switcher { position: static; margin-bottom: 16px; align-self: flex-end; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-switcher">
+  <a class="lang-btn active" href="/">ES</a>
+  <a class="lang-btn" href="/en/">EN</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">&#127918;</div>
+    <div>
+      <h1>Games <span>&amp;</span> Stock</h1>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">Correlacion lanzamientos gaming vs movimientos bursatiles</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="date-badge">&#128197; Actualizado: 13 Abr 2026</div>
+    <div class="date-badge">&#128200; @Games_and_Stock</div>
+  </div>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-grid">
+  <div class="kpi-card green">
+    <div class="kpi-label">Juegos en Watchlist</div>
+    <div class="kpi-value">19</div>
+    <div class="kpi-sub">4 Tier 1 + 10 Tier 2 + 5 Tier 3</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-label">Top Correlacion</div>
+    <div class="kpi-value">r = 0.749</div>
+    <div class="kpi-sub">Consistencia hype &rarr; PRE-60d</div>
+  </div>
+  <div class="kpi-card blue">
+    <div class="kpi-label">Mejor Upside</div>
+    <div class="kpi-value">+44%</div>
+    <div class="kpi-sub">TTWO &mdash; GTA VI (Nov 2026)</div>
+  </div>
+  <div class="kpi-card yellow">
+    <div class="kpi-label">Caso Historico Max</div>
+    <div class="kpi-value">+114%</div>
+    <div class="kpi-sub">Pokemon GO &rarr; NTDOY (10 dias)</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Peor Crash</div>
+    <div class="kpi-value">-33.7%</div>
+    <div class="kpi-sub">Cyberpunk 2077 POST-30d</div>
+  </div>
+</div>
+
+<!-- TOP OPORTUNIDADES / STOCK TABLE -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128176;</span> Opinion de Analistas &mdash; 13 Abr 2026</div>
+  <div class="stock-table-wrap">
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Empresa</th>
+          <th>Ticker</th>
+          <th>Rating</th>
+          <th>Precio Actual</th>
+          <th>Target</th>
+          <th>Upside</th>
+          <th>Catalizador Clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Take-Two Interactive</strong></td><td><span class="ticker">TTWO</span></td><td><span class="rating-badge rating-strong-buy">Strong Buy</span></td><td>~$197</td><td>$284.80</td><td><span class="upside-green">+44%</span></td><td>GTA VI &mdash; 19 Nov 2026</td></tr>
+        <tr><td>2</td><td><strong>Capcom</strong></td><td><span class="ticker">CCOEY</span></td><td><span class="rating-badge rating-buy">Outperform</span></td><td>~$11.11</td><td>&mdash;</td><td><span class="upside-green">P/E 20.8x</span></td><td>Pragmata + Onimusha + no anunciados</td></tr>
+        <tr><td>3</td><td><strong>Konami</strong></td><td><span class="ticker">KNAMF</span></td><td><span class="rating-badge rating-buy">Buy</span></td><td>~$61.77 <span style="font-size:10px; color:var(--yellow);">(post-div)</span></td><td>&mdash;</td><td>&mdash;</td><td>Revival: MGS + Silent Hill + Castlevania</td></tr>
+        <tr><td>4</td><td><strong>Nintendo</strong></td><td><span class="ticker">NTDOY</span></td><td><span class="rating-badge rating-overweight">Overweight</span></td><td>~$13.91</td><td>~$17.93</td><td><span class="upside-green">+29%</span></td><td>Zelda OoT Remake + Star Fox (2H 2026)</td></tr>
+        <tr><td>5</td><td><strong>CD Projekt</strong></td><td><span class="ticker">CDR.WA</span></td><td><span class="rating-badge rating-hold">Hold</span></td><td>~246 PLN</td><td>198-294 PLN</td><td>&mdash;</td><td>Witcher IV (2027+) &mdash; esperar ventana</td></tr>
+        <tr><td>6</td><td><strong>Square Enix</strong></td><td><span class="ticker">SQNXF</span></td><td><span class="rating-badge rating-avoid">Riesgo</span></td><td>~$16.05</td><td>&mdash;</td><td><span class="upside-red">Caida brutal</span></td><td>FF VII Rebirth ports / KH IV (2027)</td></tr>
+        <tr><td>7</td><td><strong>Ubisoft</strong></td><td><span class="ticker">UBSFY</span></td><td><span class="rating-badge rating-avoid">Evitar</span></td><td>Muy golpeada</td><td>&mdash;</td><td><span class="upside-red">-34%</span></td><td>Cancelo 6 juegos, cierre estudios</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TIER 1 -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#127942;</span> Lanzamientos TIER 1 &mdash; Mayor Impacto Bursatil <span class="tier-badge tier-1">TIER 1</span></div>
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="game-card-header"><div><div class="game-name">GTA VI</div><div class="game-company">Rockstar Games / Take-Two Interactive</div></div><span class="signal-badge signal-strong-buy">Strong Buy</span></div>
+      <div class="game-meta">
+        <div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">TTWO</div></div>
+        <div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">19 Nov 2026</div></div>
+        <div class="meta-item"><div class="meta-label">Dias restantes</div><div class="meta-value">~220 dias</div></div>
+        <div class="meta-item"><div class="meta-label">Tipo empresa</div><div class="meta-value">Grande (juego = 30-40% valor)</div></div>
+      </div>
+      <div class="score-label"><span>Signal Score</span><span style="font-weight:700; color:var(--green);">79/100</span></div>
+      <div class="game-bar"><div class="game-bar-fill bar-green" style="width:79%"></div></div>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:6px;">Sin nuevos retrasos. Marketing veraniego confirmado por Take-Two. 15 analistas Buy, target $284.80 (+44%). El mayor evento de entretenimiento del ano.</div>
+      <div class="game-tags">
+        <span class="tag large-cap">Large Cap</span>
+        <span class="tag dominante">Patron: DOMINANTE</span>
+        <span class="tag" style="border-color:var(--green); color:var(--green);">16 Buy ratings</span>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-card-header"><div><div class="game-name">The Witcher IV</div><div class="game-company">CD Projekt RED</div></div><span class="signal-badge signal-wait">Esperar</span></div>
+      <div class="game-meta">
+        <div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">CDR.WA</div></div>
+        <div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2027+</div></div>
+        <div class="meta-item"><div class="meta-label">Dias restantes</div><div class="meta-value">~400+ dias</div></div>
+        <div class="meta-item"><div class="meta-label">Tipo empresa</div><div class="meta-value">Mid-cap (senal pura)</div></div>
+      </div>
+      <div class="score-label"><span>Signal Score</span><span style="font-weight:700; color:var(--blue);">32/100</span></div>
+      <div class="game-bar"><div class="game-bar-fill bar-blue" style="width:32%"></div></div>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:6px;">Presupuesto $778M. Es TODA la tesis de inversion de CDR. Trilogia Witcher 4-5-6 planeada. Esperar a ventana de 90 dias.</div>
+      <div class="game-tags">
+        <span class="tag mid-cap">Mid-Cap</span>
+        <span class="tag crescendo">Patron esperado: CRESCENDO</span>
+        <span class="tag" style="border-color:var(--orange); color:var(--orange);">5B PLN objetivo 2026-2029</span>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-card-header"><div><div class="game-name">Marvel's Wolverine</div><div class="game-company">Insomniac Games / Sony</div></div><span class="signal-badge signal-neutral">Diluido</span></div>
+      <div class="game-meta">
+        <div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">SONY</div></div>
+        <div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">15 Sep 2026</div></div>
+        <div class="meta-item"><div class="meta-label">Dias restantes</div><div class="meta-value">~155 dias</div></div>
+        <div class="meta-item"><div class="meta-label">Tipo empresa</div><div class="meta-value">Mega-cap (diluido)</div></div>
+      </div>
+      <div class="score-label"><span>Signal Score</span><span style="font-weight:700; color:var(--text-dim);">22/100</span></div>
+      <div class="game-bar"><div class="game-bar-fill bar-purple" style="width:22%"></div></div>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:6px;">Exclusiva PS5. Sony retira juegos de PC. Impacto diluido en mega-cap.</div>
+      <div class="game-tags"><span class="tag mega-cap">Mega-Cap</span><span class="tag">Exclusiva PS5</span></div>
+    </div>
+    <div class="game-card">
+      <div class="game-card-header"><div><div class="game-name">Fable</div><div class="game-company">Playground Games / Microsoft</div></div><span class="signal-badge signal-neutral">Diluido</span></div>
+      <div class="game-meta">
+        <div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">MSFT</div></div>
+        <div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">Otono 2026</div></div>
+        <div class="meta-item"><div class="meta-label">Dias restantes</div><div class="meta-value">~170 dias</div></div>
+        <div class="meta-item"><div class="meta-label">Tipo empresa</div><div class="meta-value">Mega-cap (diluido)</div></div>
+      </div>
+      <div class="score-label"><span>Signal Score</span><span style="font-weight:700; color:var(--text-dim);">18/100</span></div>
+      <div class="game-bar"><div class="game-bar-fill bar-purple" style="width:18%"></div></div>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:6px;">Un juego individual apenas mueve la aguja en Microsoft.</div>
+      <div class="game-tags"><span class="tag mega-cap">Mega-Cap</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 2 -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#11088;</span> Lanzamientos TIER 2 &mdash; AAA Confirmados 2026 <span class="tier-badge tier-2">TIER 2</span></div>
+  <div class="games-grid">
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Pragmata</div><div class="game-company">Capcom</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">CCOEY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">17 Abr 2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span><span class="tag" style="border-color:var(--green); color:var(--green); background:var(--green-dim);">&#9888; 4 DIAS</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Onimusha: Way of the Sword</div><div class="game-company">Capcom</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">CCOEY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span><span class="tag revival">Revival</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Ace Combat 8</div><div class="game-company">Bandai Namco</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">NCBDY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Little Nightmares VR</div><div class="game-company">Bandai Namco</div></div><span class="signal-badge signal-neutral">Neutro</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">NCBDY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Silent Hill: Townfall</div><div class="game-company">Konami</div></div><span class="signal-badge signal-buy">Compra</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">KNAMF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span><span class="tag revival">Revival</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Castlevania: Belmont's Curse</div><div class="game-company">Konami</div></div><span class="signal-badge signal-buy">Compra</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">KNAMF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span><span class="tag revival">Revival</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">MGS Master Collection Vol. 2</div><div class="game-company">Konami</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">KNAMF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">FF VII Rebirth (Switch 2/Xbox)</div><div class="game-company">Square Enix</div></div><span class="signal-badge signal-neutral">Neutro</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">SQNXF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div><div class="game-tags"><span class="tag large-cap">Large Cap</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Zelda: OoT Remake (filtrado)</div><div class="game-company">Nintendo</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">NTDOY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2H 2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Star Fox (nuevo, filtrado)</div><div class="game-company">Nintendo</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">NTDOY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">Verano 2026</div></div></div><div class="game-tags"><span class="tag mid-cap">Mid-Cap</span></div></div>
+  </div>
+</div>
+
+<!-- TIER 3 -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128301;</span> Lanzamientos TIER 3 &mdash; Largo Plazo / Sin Fecha <span class="tier-badge tier-3">TIER 3</span></div>
+  <div class="games-grid">
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Kingdom Hearts IV</div><div class="game-company">Square Enix</div></div><span class="signal-badge signal-wait">Esperar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">SQNXF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2027+</div></div></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">FF VII Remake Part 3</div><div class="game-company">Square Enix</div></div><span class="signal-badge signal-wait">Esperar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">SQNXF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2028+</div></div></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Dragon Quest XII</div><div class="game-company">Square Enix</div></div><span class="signal-badge signal-wait">Esperar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">SQNXF</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2027+</div></div></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Metroid Prime 4</div><div class="game-company">Retro Studios / Nintendo</div></div><span class="signal-badge signal-watch">Vigilar</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--accent2); font-family:monospace;">NTDOY</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">2026</div></div></div></div>
+    <div class="game-card"><div class="game-card-header"><div><div class="game-name">Hollow Knight: Silksong</div><div class="game-company">Team Cherry</div></div><span class="signal-badge signal-neutral">Sin ticker</span></div><div class="game-meta"><div class="meta-item"><div class="meta-label">Ticker</div><div class="meta-value" style="color:var(--text-dim);">&mdash;</div></div><div class="meta-item"><div class="meta-label">Lanzamiento</div><div class="meta-value">TBD</div></div></div></div>
+  </div>
+</div>
+
+<!-- CORRELACIONES -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128202;</span> Correlaciones Hype &harr; Stock (Datos Historicos)</div>
+  <div class="corr-grid">
+    <div class="corr-card"><div class="corr-value" style="color:var(--green);">0.749</div><div class="corr-label">Consistencia Trends &rarr; Pre-60d Stock</div><div class="corr-stars">&#11088;&#11088;&#11088;&#11088;</div></div>
+    <div class="corr-card"><div class="corr-value" style="color:var(--green);">0.621</div><div class="corr-label">Aceleracion Trends &rarr; Pre-30d Stock</div><div class="corr-stars">&#11088;&#11088;&#11088;</div></div>
+    <div class="corr-card"><div class="corr-value" style="color:var(--yellow);">0.33</div><div class="corr-label">Pico Trends &rarr; Post-30d Stock</div><div class="corr-stars">&#11088;&#11088;</div></div>
+    <div class="corr-card"><div class="corr-value" style="color:var(--text-dim);">0.18</div><div class="corr-label">Nivel Trends &rarr; Post-90d Stock</div><div class="corr-stars">&#11088;</div></div>
+  </div>
+</div>
+
+<!-- HISTORICO -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128218;</span> Rendimiento Historico Real</div>
+  <div class="stock-table-wrap">
+    <table class="hist-table">
+      <thead><tr><th>Juego</th><th>Ticker</th><th>PRE-60d</th><th>PRE-30d</th><th>POST-30d</th><th>POST-90d</th></tr></thead>
+      <tbody>
+        <tr><td>GTA V (2013)</td><td><span class="ticker">TTWO</span></td><td class="neg">-5.5%</td><td class="pos">+1.9%</td><td class="pos">+0.9%</td><td class="pos">+8.3%</td></tr>
+        <tr><td>The Witcher 3 (2015)</td><td><span class="ticker">CDR.WA</span></td><td class="pos">+10.4%</td><td class="pos" style="font-weight:800;">+27.7%</td><td class="pos">+3.0%</td><td class="pos">+4.7%</td></tr>
+        <tr><td>Cyberpunk 2077 (2020)</td><td><span class="ticker">CDR.WA</span></td><td class="neg">-1.0%</td><td class="neg">-2.4%</td><td class="neg" style="font-weight:800;">-33.7%</td><td>0.0%</td></tr>
+        <tr><td>Elden Ring (2022)</td><td><span class="ticker">NCBDY</span></td><td class="pos">+7.1%</td><td class="neg">-7.4%</td><td class="pos">+2.8%</td><td class="pos">+6.1%</td></tr>
+        <tr><td>Animal Crossing NH (2020)</td><td><span class="ticker">NTDOY</span></td><td class="neg">-4.3%</td><td class="neg">-11.1%</td><td class="pos">+21.6%</td><td class="pos">+26.7%</td></tr>
+        <tr><td>Hogwarts Legacy (2023)</td><td><span class="ticker">WBD</span></td><td class="pos" style="font-weight:800;">+12.9%</td><td class="pos" style="font-weight:800;">+26.2%</td><td class="neg">-1.4%</td><td class="pos">+12.1%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PATRONES DE HYPE -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128293;</span> Patrones de Hype Identificados</div>
+  <div class="patterns-grid">
+    <div class="pattern-card"><div class="pattern-name" style="color:var(--accent2);">Crescendo</div><div class="pattern-desc">Interes creciendo semana a semana de forma sostenida.</div><span class="pattern-action" style="background:var(--green-dim); color:var(--green);">Entrar 60-90 dias antes</span><div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Ej: The Witcher 3, Hogwarts Legacy</div></div>
+    <div class="pattern-card"><div class="pattern-name" style="color:var(--orange);">Dominante</div><div class="pattern-desc">Interes alto y constante desde meses antes.</div><span class="pattern-action" style="background:rgba(255,159,67,0.15); color:var(--orange);">Entrar 90+ dias, salir en lanzamiento</span><div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Ej: GTA VI (en curso)</div></div>
+    <div class="pattern-card"><div class="pattern-name" style="color:var(--red);">Explosion</div><div class="pattern-desc">Interes muerto hasta ultimas 2 semanas, luego pico.</div><span class="pattern-action" style="background:var(--red-dim); color:var(--red);">Imposible anticipar. Esperar POST</span><div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Ej: Pokemon GO, Animal Crossing</div></div>
+    <div class="pattern-card"><div class="pattern-name" style="color:var(--text-dim);">Ruido</div><div class="pattern-desc">Sin patron claro de interes.</div><span class="pattern-action" style="background:rgba(136,136,160,0.1); color:var(--text-dim);">Ignorar</span><div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Ej: Halo Infinite</div></div>
+  </div>
+</div>
+
+<!-- SIGNAL SCORE -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#127919;</span> Formula del Signal Score (0-100)</div>
+  <div class="formula-grid">
+    <div class="formula-card"><div class="formula-pct">40%</div><div class="formula-name">Nivel Trends</div><div class="formula-desc">Interes actual (0-100) en Google Trends</div></div>
+    <div class="formula-card"><div class="formula-pct">25%</div><div class="formula-name">Ventana Temporal</div><div class="formula-desc">Optima: 20-75 dias. Penaliza lejos o cerca</div></div>
+    <div class="formula-card"><div class="formula-pct">20%</div><div class="formula-name">Aceleracion</div><div class="formula-desc">Media 4 semanas recientes vs primeras 4</div></div>
+    <div class="formula-card"><div class="formula-pct">15%</div><div class="formula-name">Consistencia</div><div class="formula-desc">Ratio media/pico. Sostenido > pico aislado</div></div>
+  </div>
+  <div class="score-legend">
+    <div class="score-item"><div class="score-dot" style="background:var(--text-dim)"></div> 0-14: Ignorar</div>
+    <div class="score-item"><div class="score-dot" style="background:#666"></div> 15-29: Neutro</div>
+    <div class="score-item"><div class="score-dot" style="background:var(--yellow)"></div> 30-49: Vigilar</div>
+    <div class="score-item"><div class="score-dot" style="background:var(--green)"></div> 50-69: Compra</div>
+    <div class="score-item"><div class="score-dot" style="background:#00ff88"></div> 70-100: Compra Fuerte</div>
+  </div>
+</div>
+
+<!-- REGLAS DE TRADING -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128220;</span> Reglas de Trading</div>
+  <div class="rules-grid">
+    <div class="rule-card"><div class="rule-num">01</div><div class="rule-title">Regla de Entrada</div><div class="rule-desc">Si Trends lleva >4 semanas por encima de 30/100 y sigue creciendo, senal de entrada 60-90 dias antes del lanzamiento.</div></div>
+    <div class="rule-card"><div class="rule-num">02</div><div class="rule-title">Senal de Salida</div><div class="rule-desc">Si el hype explota en las ultimas 2 semanas (de 10 a 100), demasiado tarde para entrada PRE-lanzamiento.</div></div>
+    <div class="rule-card"><div class="rule-num">03</div><div class="rule-title">Empresa Optima</div><div class="rule-desc">Mid-cap, donde el juego represente >30% de ingresos futuros. Evitar gigantes donde el impacto queda diluido.</div></div>
+    <div class="rule-card"><div class="rule-num">04</div><div class="rule-title">Factor Cyberpunk</div><div class="rule-desc">Hype extremo + gap expectativas/realidad = crash. No confiar ciegamente en la aceleracion de Trends.</div></div>
+  </div>
+</div>
+
+<!-- NOTICIAS -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#128240;</span> Noticias Clave del Sector &mdash; 13 Abr 2026</div>
+  <div class="news-list">
+    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>Pragmata lanza en 4 dias (17 abr).</strong> Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Senal de test para CCOEY.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>GTA VI: sin nuevos retrasos.</strong> TTWO confirma campana de marketing este verano. 15 analistas Buy, target consenso $284.80.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Star Fox: anuncio inminente.</strong> Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Zelda: OoT Remake confirmado para 2H 2026</strong> cerca de navidades. Remake completo desde cero. Coincide con 40 aniversario de la saga.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--yellow)"></span><strong>Konami: dividendo especial $107.50/accion</strong> (ex-date 30 mar 2026). Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--yellow)"></span><strong>GTA VI retrasado a Nov 2026</strong> (antes mayo). TTWO cayo ~8% pero analistas lo ven como oportunidad.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Nintendo recorta produccion Switch 2</strong> un 33%. Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Ubisoft en crisis:</strong> cancelo 6 juegos, cerrara estudios, perdida operativa ~1B EUR esperada.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Sony retira juegos de PC:</strong> Wolverine, Ghost of Yotei, Saros exclusivos PS5.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Aranceles de Trump:</strong> arancel efectivo EEUU subio al 22.5%, indice gaming cayo 300+ pts en Q1 2026.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>CD Projekt sube objetivos</strong> a 5B PLN (2026-2029), trilogia Witcher 4-5-6. Witcher IV no llega a diciembre 2026.</div>
+    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>Capcom anuncia mas juegos</strong> sin revelar para antes de marzo 2027.</div>
+  </div>
+</div>
+
+<!-- FOOTER DISCLAIMER -->
+<div class="footer-disclaimer">
+  <h3>&#9878;&#65039; Aviso Legal / Disclaimer</h3>
+  <p><strong>Games &amp; Stock</strong> es un proyecto independiente de caracter educativo e informativo. No somos una empresa de servicios financieros, un broker, un asesor de inversiones registrado ni una entidad regulada por ninguna autoridad financiera.</p>
+  <p>La informacion, datos, opiniones y analisis presentados en este dashboard se proporcionan exclusivamente con fines informativos y educativos. <strong>No constituyen, bajo ningun concepto, asesoramiento financiero, recomendacion de inversion, ni oferta de compra o venta de ningun instrumento financiero.</strong></p>
+  <p>Los datos de mercado provienen de fuentes publicas (Yahoo Finance, Google Trends, informes de analistas) y pueden contener errores o estar desactualizados. El rendimiento pasado no garantiza resultados futuros. Los mercados financieros implican riesgo de perdida de capital.</p>
+  <p><strong>Si decides invertir basandote en la informacion de este dashboard, lo haces bajo tu exclusiva responsabilidad y riesgo.</strong> Recomendamos consultar siempre con un asesor financiero profesional y cualificado antes de tomar cualquier decision de inversion.</p>
+  <p style="color:var(--accent2); margin-top:12px;">Games &amp; Stock &copy; 2026 &mdash; Proyecto educativo. Todos los datos son publicos. No es consejo financiero.</p>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:32px 0 16px; margin-top:16px;">
+  <div style="font-size:13px; color:var(--text-dim);">Games &amp; Stock Dashboard &mdash; Datos de 13 Abr 2026</div>
+  <div style="font-size:11px; color:rgba(136,136,160,0.5); margin-top:6px;">Basado en Yahoo Finance, Google Trends, analisis propio. No es consejo financiero.</div>
+  <div style="font-size:11px; color:rgba(136,136,160,0.3); margin-top:4px;">&#128200; <a href="https://x.com/Games_and_Stock" style="color:var(--accent2); text-decoration:none;">@Games_and_Stock</a></div>
+</div>
+
+</body>
+</html>
