@@ -199,9 +199,9 @@ def upload_media(image_path):
     method = 'POST'
 
     with open(image_path, 'rb') as f:
-        image_data = base64.b64encode(f.read()).decode('utf-8')
+        image_bytes = f.read()
 
-    # OAuth params (media_data is NOT included in signature base)
+    # OAuth params only (media NOT in signature for multipart)
     oauth_params = {
         'oauth_consumer_key': api_key,
         'oauth_nonce': uuid.uuid4().hex,
@@ -219,11 +219,18 @@ def upload_media(image_path):
         for k, v in sorted(oauth_params.items())
     )
 
-    # Send as application/x-www-form-urlencoded
-    body = urlencode({'media_data': image_data}).encode('utf-8')
+    # Build multipart/form-data body manually
+    boundary = uuid.uuid4().hex
+    body = (
+        f'--{boundary}\r\n'
+        f'Content-Disposition: form-data; name="media_data"\r\n\r\n'
+        f'{base64.b64encode(image_bytes).decode("utf-8")}\r\n'
+        f'--{boundary}--\r\n'
+    ).encode('utf-8')
+
     req = Request(url, data=body, method='POST')
     req.add_header('Authorization', auth_header)
-    req.add_header('Content-Type', 'application/x-www-form-urlencoded')
+    req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
 
     try:
         response = urlopen(req)
