@@ -52,6 +52,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install chart dependencies
+        run: pip install yfinance mplfinance matplotlib
+
       - name: Determine time slot
         id: slot
         run: |

@@ -17,11 +17,14 @@ import random
 import argparse
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
+from urllib.error import HTTPError
 import hmac
 import base64
 import time
 import uuid
+import re
+import tempfile
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.join(SCRIPT_DIR, '..')
@@ -100,11 +103,202 @@ def post_tweet(text):
         raise
 
 
+# ─── Candlestick Chart Generation ──────────────────────────────────────
+
+def generate_chart(ticker, period='6mo'):
+    """Generate a candlestick chart for a ticker. Returns path to PNG or None."""
+    try:
+        import yfinance as yf
+        import mplfinance as mpf
+        import matplotlib
+        matplotlib.use('Agg')  # headless
+    except ImportError as e:
+        print(f"Chart libs not available ({e}), skipping chart.")
+        return None
+
+    try:
+        data = yf.download(ticker, period=period, auto_adjust=True, progress=False)
+        if data is None or len(data) < 10:
+            print(f"Not enough data for {ticker}, skipping chart.")
+            return None
+
+        # Drop multi-level columns if present (yfinance sometimes returns them)
+        if hasattr(data.columns, 'levels') and data.columns.nlevels > 1:
+            data.columns = data.columns.get_level_values(0)
+
+        # Custom dark style for the trading look
+        mc = mpf.make_marketcolors(
+            up='#00c896', down='#e54545',
+            edge={'up': '#00c896', 'down': '#e54545'},
+            wick={'up': '#00c896', 'down': '#e54545'},
+            volume={'up': '#1a4a3a', 'down': '#4a1a1a'},
+        )
+        style = mpf.make_mpf_style(
+            base_mpf_style='nightclouds',
+            marketcolors=mc,
+            facecolor='#0f0f1a',
+            edgecolor='#2a2a3a',
+            figcolor='#0f0f1a',
+            gridcolor='#1a1a2e',
+            gridstyle='--',
+            gridaxis='both',
+            rc={
+                'font.size': 10,
+                'axes.labelcolor': '#8888a0',
+                'xtick.color': '#8888a0',
+                'ytick.color': '#8888a0',
+            },
+        )
+
+        # Create chart
+        chart_path = os.path.join(tempfile.gettempdir(), f'chart_{ticker.replace(".", "_")}.png')
+
+        fig, axes = mpf.plot(
+            data,
+            type='candle',
+            style=style,
+            volume=True,
+            title='',
+            figsize=(10, 5.5),
+            returnfig=True,
+            tight_layout=True,
+        )
+
+        # Add branding text
+        fig.text(0.02, 0.97, f'${ticker}', fontsize=22, fontweight='bold',
+                 color='#e8e8f0', va='top', fontfamily='sans-serif')
+        fig.text(0.02, 0.92, f'{period} · Candlestick', fontsize=11,
+                 color='#8888a0', va='top', fontfamily='sans-serif')
+        fig.text(0.98, 0.02, 'Games & Stock · lagentedetom.github.io/games-and-stock',
+                 fontsize=9, color='#6c5ce7', ha='right', va='bottom',
+                 fontfamily='sans-serif')
+
+        fig.savefig(chart_path, dpi=150, bbox_inches='tight',
+                    facecolor='#0f0f1a', edgecolor='none')
+        import matplotlib.pyplot as plt
+        plt.close(fig)
+
+        print(f"Chart generated: {chart_path}")
+        return chart_path
+
+    except Exception as e:
+        print(f"Error generating chart for {ticker}: {e}")
+        return None
+
+
+# ─── Media Upload ───────────────────────────────────────────────────────
+
+def upload_media(image_path):
+    """Upload an image to Twitter via v1.1 media/upload. Returns media_id string."""
+    api_key = get_env('X_API_KEY')
+    api_secret = get_env('X_API_SECRET')
+    access_token = get_env('X_ACCESS_TOKEN')
+    access_token_secret = get_env('X_ACCESS_TOKEN_SECRET')
+
+    url = 'https://upload.twitter.com/1.1/media/upload.json'
+    method = 'POST'
+
+    with open(image_path, 'rb') as f:
+        image_data = base64.b64encode(f.read()).decode('utf-8')
+
+    # OAuth params (media_data is NOT included in signature base)
+    oauth_params = {
+        'oauth_consumer_key': api_key,
+        'oauth_nonce': uuid.uuid4().hex,
+        'oauth_signature_method': 'HMAC-SHA1',
+        'oauth_timestamp': str(int(time.time())),
+        'oauth_token': access_token,
+        'oauth_version': '1.0',
+    }
+
+    signature = create_oauth_signature(method, url, oauth_params, api_secret, access_token_secret)
+    oauth_params['oauth_signature'] = signature
+
+    auth_header = 'OAuth ' + ', '.join(
+        f'{percent_encode(k)}="{percent_encode(v)}"'
+        for k, v in sorted(oauth_params.items())
+    )
+
+    # Send as application/x-www-form-urlencoded
+    body = urlencode({'media_data': image_data}).encode('utf-8')
+    req = Request(url, data=body, method='POST')
+    req.add_header('Authorization', auth_header)
+    req.add_header('Content-Type', 'application/x-www-form-urlencoded')
+
+    try:
+        response = urlopen(req)
+        result = json.loads(response.read().decode('utf-8'))
+        media_id = result.get('media_id_string')
+        print(f"Media uploaded: {media_id}")
+        return media_id
+    except Exception as e:
+        if hasattr(e, 'read'):
+            error_body = e.read().decode('utf-8', errors='replace')
+            print(f"Media upload error: {error_body}")
+        print(f"Media upload failed: {e}")
+        return None
+
+
+def post_tweet_with_media(text, media_id=None):
+    """Post a tweet, optionally with a media attachment."""
+    api_key = get_env('X_API_KEY')
+    api_secret = get_env('X_API_SECRET')
+    access_token = get_env('X_ACCESS_TOKEN')
+    access_token_secret = get_env('X_ACCESS_TOKEN_SECRET')
+
+    url = 'https://api.x.com/2/tweets'
+    method = 'POST'
+
+    oauth_params = {
+        'oauth_consumer_key': api_key,
+        'oauth_nonce': uuid.uuid4().hex,
+        'oauth_signature_method': 'HMAC-SHA1',
+        'oauth_timestamp': str(int(time.time())),
+        'oauth_token': access_token,
+        'oauth_version': '1.0',
+    }
+
+    signature = create_oauth_signature(method, url, oauth_params, api_secret, access_token_secret)
+    oauth_params['oauth_signature'] = signature
+
+    auth_header = 'OAuth ' + ', '.join(
+        f'{percent_encode(k)}="{percent_encode(v)}"'
+        for k, v in sorted(oauth_params.items())
+    )
+
+    payload = {'text': text}
+    if media_id:
+        payload['media'] = {'media_ids': [media_id]}
+
+    body = json.dumps(payload).encode('utf-8')
+    req = Request(url, data=body, method='POST')
+    req.add_header('Authorization', auth_header)
+    req.add_header('Content-Type', 'application/json')
+
+    try:
+        response = urlopen(req)
+        result = json.loads(response.read().decode('utf-8'))
+        return result
+    except Exception as e:
+        if hasattr(e, 'read'):
+            error_body = e.read().decode('utf-8', errors='replace')
+            print(f"API error body: {error_body}")
+        raise
+
+
+def extract_ticker_from_text(text):
+    """Extract the first cashtag ticker from tweet text."""
+    match = re.search(r'\$([A-Z][A-Z0-9_.]{1,10})', text)
+    return match.group(1) if match else None
+
+
 # ─── Tweet Generation ────────────────────────────────────────────────────
 
 DASHBOARD_URL = "https://lagentedetom.github.io/games-and-stock/"
 
-import re
+# Tweet types that should NOT get a chart (engagement, opinions without specific data)
+NO_CHART_TYPES = {'engagement', 'gaming_casual', 'gaming_opinion', 'platform_story'}
+
 
 def enforce_single_cashtag(text):
     """X free tier allows max 1 cashtag per tweet. Keep the first, remove $ from the rest."""
@@ -442,6 +636,7 @@ def main():
     parser = argparse.ArgumentParser(description='Generate and post tweets for @Games_and_Stock')
     parser.add_argument('--slot', choices=['morning', 'midday', 'evening', 'weekend'], default='morning')
     parser.add_argument('--test', action='store_true', help='Generate tweet but do not publish')
+    parser.add_argument('--no-chart', action='store_true', help='Skip chart generation')
     args = parser.parse_args()
 
     text, tweet_type = generate_tweet(args.slot)
@@ -450,16 +645,37 @@ def main():
     print(f"[{len(text)} chars]")
     print(f"\n{text}\n")
 
+    # Generate chart if tweet mentions a ticker and type is chart-worthy
+    chart_path = None
+    media_id = None
+    if not args.no_chart and tweet_type not in NO_CHART_TYPES:
+        ticker = extract_ticker_from_text(text)
+        if ticker:
+            print(f"Generating candlestick chart for {ticker}...")
+            chart_path = generate_chart(ticker)
+
     if args.test:
         print("(TEST MODE - not published)")
+        if chart_path:
+            print(f"Chart preview: {chart_path}")
         log_tweet(text, tweet_type, args.slot, status='test')
         return
 
+    # Upload chart if generated
+    if chart_path:
+        media_id = upload_media(chart_path)
+        if media_id:
+            print(f"Chart attached (media_id: {media_id})")
+        else:
+            print("Chart upload failed, publishing without image.")
+
     try:
-        result = post_tweet(text)
+        result = post_tweet_with_media(text, media_id=media_id)
         tweet_id = result.get('data', {}).get('id', 'unknown')
-        print(f"Published! Tweet ID: {tweet_id}")
-        log_tweet(text, tweet_type, args.slot, tweet_id=tweet_id)
+        has_chart = ' +chart' if media_id else ''
+        print(f"Published{has_chart}! Tweet ID: {tweet_id}")
+        log_tweet(text, tweet_type, args.slot, tweet_id=tweet_id,
+                  status=f'published{has_chart}')
     except Exception as e:
         print(f"Error publishing: {e}")
         log_tweet(text, tweet_type, args.slot, status=f'error: {e}')
