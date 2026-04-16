@@ -646,47 +646,65 @@ def main():
     parser.add_argument('--no-chart', action='store_true', help='Skip chart generation')
     args = parser.parse_args()
 
-    text, tweet_type = generate_tweet(args.slot)
-    text = enforce_single_cashtag(text)
-    print(f"[{args.slot}] Type: {tweet_type}")
-    print(f"[{len(text)} chars]")
-    print(f"\n{text}\n")
+    MAX_RETRIES = 3
+    for attempt in range(1, MAX_RETRIES + 1):
+        text, tweet_type = generate_tweet(args.slot)
+        text = enforce_single_cashtag(text)
+        print(f"[{args.slot}] Type: {tweet_type} (attempt {attempt}/{MAX_RETRIES})")
+        print(f"[{len(text)} chars]")
+        print(f"\n{text}\n")
 
-    # Generate chart if tweet mentions a ticker and type is chart-worthy
-    chart_path = None
-    media_id = None
-    if not args.no_chart and tweet_type not in NO_CHART_TYPES:
-        ticker = extract_ticker_from_text(text)
-        if ticker:
-            print(f"Generating candlestick chart for {ticker}...")
-            chart_path = generate_chart(ticker)
+        # Generate chart if tweet mentions a ticker and type is chart-worthy
+        chart_path = None
+        media_id = None
+        if not args.no_chart and tweet_type not in NO_CHART_TYPES:
+            ticker = extract_ticker_from_text(text)
+            if ticker:
+                print(f"Generating candlestick chart for {ticker}...")
+                chart_path = generate_chart(ticker)
 
-    if args.test:
-        print("(TEST MODE - not published)")
+        if args.test:
+            print("(TEST MODE - not published)")
+            if chart_path:
+                print(f"Chart preview: {chart_path}")
+            log_tweet(text, tweet_type, args.slot, status='test')
+            return
+
+        # Upload chart if generated
         if chart_path:
-            print(f"Chart preview: {chart_path}")
-        log_tweet(text, tweet_type, args.slot, status='test')
-        return
+            media_id = upload_media(chart_path)
+            if media_id:
+                print(f"Chart attached (media_id: {media_id})")
+            else:
+                print("Chart upload failed, publishing without image.")
 
-    # Upload chart if generated
-    if chart_path:
-        media_id = upload_media(chart_path)
-        if media_id:
-            print(f"Chart attached (media_id: {media_id})")
-        else:
-            print("Chart upload failed, publishing without image.")
-
-    try:
-        result = post_tweet_with_media(text, media_id=media_id)
-        tweet_id = result.get('data', {}).get('id', 'unknown')
-        has_chart = ' +chart' if media_id else ''
-        print(f"Published{has_chart}! Tweet ID: {tweet_id}")
-        log_tweet(text, tweet_type, args.slot, tweet_id=tweet_id,
-                  status=f'published{has_chart}')
-    except Exception as e:
-        print(f"Error publishing: {e}")
-        log_tweet(text, tweet_type, args.slot, status=f'error: {e}')
-        raise
+        try:
+            result = post_tweet_with_media(text, media_id=media_id)
+            tweet_id = result.get('data', {}).get('id', 'unknown')
+            has_chart = ' +chart' if media_id else ''
+            print(f"Published{has_chart}! Tweet ID: {tweet_id}")
+            log_tweet(text, tweet_type, args.slot, tweet_id=tweet_id,
+                      status=f'published{has_chart}')
+            return  # Success — exit
+        except HTTPError as e:
+            error_body = ''
+            if hasattr(e, 'read'):
+                error_body = e.read().decode('utf-8', errors='replace')
+                print(f"API error body: {error_body}")
+            if e.code == 403 and 'duplicate' in error_body.lower():
+                print(f"Duplicate content detected. {'Retrying...' if attempt < MAX_RETRIES else 'All retries exhausted.'}")
+                if attempt == MAX_RETRIES:
+                    log_tweet(text, tweet_type, args.slot, status='error: duplicate after retries')
+                    raise
+                continue  # Retry with a new tweet
+            else:
+                print(f"Error publishing: {e}")
+                log_tweet(text, tweet_type, args.slot, status=f'error: {e}')
+                raise
+        except Exception as e:
+            print(f"Error publishing: {e}")
+            log_tweet(text, tweet_type, args.slot, status=f'error: {e}')
+            raise
 
 
 if __name__ == '__main__':
