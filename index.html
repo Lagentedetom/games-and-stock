@@ -25,23 +25,23 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --border: #2a2a3a;
-    --text: #e8e8f0;
-    --text-dim: #8888a0;
+    --bg: #f5f5f8;
+    --surface: #ffffff;
+    --surface2: #eeeef2;
+    --border: #d8d8e0;
+    --text: #1a1a2e;
+    --text-dim: #6b6b80;
     --accent: #6c5ce7;
-    --accent2: #a29bfe;
-    --green: #00d2a0;
-    --green-dim: rgba(0,210,160,0.15);
-    --red: #ff6b6b;
-    --red-dim: rgba(255,107,107,0.15);
-    --yellow: #ffd93d;
-    --yellow-dim: rgba(255,217,61,0.15);
-    --blue: #4fc3f7;
-    --blue-dim: rgba(79,195,247,0.15);
-    --orange: #ff9f43;
+    --accent2: #5a4bd1;
+    --green: #00a87d;
+    --green-dim: rgba(0,168,125,0.10);
+    --red: #e54545;
+    --red-dim: rgba(229,69,69,0.10);
+    --yellow: #d4a800;
+    --yellow-dim: rgba(212,168,0,0.10);
+    --blue: #2196f3;
+    --blue-dim: rgba(33,150,243,0.10);
+    --orange: #e67e22;
   }
 
   body {
@@ -123,10 +123,13 @@
   .header-left { display: flex; align-items: center; gap: 16px; }
   .logo {
     width: 48px; height: 48px;
-    background: linear-gradient(135deg, var(--accent), #a29bfe);
     border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(108,92,231,0.20);
+  }
+  .logo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
   }
   .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
   .header h1 span { color: var(--accent2); }
@@ -154,6 +157,7 @@
     padding: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .kpi-card::before {
     content: '';
@@ -189,9 +193,9 @@
     font-weight: 700;
     letter-spacing: 1px;
   }
-  .tier-1 { background: rgba(255,215,0,0.15); color: #ffd700; }
-  .tier-2 { background: rgba(192,192,192,0.15); color: #c0c0c0; }
-  .tier-3 { background: rgba(205,127,50,0.15); color: #cd7f32; }
+  .tier-1 { background: rgba(212,168,0,0.12); color: #b38f00; }
+  .tier-2 { background: rgba(120,120,140,0.12); color: #6b6b80; }
+  .tier-3 { background: rgba(180,120,50,0.12); color: #a06830; }
 
   /* Game Cards */
   .games-grid {
@@ -204,12 +208,14 @@
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 20px;
-    transition: border-color 0.2s, transform 0.2s;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     position: relative;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .game-card:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(108,92,231,0.12);
   }
   .game-card-header {
     display: flex;
@@ -298,6 +304,7 @@
     border: 1px solid var(--border);
     border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .stock-table { width: 100%; border-collapse: collapse; }
   .stock-table th {
@@ -313,7 +320,7 @@
   .stock-table td {
     padding: 14px 16px;
     font-size: 13px;
-    border-bottom: 1px solid rgba(42,42,58,0.5);
+    border-bottom: 1px solid rgba(216,216,224,0.6);
   }
   .stock-table tr:last-child td { border-bottom: none; }
   .stock-table tr:hover td { background: rgba(108,92,231,0.04); }
@@ -345,6 +352,7 @@
     border-radius: 14px;
     padding: 20px;
     text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .corr-value { font-size: 36px; font-weight: 900; letter-spacing: -1px; }
   .corr-label { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.4; }
@@ -359,7 +367,7 @@
   }
   .hist-table td {
     padding: 12px 14px; font-size: 13px;
-    border-bottom: 1px solid rgba(42,42,58,0.5);
+    border-bottom: 1px solid rgba(216,216,224,0.6);
   }
   .hist-table tr:last-child td { border-bottom: none; }
   .pos { color: var(--green); font-weight: 600; }
@@ -376,6 +384,7 @@
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
   .pattern-name { font-size: 16px; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
   .pattern-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; margin-bottom: 10px; }
@@ -518,7 +527,7 @@
 <!-- HEADER -->
 <div class="header">
   <div class="header-left">
-    <div class="logo">&#127918;</div>
+    <div class="logo"><img src="logo.jpg" alt="Games &amp; Stock"></div>
     <div>
       <h1>Games <span>&amp;</span> Stock</h1>
       <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">Correlacion lanzamientos gaming vs movimientos bursatiles</div>
