@@ -78,3 +78,4 @@ datetime,slot,type,text,tweet_id,status,chars
 2026-04-21T16:55:09.6243186Z,evening,platform_highlight,,2046633851439530315,published,0
 2026-04-22T08:52:53.9191866Z,morning,market_opinion,,2046874874354729404,published,0
 2026-04-22T11:59:46.0553736Z,midday,gaming_fact,,2046921901088608719,published,0
+2026-04-22T16:54:27.252293+00:00,evening,gaming_opinion,"We've been building Games & Stock because we noticed something: nobody was connecting game launch data with stock performance in a systematic way. |  | 19 games. 7 companies. Correlations. Signals. All free, updated daily. |  | https://lagentedetom.github.io/games-and-stock/",2046996061831430534,published,267
