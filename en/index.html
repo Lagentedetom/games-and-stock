@@ -264,7 +264,140 @@
     .news-list, .rules-grid { grid-template-columns: 1fr; }
     .header { flex-direction: column; gap: 12px; align-items: flex-start; }
     .lang-switcher { position: static; margin-bottom: 16px; align-self: flex-end; }
+    .newsletter-banner { flex-direction: column; padding: 12px 48px; gap: 8px; }
   }
+
+  /* ─── Sticky newsletter banner (added Fase 1, 23-Apr-2026) ─── */
+  .newsletter-banner {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    padding: 10px 56px 10px 20px;
+    border-radius: 10px;
+    margin: -12px 0 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 14px;
+    box-shadow: 0 2px 12px rgba(108,92,231,0.25);
+    position: relative;
+  }
+  .newsletter-banner-text { flex: 1 1 auto; text-align: center; }
+  .newsletter-banner-text strong { font-weight: 700; }
+  .newsletter-banner-cta {
+    display: inline-block;
+    background: #fff;
+    color: var(--accent2);
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: transform 0.15s, background 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+  .newsletter-banner-cta:hover { transform: translateY(-1px); background: #f5f5f8; }
+  .newsletter-banner-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+  }
+  .newsletter-banner-close:hover { color: #fff; }
+  .newsletter-banner.hidden { display: none; }
+  .newsletter-section.flash {
+    animation: flash 1.4s ease-in-out;
+  }
+  @keyframes flash {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(108,92,231,0); }
+    40% { box-shadow: 0 0 0 10px rgba(108,92,231,0.35); }
+  }
+
+  /* ─── News cards v2 ─── */
+  .news-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+  .news-card.green  { border-left-color: var(--green); }
+  .news-card.blue   { border-left-color: var(--blue); }
+  .news-card.yellow { border-left-color: var(--yellow); }
+  .news-card.red    { border-left-color: var(--red); }
+  .news-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .news-card-source { font-weight: 600; }
+  .news-card-ticker {
+    background: var(--surface2);
+    color: var(--accent2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .news-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+  }
+  .news-card-body {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+  .news-card-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .news-card-link:hover { color: var(--accent2); text-decoration: underline; }
+  .news-card-link:after { content: "→"; }
+
+  .kpi-card .kpi-delta {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+  }
+  .kpi-card .kpi-delta.up   { background: var(--green-dim); color: var(--green); }
+  .kpi-card .kpi-delta.down { background: var(--red-dim);   color: var(--red); }
 </style>
 </head>
 <body>
@@ -273,6 +406,15 @@
 <div class="lang-switcher">
   <a class="lang-btn" href="../">ES</a>
   <a class="lang-btn active" href="./">EN</a>
+</div>
+
+<!-- NEWSLETTER STICKY BANNER (Fase 1) -->
+<div id="newsletter-banner" class="newsletter-banner" role="region" aria-label="Newsletter">
+  <div class="newsletter-banner-text">
+    &#128238; <strong>Free newsletter</strong> &mdash; every Friday, the week's gaming × market signals. No spam, no hype.
+  </div>
+  <button type="button" class="newsletter-banner-cta" onclick="goToNewsletter()">Subscribe</button>
+  <button type="button" class="newsletter-banner-close" aria-label="Close" onclick="dismissNewsletterBanner()">&times;</button>
 </div>
 
 <!-- HEADER -->
@@ -285,56 +427,32 @@
     </div>
   </div>
   <div class="header-right">
-    <div class="date-badge">&#128197; Updated: Apr 23, 2026</div>
+    <div class="date-badge">&#128197; Updated: Apr 22, 2026</div>
     <div class="date-badge">&#128200; @Games_and_Stock</div>
   </div>
 </div>
 
-<!-- KPIs -->
-<div class="kpi-grid">
-  <div class="kpi-card green">
-    <div class="kpi-label">Games on Watchlist</div>
-    <div class="kpi-value">19</div>
-    <div class="kpi-sub">4 Tier 1 + 10 Tier 2 + 5 Tier 3</div>
-  </div>
-  <div class="kpi-card purple">
-    <div class="kpi-label">Top Correlation</div>
-    <div class="kpi-value">r = 0.749</div>
-    <div class="kpi-sub">Hype consistency &rarr; PRE-60d</div>
-  </div>
-  <div class="kpi-card blue">
-    <div class="kpi-label">Best Upside</div>
-    <div class="kpi-value">+44%</div>
-    <div class="kpi-sub">TTWO &mdash; GTA VI (Nov 2026)</div>
-  </div>
-  <div class="kpi-card yellow">
-    <div class="kpi-label">Historical Max Case</div>
-    <div class="kpi-value">+114%</div>
-    <div class="kpi-sub">Pokemon GO &rarr; NTDOY (10 days)</div>
-  </div>
-  <div class="kpi-card red">
-    <div class="kpi-label">Worst Crash</div>
-    <div class="kpi-value">-33.7%</div>
-    <div class="kpi-sub">Cyberpunk 2077 POST-30d</div>
-  </div>
+<!-- KPIs (dynamically rendered from games_data.json, Phase 1) -->
+<div id="kpi-grid" class="kpi-grid" data-lang="en">
+  <!-- filled by renderKpis() in JS -->
 </div>
 
 <!-- ANALYST OPINIONS -->
 <div class="section">
-  <div class="section-title"><span class="icon">&#128176;</span> Analyst Opinions &mdash; Apr 23, 2026</div>
+  <div class="section-title"><span class="icon">&#128176;</span> Analyst Opinions &mdash; Apr 22, 2026</div>
   <div class="stock-table-wrap">
     <table class="stock-table">
       <thead>
         <tr><th>#</th><th>Company</th><th>Ticker</th><th>Rating</th><th>Current Price</th><th>Target</th><th>Upside</th><th>Key Catalyst</th></tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td><strong>Take-Two Interactive</strong></td><td><span class="ticker">TTWO</span></td><td><span class="rating-badge rating-strong-buy">Strong Buy</span></td><td>~$218.19</td><td>$284.80</td><td><span class="upside-green">+44%</span></td><td>GTA VI &mdash; Nov 19, 2026</td></tr>
-        <tr><td>2</td><td><strong>Capcom</strong></td><td><span class="ticker">CCOEY</span></td><td><span class="rating-badge rating-buy">Outperform</span></td><td>~$10.97</td><td>&mdash;</td><td><span class="upside-green">P/E 20.8x</span></td><td>Pragmata + Onimusha + unannounced</td></tr>
+        <tr><td>1</td><td><strong>Take-Two Interactive</strong></td><td><span class="ticker">TTWO</span></td><td><span class="rating-badge rating-strong-buy">Strong Buy</span></td><td>~$217.65</td><td>$284.80</td><td><span class="upside-green">+44%</span></td><td>GTA VI &mdash; Nov 19, 2026</td></tr>
+        <tr><td>2</td><td><strong>Capcom</strong></td><td><span class="ticker">CCOEY</span></td><td><span class="rating-badge rating-buy">Outperform</span></td><td>~$10.95</td><td>&mdash;</td><td><span class="upside-green">P/E 20.8x</span></td><td>Pragmata + Onimusha + unannounced</td></tr>
         <tr><td>3</td><td><strong>Konami</strong></td><td><span class="ticker">KNAMF</span></td><td><span class="rating-badge rating-buy">Buy</span></td><td>~$124.51</td><td>&mdash;</td><td>&mdash;</td><td>Revival: MGS + Silent Hill + Castlevania</td></tr>
-        <tr><td>4</td><td><strong>Nintendo</strong></td><td><span class="ticker">NTDOY</span></td><td><span class="rating-badge rating-overweight">Overweight</span></td><td>~$13.22</td><td>~$17.93</td><td><span class="upside-green">+29%</span></td><td>Zelda OoT Remake + Star Fox (2H 2026)</td></tr>
-        <tr><td>5</td><td><strong>CD Projekt</strong></td><td><span class="ticker">CDR.WA</span></td><td><span class="rating-badge rating-hold">Hold</span></td><td>~284.9 PLN</td><td>198-294 PLN</td><td>&mdash;</td><td>Witcher IV (2027+) &mdash; wait for window</td></tr>
+        <tr><td>4</td><td><strong>Nintendo</strong></td><td><span class="ticker">NTDOY</span></td><td><span class="rating-badge rating-overweight">Overweight</span></td><td>~$13.06</td><td>~$17.93</td><td><span class="upside-green">+29%</span></td><td>Zelda OoT Remake + Star Fox (2H 2026)</td></tr>
+        <tr><td>5</td><td><strong>CD Projekt</strong></td><td><span class="ticker">CDR.WA</span></td><td><span class="rating-badge rating-hold">Hold</span></td><td>~287.8 PLN</td><td>198-294 PLN</td><td>&mdash;</td><td>Witcher IV (2027+) &mdash; wait for window</td></tr>
         <tr><td>6</td><td><strong>Square Enix</strong></td><td><span class="ticker">SQNXF</span></td><td><span class="rating-badge rating-avoid">Risk</span></td><td>~$16.0</td><td>&mdash;</td><td><span class="upside-red">Sharp decline</span></td><td>FF VII Rebirth ports / KH IV (2027)</td></tr>
-        <tr><td>7</td><td><strong>Ubisoft</strong></td><td><span class="ticker">UBSFY</span></td><td><span class="rating-badge rating-avoid">Avoid</span></td><td>~$1.16</td><td>&mdash;</td><td><span class="upside-red">-34%</span></td><td>Cancelled 6 games, closing studios</td></tr>
+        <tr><td>7</td><td><strong>Ubisoft</strong></td><td><span class="ticker">UBSFY</span></td><td><span class="rating-badge rating-avoid">Avoid</span></td><td>~$1.17</td><td>&mdash;</td><td><span class="upside-red">-34%</span></td><td>Cancelled 6 games, closing studios</td></tr>
       </tbody>
     </table>
   </div>
@@ -505,27 +623,16 @@
   </div>
 </div>
 
-<!-- NEWS -->
+<!-- NEWS (dynamically rendered from games_data.json, Phase 1) -->
 <div class="section">
-  <div class="section-title"><span class="icon">&#128240;</span> Key Sector News &mdash; Apr 23, 2026</div>
-  <div class="news-list">
-    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>Pragmata launches in 4 days (Apr 17).</strong> First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>GTA VI: no new delays.</strong> TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Star Fox: announcement imminent.</strong> Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Zelda: OoT Remake confirmed for 2H 2026</strong> near holidays. Complete remake from scratch. Coincides with saga's 40th anniversary.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--yellow)"></span><strong>Konami: special dividend $107.50/share</strong> (ex-date Mar 30, 2026). KNAMF price adjusted to ~$61.77. Does not reflect business deterioration.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--yellow)"></span><strong>GTA VI delayed to Nov 2026</strong> (from May). TTWO dropped ~8% but analysts see it as opportunity.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Nintendo cuts Switch 2 production</strong> by 33%. Cooling demand in US/Europe. NTDOY recovering from $13.65 to $13.91.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Ubisoft in crisis:</strong> cancelled 6 games, closing studios, ~1B EUR operating loss expected.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--blue)"></span><strong>Sony pulling games from PC:</strong> Wolverine, Ghost of Yotei, Saros PS5 exclusives.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--red)"></span><strong>Trump tariffs:</strong> effective US tariff rose to 22.5%, gaming index dropped 300+ pts in Q1 2026.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>CD Projekt raises targets</strong> to 5B PLN (2026-2029), Witcher 4-5-6 trilogy. Witcher IV won't make December 2026.</div>
-    <div class="news-item"><span class="bullet" style="background:var(--green)"></span><strong>Capcom announces more games</strong> unannounced before March 2027.</div>
+  <div class="section-title"><span class="icon">&#128240;</span> Key Sector News &mdash; Apr 22, 2026</div>
+  <div id="news-list" class="news-list" data-lang="en">
+    <!-- filled by renderNews() in JS -->
   </div>
 </div>
 
 <!-- NEWSLETTER -->
-<div class="newsletter-section">
+<div id="newsletter-section" class="newsletter-section">
   <h3>Games &amp; Stock Newsletter</h3>
   <p>Get weekly gaming investment signals, market analysis and a weekly summary every Friday. Free.</p>
   <iframe src="https://49ceec06.sibforms.com/serve/MUIFACdcjP8gtQYYyBWKsaJdXUjwHsD6pQqb1ooL2xBU4g0YM6b2RNnrIC2CxH_8BZjuZCXOb3GSKD-5-6tMAtC976mIy0qfrn91FUwNk_9Vx0LCIWF6BN_WY4XT8YA9fIazO4N79GeP4pXepgARi57xdLTV6oPH6uxxQA-zNEEwKAmdCo9_grgQF6WU83hOAN_T4VgB23ZE7QI9Yw==" scrolling="no" allowfullscreen></iframe>
@@ -543,10 +650,235 @@
 
 <!-- FOOTER -->
 <div style="text-align:center; padding:32px 0 16px; margin-top:16px;">
-  <div style="font-size:13px; color:var(--text-dim);">Games &amp; Stock Dashboard &mdash; Data as of Apr 23, 2026</div>
+  <div style="font-size:13px; color:var(--text-dim);">Games &amp; Stock Dashboard &mdash; Data as of Apr 22, 2026</div>
   <div style="font-size:11px; color:rgba(136,136,160,0.5); margin-top:6px;">Based on Yahoo Finance, Google Trends, proprietary analysis. Not financial advice.</div>
   <div style="font-size:11px; color:rgba(136,136,160,0.3); margin-top:4px;">&#128200; <a href="https://x.com/Games_and_Stock" style="color:var(--accent2); text-decoration:none;">@Games_and_Stock</a></div>
 </div>
+
+<!-- ═══ Phase 1: dynamic rendering + GA4 event tracking ═══ -->
+<script>
+(function() {
+  const LANG = 'en';
+  const DATA_URL = '../data/games_data.json';
+  const MESSAGES = {
+    daysToRelease: (d) => `${d} days left`,
+    topUpside: 'Best upside in catalog',
+    nextRelease: 'Next big release',
+    movingTicker: 'Ticker of the moment',
+    topSignal: 'Strongest signal today',
+    readMore: 'Read more',
+  };
+
+  function track(eventName, params) {
+    try { if (typeof gtag === 'function') gtag('event', eventName, params || {}); } catch (e) {}
+  }
+
+  const BANNER_KEY = 'gs_newsletter_banner_dismissed';
+  function bannerState() {
+    try {
+      const v = localStorage.getItem(BANNER_KEY);
+      if (!v) return 'visible';
+      return Date.now() > parseInt(v, 10) ? 'visible' : 'hidden';
+    } catch (e) { return 'visible'; }
+  }
+  window.dismissNewsletterBanner = function() {
+    const el = document.getElementById('newsletter-banner');
+    if (el) el.classList.add('hidden');
+    try {
+      localStorage.setItem(BANNER_KEY, String(Date.now() + 14 * 24 * 60 * 60 * 1000));
+    } catch (e) {}
+    track('newsletter_banner_dismiss', { placement: 'top_sticky' });
+  };
+  window.goToNewsletter = function() {
+    track('newsletter_cta_click', { placement: 'top_sticky', lang: LANG });
+    const target = document.getElementById('newsletter-section');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.classList.remove('flash');
+      void target.offsetWidth;
+      target.classList.add('flash');
+    }
+  };
+
+  async function loadData() {
+    const resp = await fetch(DATA_URL, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('Could not load data');
+    return await resp.json();
+  }
+
+  function parseUpside(str) {
+    if (!str) return null;
+    const m = String(str).match(/^([+-]?)([\d.]+)%/);
+    if (!m) return null;
+    return (m[1] === '-' ? -1 : 1) * parseFloat(m[2]);
+  }
+
+  function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    const monthsEs = { 'ene':0,'feb':1,'mar':2,'abr':3,'may':4,'jun':5,'jul':6,'ago':7,'sep':8,'oct':9,'nov':10,'dic':11 };
+    const monthsEn = { 'jan':0,'feb':1,'mar':2,'apr':3,'may':4,'jun':5,'jul':6,'aug':7,'sep':8,'oct':9,'nov':10,'dec':11 };
+    let day, month, year;
+    let m = String(dateStr).match(/^(\d{1,2})\s+([a-zA-Zéí]+)\s+(\d{4})$/i);
+    if (m) {
+      day = parseInt(m[1], 10);
+      const mk = m[2].slice(0,3).toLowerCase();
+      month = monthsEs[mk] !== undefined ? monthsEs[mk] : monthsEn[mk];
+      year = parseInt(m[3], 10);
+    } else {
+      m = String(dateStr).match(/^([a-zA-Z]+)\s+(\d{1,2}),?\s+(\d{4})$/);
+      if (m) {
+        const mk = m[1].slice(0,3).toLowerCase();
+        month = monthsEn[mk];
+        day = parseInt(m[2], 10);
+        year = parseInt(m[3], 10);
+      }
+    }
+    if (month === undefined) return null;
+    const d = new Date(Date.UTC(year, month, day));
+    return Math.ceil((d - new Date()) / (1000 * 60 * 60 * 24));
+  }
+
+  function computeKpis(data) {
+    const analysts = data.analysts || [];
+    let topUp = null;
+    for (const a of analysts) {
+      const u = parseUpside(a.upside);
+      if (u !== null && (topUp === null || u > topUp.value)) {
+        topUp = { value: u, ticker: a.ticker, company: a.company };
+      }
+    }
+    const tier1 = (data.games && data.games.tier1) || [];
+    let next = null;
+    for (const g of tier1) {
+      const rel = typeof g.release === 'object' ? g.release[LANG] : g.release;
+      const d = daysUntil(rel);
+      if (d !== null && d > 0 && (next === null || d < next.days)) {
+        next = { days: d, name: g.name, ticker: g.ticker, release: rel };
+      }
+    }
+    let topSig = null;
+    for (const g of tier1) {
+      if (typeof g.score === 'number' && (topSig === null || g.score > topSig.score)) {
+        const sig = typeof g.signal === 'object' ? g.signal[LANG] : g.signal;
+        topSig = { score: g.score, name: g.name, ticker: g.ticker, signal: sig };
+      }
+    }
+    const kpis = [];
+    if (topUp) {
+      kpis.push({
+        cls: topUp.value >= 0 ? 'green' : 'red',
+        label: MESSAGES.topUpside,
+        value: (topUp.value >= 0 ? '+' : '') + topUp.value + '%',
+        sub: topUp.ticker + ' — ' + topUp.company,
+      });
+    }
+    if (next) {
+      kpis.push({
+        cls: 'purple',
+        label: MESSAGES.nextRelease,
+        value: next.name,
+        sub: next.release + ' · ' + MESSAGES.daysToRelease(next.days),
+      });
+    }
+    if (topUp) {
+      kpis.push({
+        cls: 'blue',
+        label: MESSAGES.movingTicker,
+        value: topUp.ticker,
+        sub: (topUp.value >= 0 ? '+' : '') + topUp.value + '% to target',
+      });
+    }
+    if (topSig) {
+      kpis.push({
+        cls: 'yellow',
+        label: MESSAGES.topSignal,
+        value: topSig.name,
+        sub: 'Score ' + topSig.score + '/100 · ' + topSig.signal,
+      });
+    }
+    return kpis;
+  }
+
+  function renderKpis(data) {
+    const grid = document.getElementById('kpi-grid');
+    if (!grid) return;
+    grid.innerHTML = computeKpis(data).map(k => `
+      <div class="kpi-card ${k.cls}">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-value">${k.value}</div>
+        <div class="kpi-sub">${k.sub}</div>
+      </div>
+    `).join('');
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00Z');
+    if (isNaN(d)) return dateStr;
+    const monthsEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return monthsEn[d.getUTCMonth()] + ' ' + d.getUTCDate();
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+  }
+
+  function renderNews(data) {
+    const list = document.getElementById('news-list');
+    if (!list) return;
+    const items = (data.news && data.news[LANG]) || [];
+    list.innerHTML = items.map((n, idx) => {
+      const color = n.color || 'blue';
+      const ticker = n.ticker || '';
+      const tickerBadge = ticker ? `<span class="news-card-ticker">$${escapeHtml(ticker)}</span>` : '';
+      const link = n.url
+        ? `<a href="${escapeHtml(n.url)}" target="_blank" rel="noopener noreferrer" class="news-card-link"
+              data-ticker="${escapeHtml(ticker)}" data-source="${escapeHtml(n.source||'')}" data-idx="${idx}">${MESSAGES.readMore}&nbsp;</a>`
+        : '';
+      return `
+        <div class="news-card ${color}">
+          <div class="news-card-head">
+            <span class="news-card-source">${escapeHtml(n.source || '')} &middot; ${formatDate(n.date)}</span>
+            ${tickerBadge}
+          </div>
+          <div class="news-card-title">${escapeHtml(n.title || '')}</div>
+          <div class="news-card-body">${escapeHtml(n.body || '')}</div>
+          ${link}
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.news-card-link').forEach(a => {
+      a.addEventListener('click', ev => {
+        track('news_click', {
+          ticker: a.getAttribute('data-ticker') || '',
+          source: a.getAttribute('data-source') || '',
+          index: a.getAttribute('data-idx') || '',
+          lang: LANG,
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (bannerState() === 'hidden') {
+      const el = document.getElementById('newsletter-banner');
+      if (el) el.classList.add('hidden');
+    } else {
+      track('newsletter_banner_view', { placement: 'top_sticky' });
+    }
+    try {
+      const data = await loadData();
+      renderKpis(data);
+      renderNews(data);
+    } catch (err) {
+      console.warn('Dashboard data load failed:', err);
+    }
+  });
+})();
+</script>
 
 </body>
 </html>

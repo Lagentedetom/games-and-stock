@@ -726,102 +726,246 @@
   "news": {
     "es": [
       {
+        "ticker": "CCOEY",
+        "category": "release",
         "color": "green",
-        "html": "<strong>Pragmata lanza en 4 dias (17 abr).</strong> Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Senal de test para CCOEY."
+        "date": "2026-04-15",
+        "source": "Capcom Investor Relations",
+        "url": "https://www.capcom.co.jp/ir/english/news/",
+        "title": "Pragmata lanza en 4 días (17 abr)",
+        "body": "Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Señal de test para CCOEY."
       },
       {
+        "ticker": "TTWO",
+        "category": "release",
         "color": "green",
-        "html": "<strong>GTA VI: sin nuevos retrasos.</strong> TTWO confirma campana de marketing este verano. 15 analistas Buy, target consenso $284.80."
+        "date": "2026-04-21",
+        "source": "Take-Two Interactive",
+        "url": "https://www.take2games.com/ir/",
+        "title": "GTA VI: sin nuevos retrasos",
+        "body": "TTWO confirma campaña de marketing este verano. 15 analistas Buy, target consenso $284.80."
       },
       {
+        "ticker": "NTDOY",
+        "category": "announcement",
         "color": "blue",
-        "html": "<strong>Star Fox: anuncio inminente.</strong> Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online."
+        "date": "2026-04-12",
+        "source": "Nintendo",
+        "url": "https://www.nintendo.com/us/news/",
+        "title": "Star Fox: anuncio inminente",
+        "body": "Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online."
       },
       {
+        "ticker": "NTDOY",
+        "category": "release",
         "color": "blue",
-        "html": "<strong>Zelda: OoT Remake confirmado para 2H 2026</strong> cerca de navidades. Remake completo desde cero. Coincide con 40 aniversario de la saga."
+        "date": "2026-04-10",
+        "source": "Nintendo",
+        "url": "https://www.nintendo.com/us/news/",
+        "title": "Zelda: OoT Remake confirmado para 2H 2026",
+        "body": "Cerca de navidades. Remake completo desde cero. Coincide con 40 aniversario de la saga."
       },
       {
+        "ticker": "KNAMF",
+        "category": "financials",
         "color": "yellow",
-        "html": "<strong>Konami: dividendo especial $107.50/accion</strong> (ex-date 30 mar 2026). Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio."
+        "date": "2026-03-30",
+        "source": "Konami",
+        "url": "https://www.konami.com/en/",
+        "title": "Konami: dividendo especial $107.50/acción",
+        "body": "Ex-date 30 mar 2026. Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio."
       },
       {
+        "ticker": "TTWO",
+        "category": "delay",
         "color": "yellow",
-        "html": "<strong>GTA VI retrasado a Nov 2026</strong> (antes mayo). TTWO cayo ~8% pero analistas lo ven como oportunidad."
+        "date": "2026-04-05",
+        "source": "Take-Two Interactive",
+        "url": "https://www.take2games.com/ir/",
+        "title": "GTA VI retrasado a Nov 2026",
+        "body": "Antes mayo. TTWO cayó ~8% pero analistas lo ven como oportunidad."
       },
       {
+        "ticker": "NTDOY",
+        "category": "market",
         "color": "red",
-        "html": "<strong>Nintendo recorta produccion Switch 2</strong> un 33%. Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91."
+        "date": "2026-04-18",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/business/retail-consumer/",
+        "title": "Nintendo recorta producción Switch 2 un 33%",
+        "body": "Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91."
       },
       {
+        "ticker": "UBSFY",
+        "category": "financials",
         "color": "red",
-        "html": "<strong>Ubisoft en crisis:</strong> cancelo 6 juegos, cerrara estudios, perdida operativa ~1B EUR esperada."
+        "date": "2026-04-16",
+        "source": "Ubisoft IR",
+        "url": "https://www.ubisoft.com/en-us/company/about-us/investors",
+        "title": "Ubisoft en crisis",
+        "body": "Canceló 6 juegos, cerrará estudios, pérdida operativa ~1B EUR esperada."
       },
       {
+        "ticker": "SONY",
+        "category": "announcement",
         "color": "blue",
-        "html": "<strong>Sony retira juegos de PC:</strong> Wolverine, Ghost of Yotei, Saros exclusivos PS5."
+        "date": "2026-04-20",
+        "source": "Sony Interactive",
+        "url": "https://www.sie.com/en/corporate/news/",
+        "title": "Sony retira juegos de PC",
+        "body": "Wolverine, Ghost of Yotei, Saros exclusivos PS5."
       },
       {
+        "ticker": "",
+        "category": "market",
         "color": "red",
-        "html": "<strong>Aranceles de Trump:</strong> arancel efectivo EEUU subio al 22.5%, indice gaming cayo 300+ pts en Q1 2026."
+        "date": "2026-04-01",
+        "source": "Financial Times",
+        "url": "https://www.ft.com/markets",
+        "title": "Aranceles de Trump impactan al sector gaming",
+        "body": "Arancel efectivo EEUU subió al 22.5%, índice gaming cayó 300+ pts en Q1 2026."
       },
       {
+        "ticker": "CDR.WA",
+        "category": "financials",
         "color": "green",
-        "html": "<strong>CD Projekt sube objetivos</strong> a 5B PLN (2026-2029), trilogia Witcher 4-5-6. Witcher IV no llega a diciembre 2026."
+        "date": "2026-04-08",
+        "source": "CD Projekt IR",
+        "url": "https://www.cdprojekt.com/en/investors/",
+        "title": "CD Projekt sube objetivos a 5B PLN",
+        "body": "Trilogía Witcher 4-5-6 (2026-2029). Witcher IV no llega a diciembre 2026."
       },
       {
+        "ticker": "CCOEY",
+        "category": "announcement",
         "color": "green",
-        "html": "<strong>Capcom anuncia mas juegos</strong> sin revelar para antes de marzo 2027."
+        "date": "2026-04-11",
+        "source": "Capcom",
+        "url": "https://www.capcom.co.jp/ir/english/",
+        "title": "Capcom anuncia más juegos sin revelar antes de marzo 2027",
+        "body": "Pipeline fuerte: Pragmata, Resident Evil, Monster Hunter, IPs latentes."
       }
     ],
     "en": [
       {
+        "ticker": "CCOEY",
+        "category": "release",
         "color": "green",
-        "html": "<strong>Pragmata launches in 4 days (Apr 17).</strong> First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY."
+        "date": "2026-04-15",
+        "source": "Capcom Investor Relations",
+        "url": "https://www.capcom.co.jp/ir/english/news/",
+        "title": "Pragmata launches in 4 days (Apr 17)",
+        "body": "First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY."
       },
       {
+        "ticker": "TTWO",
+        "category": "release",
         "color": "green",
-        "html": "<strong>GTA VI: no new delays.</strong> TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80."
+        "date": "2026-04-21",
+        "source": "Take-Two Interactive",
+        "url": "https://www.take2games.com/ir/",
+        "title": "GTA VI: no new delays",
+        "body": "TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80."
       },
       {
+        "ticker": "NTDOY",
+        "category": "announcement",
         "color": "blue",
-        "html": "<strong>Star Fox: announcement imminent.</strong> Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer."
+        "date": "2026-04-12",
+        "source": "Nintendo",
+        "url": "https://www.nintendo.com/us/news/",
+        "title": "Star Fox: announcement imminent",
+        "body": "Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer."
       },
       {
+        "ticker": "NTDOY",
+        "category": "release",
         "color": "blue",
-        "html": "<strong>Zelda: OoT Remake confirmed for 2H 2026</strong> near holidays. Complete remake from scratch. Coincides with saga's 40th anniversary."
+        "date": "2026-04-10",
+        "source": "Nintendo",
+        "url": "https://www.nintendo.com/us/news/",
+        "title": "Zelda: OoT Remake confirmed for H2 2026",
+        "body": "Near the holidays. Full remake from scratch. Coincides with 40th anniversary."
       },
       {
+        "ticker": "KNAMF",
+        "category": "financials",
         "color": "yellow",
-        "html": "<strong>Konami: special dividend $107.50/share</strong> (ex-date Mar 30, 2026). KNAMF price adjusted to ~$61.77. Does not reflect business deterioration."
+        "date": "2026-03-30",
+        "source": "Konami",
+        "url": "https://www.konami.com/en/",
+        "title": "Konami: special dividend $107.50/acción",
+        "body": "Ex-date Mar 30, 2026. KNAMF price adjusted to ~$61.77. Does not reflect business deterioration."
       },
       {
+        "ticker": "TTWO",
+        "category": "delay",
         "color": "yellow",
-        "html": "<strong>GTA VI delayed to Nov 2026</strong> (from May). TTWO dropped ~8% but analysts see it as opportunity."
+        "date": "2026-04-05",
+        "source": "Take-Two Interactive",
+        "url": "https://www.take2games.com/ir/",
+        "title": "GTA VI delayed to Nov 2026",
+        "body": "Previously May. TTWO fell ~8% but analysts see opportunity."
       },
       {
+        "ticker": "NTDOY",
+        "category": "market",
         "color": "red",
-        "html": "<strong>Nintendo cuts Switch 2 production</strong> by 33%. Cooling demand in US/Europe. NTDOY recovering from $13.65 to $13.91."
+        "date": "2026-04-18",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/business/retail-consumer/",
+        "title": "Nintendo cuts Switch 2 production by 33%",
+        "body": "US/Europe demand cooling. NTDOY recovering from $13.65 a $13.91."
       },
       {
+        "ticker": "UBSFY",
+        "category": "financials",
         "color": "red",
-        "html": "<strong>Ubisoft in crisis:</strong> cancelled 6 games, closing studios, ~1B EUR operating loss expected."
+        "date": "2026-04-16",
+        "source": "Ubisoft IR",
+        "url": "https://www.ubisoft.com/en-us/company/about-us/investors",
+        "title": "Ubisoft in crisis",
+        "body": "Canceled 6 games, will close studios, operating loss ~1B EUR expected."
       },
       {
+        "ticker": "SONY",
+        "category": "announcement",
         "color": "blue",
-        "html": "<strong>Sony pulling games from PC:</strong> Wolverine, Ghost of Yotei, Saros PS5 exclusives."
+        "date": "2026-04-20",
+        "source": "Sony Interactive",
+        "url": "https://www.sie.com/en/corporate/news/",
+        "title": "Sony pulls games from PC",
+        "body": "Wolverine, Ghost of Yotei, Saros PS5 exclusives."
       },
       {
+        "ticker": "",
+        "category": "market",
         "color": "red",
-        "html": "<strong>Trump tariffs:</strong> effective US tariff rose to 22.5%, gaming index dropped 300+ pts in Q1 2026."
+        "date": "2026-04-01",
+        "source": "Financial Times",
+        "url": "https://www.ft.com/markets",
+        "title": "Trump tariffs hit gaming sector",
+        "body": "US effective tariff rose to 22.5%, gaming index fell 300+ pts in Q1 2026."
       },
       {
+        "ticker": "CDR.WA",
+        "category": "financials",
         "color": "green",
-        "html": "<strong>CD Projekt raises targets</strong> to 5B PLN (2026-2029), Witcher 4-5-6 trilogy. Witcher IV won't make December 2026."
+        "date": "2026-04-08",
+        "source": "CD Projekt IR",
+        "url": "https://www.cdprojekt.com/en/investors/",
+        "title": "CD Projekt raises guidance to 5B PLN",
+        "body": "Witcher 4-5-6 trilogy (2026-2029). Witcher IV won't arrive by December 2026."
       },
       {
+        "ticker": "CCOEY",
+        "category": "announcement",
         "color": "green",
-        "html": "<strong>Capcom announces more games</strong> unannounced before March 2027."
+        "date": "2026-04-11",
+        "source": "Capcom",
+        "url": "https://www.capcom.co.jp/ir/english/",
+        "title": "Capcom announces more unrevealed games before March 2027",
+        "body": "Strong pipeline: Pragmata, Resident Evil, Monster Hunter, dormant IPs."
       }
     ]
   }
