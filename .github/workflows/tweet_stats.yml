@@ -30,7 +30,7 @@ jobs:
 
       - name: Install GA4 deps (only if GA secret is configured)
         run: |
-          if [ -n "${{ secrets.GA_SERVICE_ACCOUNT_JSON }}" ]; then
+          if [ -n "$GA_SERVICE_ACCOUNT_JSON" ]; then
             pip install google-analytics-data
           else
             echo "GA_SERVICE_ACCOUNT_JSON not set — skipping install"
