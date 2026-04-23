@@ -1,8 +1,8 @@
-name: Weekly Tweet Stats
+name: Weekly Stats
 
 on:
   schedule:
-    # Friday 19:00 UTC (21:00 CET) — after the Friday 18:00 UTC weekly summary tweet
+    # Friday 19:00 UTC (21:00 CEST) — after the Friday 18:00 UTC weekly summary tweet
     - cron: '0 19 * * 5'
   workflow_dispatch:  # allow manual runs
 
@@ -17,6 +17,8 @@ jobs:
       X_API_SECRET: ${{ secrets.X_API_SECRET }}
       X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
       X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+      GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+      GA_SERVICE_ACCOUNT_JSON: ${{ secrets.GA_SERVICE_ACCOUNT_JSON }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,13 +28,25 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install GA4 deps (only if GA secret is configured)
+        run: |
+          if [ -n "${{ secrets.GA_SERVICE_ACCOUNT_JSON }}" ]; then
+            pip install google-analytics-data
+          else
+            echo "GA_SERVICE_ACCOUNT_JSON not set — skipping install"
+          fi
+
       - name: Fetch tweet stats snapshot
         run: python scripts/fetch_tweet_stats.py --days 30
 
-      - name: Commit snapshot
+      - name: Fetch GA4 stats snapshot (skips cleanly if secrets missing)
+        run: python scripts/fetch_ga_stats.py --days 7
+
+      - name: Commit snapshots
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/tweet_stats.csv || true
-          git diff --cached --quiet || git commit -m "Weekly tweet stats snapshot $(date -u +%Y-%m-%d)"
+          git add data/ga_stats.csv || true
+          git diff --cached --quiet || git commit -m "Weekly stats snapshot $(date -u +%Y-%m-%d)"
           git push
