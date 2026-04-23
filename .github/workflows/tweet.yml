@@ -2,17 +2,19 @@ name: Auto Tweet
 
 on:
   schedule:
-    # Monday-Friday: 9:00 CET (07:00 UTC)
+    # Monday-Friday: 09:00 CEST (07:00 UTC) — morning
     - cron: '0 7 * * 1-5'
-    # Monday-Friday: 13:00 CET (11:00 UTC)
+    # Monday-Friday: 13:00 CEST (11:00 UTC) — midday (the BEST slot per weekly stats)
     - cron: '0 11 * * 1-5'
-    # Monday-Friday: 18:00 CET (16:00 UTC)
+    # Monday-Friday: 15:00 CEST (13:00 UTC) — midday2 (added 2026-04-23 to amplify best slot)
+    - cron: '0 13 * * 1-5'
+    # Monday-Friday: 18:00 CEST (16:00 UTC) — evening
     - cron: '0 16 * * 1-5'
-    # Saturday: 12:00 CET (10:00 UTC)
+    # Saturday: 12:00 CEST (10:00 UTC)
     - cron: '0 10 * * 6'
-    # Sunday: 17:00 CET (15:00 UTC)
+    # Sunday: 17:00 CEST (15:00 UTC)
     - cron: '0 15 * * 0'
-    # Friday: 20:00 CET (18:00 UTC) — Weekly summary
+    # Friday: 20:00 CEST (18:00 UTC) — Weekly summary
     - cron: '0 18 * * 5'
   workflow_dispatch:
     inputs:
@@ -24,6 +26,7 @@ on:
         options:
           - morning
           - midday
+          - midday2
           - evening
           - weekend
       test_mode:
@@ -63,12 +66,19 @@ jobs:
           else
             HOUR=$(date -u +%H)
             DOW=$(date -u +%u)
+            # Slot mapping (UTC):
+            #   07 UTC → morning (09:00 CEST)
+            #   11 UTC → midday  (13:00 CEST)
+            #   13 UTC → midday2 (15:00 CEST) — added 2026-04-23
+            #   16 UTC → evening (18:00 CEST)
             if [ "$DOW" -ge 6 ]; then
               echo "slot=weekend" >> $GITHUB_OUTPUT
             elif [ "$HOUR" -le 8 ]; then
               echo "slot=morning" >> $GITHUB_OUTPUT
             elif [ "$HOUR" -le 12 ]; then
               echo "slot=midday" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" -le 14 ]; then
+              echo "slot=midday2" >> $GITHUB_OUTPUT
             else
               echo "slot=evening" >> $GITHUB_OUTPUT
             fi

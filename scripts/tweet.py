@@ -336,29 +336,51 @@ def load_recent_tweets(max_days=7):
 
 
 def get_tweet_type(slot, weekday):
-    """Determine tweet type based on slot and day of week."""
+    """
+    Determine tweet type based on slot and day of week.
+
+    Schedule rebalanced on 2026-04-23 using the first weekly stats snapshot.
+    Winners kept and amplified across all slots:
+      - game_analysis       (avg 100 impr)  → KING
+      - gaming_fact         (avg  20 impr)
+      - market_opinion      (avg  19 impr)
+      - game_disappointment (avg  14 impr)
+      - game_hype_check     (avg  12 impr)
+
+    Losers removed (avg ≤ 8 impr): engagement (polls), investment_signal,
+    weekly_recap, platform_story, sector_context, gaming_opinion.
+    platform_highlight kept with reduced frequency (acts as dashboard promo).
+    """
     if slot == 'weekend':
         return random.choice([
-            'gaming_opinion', 'game_hype_check', 'platform_story',
-            'engagement', 'gaming_casual',
+            'game_analysis', 'game_hype_check', 'gaming_fact',
+            'game_disappointment', 'gaming_casual',
         ])
 
     schedule = {
+        # Morning (07:00 UTC / 09:00 CEST) — kick off the day
         'morning': [
-            'market_data', 'game_hype_check', 'market_opinion',
-            'investment_signal', 'weekly_recap',
+            'market_opinion', 'game_hype_check', 'market_opinion',
+            'game_disappointment', 'market_opinion',
         ],
+        # Midday 1 (11:00 UTC / 13:00 CEST) — the BEST slot, load it up
         'midday': [
-            'game_analysis', 'game_disappointment', 'gaming_fact',
-            'sector_context', 'platform_story',
+            'game_analysis', 'gaming_fact', 'game_analysis',
+            'game_disappointment', 'game_analysis',
         ],
+        # Midday 2 (13:00 UTC / 15:00 CEST) — NEW slot, same strong templates
+        'midday2': [
+            'game_analysis', 'market_opinion', 'gaming_fact',
+            'game_analysis', 'market_opinion',
+        ],
+        # Evening (16:00 UTC / 18:00 CEST) — weakest slot, use winners only
         'evening': [
-            'engagement', 'platform_highlight', 'gaming_opinion',
-            'engagement', 'platform_highlight',
+            'game_analysis', 'platform_highlight', 'game_hype_check',
+            'gaming_fact', 'platform_highlight',
         ],
     }
 
-    types = schedule.get(slot, ['market_data'])
+    types = schedule.get(slot, ['game_analysis'])
     return types[weekday] if weekday < len(types) else types[0]
 
 
@@ -641,7 +663,7 @@ def log_tweet(text, tweet_type, slot, tweet_id=None, status='published'):
 
 def main():
     parser = argparse.ArgumentParser(description='Generate and post tweets for @Games_and_Stock')
-    parser.add_argument('--slot', choices=['morning', 'midday', 'evening', 'weekend'], default='morning')
+    parser.add_argument('--slot', choices=['morning', 'midday', 'midday2', 'evening', 'weekend'], default='morning')
     parser.add_argument('--test', action='store_true', help='Generate tweet but do not publish')
     parser.add_argument('--no-chart', action='store_true', help='Skip chart generation')
     args = parser.parse_args()
