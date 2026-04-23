@@ -665,6 +665,85 @@
   .kpi-card .kpi-delta.up   { background: var(--green-dim); color: var(--green); }
   .kpi-card .kpi-delta.down { background: var(--red-dim);   color: var(--red); }
 
+  /* ─── Post-event badges on news cards (Fase 1.5) ─── */
+  .news-card-badges { display: inline-flex; gap: 6px; align-items: center; }
+  .news-card-badge.post {
+    background: var(--accent2);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    font-size: 10px;
+  }
+
+  /* ─── Released games (Post-launch section, Fase 1.5) ─── */
+  .released-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .released-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .released-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+  .released-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .released-card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .released-card-company {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .released-card-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .released-stat { display: flex; flex-direction: column; gap: 2px; }
+  .released-stat-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .released-stat-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .released-empty {
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 20px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+  }
+
   /* Responsive */
   @media (max-width: 1200px) {
     .kpi-grid { grid-template-columns: repeat(3, 1fr); }
@@ -909,6 +988,14 @@
     <div class="rule-card"><div class="rule-num">02</div><div class="rule-title">Senal de Salida</div><div class="rule-desc">Si el hype explota en las ultimas 2 semanas (de 10 a 100), demasiado tarde para entrada PRE-lanzamiento.</div></div>
     <div class="rule-card"><div class="rule-num">03</div><div class="rule-title">Empresa Optima</div><div class="rule-desc">Mid-cap, donde el juego represente >30% de ingresos futuros. Evitar gigantes donde el impacto queda diluido.</div></div>
     <div class="rule-card"><div class="rule-num">04</div><div class="rule-title">Factor Cyberpunk</div><div class="rule-desc">Hype extremo + gap expectativas/realidad = crash. No confiar ciegamente en la aceleracion de Trends.</div></div>
+  </div>
+</div>
+
+<!-- YA LANZADOS (Post-launch tracker, Fase 1.5) -->
+<div class="section">
+  <div class="section-title"><span class="icon">&#127918;</span> Ya Lanzados &mdash; &Uacute;ltimos 90 d&iacute;as</div>
+  <div id="released-list" class="released-grid" data-lang="es">
+    <!-- filled by renderReleased() in JS -->
   </div>
 </div>
 
@@ -1163,15 +1250,39 @@
     }[c]));
   }
 
+  function isNewsStale(n, now) {
+    // A pre_event news item is "stale" if its event_date has passed.
+    if (n.lifecycle !== 'pre_event') return false;
+    if (!n.event_date) return false;
+    const eventDate = new Date(n.event_date + 'T00:00:00Z');
+    if (isNaN(eventDate)) return false;
+    return eventDate < now;
+  }
+
+  function badgeForNews(n, now) {
+    // Returns an optional extra badge for post_event items to visually mark them.
+    if (n.lifecycle !== 'post_event' || !n.event_date) return '';
+    const d = new Date(n.event_date + 'T00:00:00Z');
+    const days = Math.floor((now - d) / (1000 * 60 * 60 * 24));
+    if (isNaN(days)) return '';
+    const label = LANG === 'es' ? `HACE ${days}D` : `${days}D AGO`;
+    return `<span class="news-card-badge post">${label}</span>`;
+  }
+
   function renderNews(data) {
     const list = document.getElementById('news-list');
     if (!list) return;
-    const items = (data.news && data.news[LANG]) || [];
+    const now = new Date();
+    const all = (data.news && data.news[LANG]) || [];
+    // Filter out stale pre_event items (event date has passed but news wasn't updated)
+    const items = all.filter(n => !isNewsStale(n, now));
     const M = MESSAGES[LANG];
+
     list.innerHTML = items.map((n, idx) => {
       const color = n.color || 'blue';
       const ticker = n.ticker || '';
       const tickerBadge = ticker ? `<span class="news-card-ticker">$${escapeHtml(ticker)}</span>` : '';
+      const postBadge = badgeForNews(n, now);
       const link = n.url
         ? `<a href="${escapeHtml(n.url)}" target="_blank" rel="noopener noreferrer" class="news-card-link"
               data-ticker="${escapeHtml(ticker)}" data-source="${escapeHtml(n.source||'')}" data-idx="${idx}">${M.readMore}&nbsp;</a>`
@@ -1180,7 +1291,7 @@
         <div class="news-card ${color}">
           <div class="news-card-head">
             <span class="news-card-source">${escapeHtml(n.source || '')} &middot; ${formatDate(n.date)}</span>
-            ${tickerBadge}
+            <span class="news-card-badges">${postBadge}${tickerBadge}</span>
           </div>
           <div class="news-card-title">${escapeHtml(n.title || '')}</div>
           <div class="news-card-body">${escapeHtml(n.body || '')}</div>
@@ -1202,6 +1313,83 @@
     });
   }
 
+  // ─── NEW: Post-launch analysis section ───
+  // Lists all tracked games whose release date has passed (up to 90 days ago)
+  // with days-since-launch + current ticker price when available.
+  function renderReleased(data) {
+    const el = document.getElementById('released-list');
+    if (!el) return;
+    const tiers = ['tier1', 'tier2', 'tier3'];
+    const now = new Date();
+    const WINDOW_DAYS = 90;
+
+    const analystByTicker = {};
+    (data.analysts || []).forEach(a => { analystByTicker[a.ticker] = a; });
+
+    const released = [];
+    for (const tier of tiers) {
+      const games = (data.games && data.games[tier]) || [];
+      for (const g of games) {
+        const rel = typeof g.release === 'object' ? g.release[LANG] : g.release;
+        if (!rel) continue;
+        const dayDelta = daysUntil(rel);  // null if unparseable, positive = future, negative = past
+        if (dayDelta === null || dayDelta === undefined) continue;  // skip vague dates like "2027+"
+        const daysSince = -dayDelta;
+        if (daysSince < 0) continue;  // not launched yet
+        if (daysSince > WINDOW_DAYS) continue;  // too old, drop
+        const ticker = g.ticker || '';
+        const analyst = analystByTicker[ticker];
+        released.push({
+          name: g.name,
+          company: g.company,
+          ticker,
+          release: rel,
+          daysSince,
+          tier,
+          currentPrice: analyst ? analyst.price : null,
+        });
+      }
+    }
+
+    if (released.length === 0) {
+      el.innerHTML = `<div class="released-empty">${LANG === 'es' ? 'Ningún juego de la lista lanzado en los últimos 90 días.' : 'No games from the list launched in the last 90 days.'}</div>`;
+      return;
+    }
+
+    // Sort most recent first
+    released.sort((a, b) => a.daysSince - b.daysSince);
+
+    const labelDays = (d) => LANG === 'es' ? (d === 0 ? 'Hoy' : `Hace ${d} día${d>1?'s':''}`) : (d === 0 ? 'Today' : `${d} day${d>1?'s':''} ago`);
+    const labelPrice = LANG === 'es' ? 'Precio hoy' : 'Price today';
+    const labelTier = { tier1: 'TIER 1', tier2: 'TIER 2', tier3: 'TIER 3' };
+
+    el.innerHTML = released.map(r => `
+      <div class="released-card">
+        <div class="released-card-head">
+          <div>
+            <div class="released-card-name">${escapeHtml(r.name)}</div>
+            <div class="released-card-company">${escapeHtml(r.company)}</div>
+          </div>
+          <span class="tier-badge ${r.tier.replace('tier','tier-')}">${labelTier[r.tier]}</span>
+        </div>
+        <div class="released-card-stats">
+          <div class="released-stat">
+            <span class="released-stat-label">${LANG === 'es' ? 'Lanzamiento' : 'Release'}</span>
+            <span class="released-stat-value">${escapeHtml(r.release)}</span>
+          </div>
+          <div class="released-stat">
+            <span class="released-stat-label">${LANG === 'es' ? 'Desde entonces' : 'Since then'}</span>
+            <span class="released-stat-value">${labelDays(r.daysSince)}</span>
+          </div>
+          ${r.ticker ? `<div class="released-stat">
+            <span class="released-stat-label">${r.ticker} ${labelPrice.toLowerCase()}</span>
+            <span class="released-stat-value">${escapeHtml(r.currentPrice || '—')}</span>
+          </div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
   // ─── Init ───
   document.addEventListener('DOMContentLoaded', async () => {
     // Banner state
@@ -1217,6 +1405,7 @@
       const data = await loadData();
       renderKpis(data);
       renderNews(data);
+      renderReleased(data);
     } catch (err) {
       console.warn('Dashboard data load failed:', err);
     }

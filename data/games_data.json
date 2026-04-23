@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~286.3 PLN",
+      "price": "~286.2 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -727,18 +727,22 @@
     "es": [
       {
         "ticker": "CCOEY",
-        "category": "release",
-        "color": "green",
-        "date": "2026-04-15",
-        "source": "Capcom Investor Relations",
+        "category": "post_launch",
+        "color": "blue",
+        "lifecycle": "post_event",
+        "event_date": "2026-04-17",
+        "date": "2026-04-17",
+        "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanza en 4 días (17 abr)",
-        "body": "Primera IP nueva de Capcom desde Dragon's Dogma. PS5/Xbox/Switch 2/PC. Señal de test para CCOEY."
+        "title": "Pragmata lanzó hace 6 días · CCOEY estable",
+        "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
         "ticker": "TTWO",
-        "category": "release",
+        "category": "outlook",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": "2026-11-19",
         "date": "2026-04-21",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
@@ -749,6 +753,8 @@
         "ticker": "NTDOY",
         "category": "announcement",
         "color": "blue",
+        "lifecycle": "pre_event",
+        "event_date": "2026-04-30",
         "date": "2026-04-12",
         "source": "Nintendo",
         "url": "https://www.nintendo.com/us/news/",
@@ -759,6 +765,8 @@
         "ticker": "NTDOY",
         "category": "release",
         "color": "blue",
+        "lifecycle": "pre_event",
+        "event_date": "2026-11-15",
         "date": "2026-04-10",
         "source": "Nintendo",
         "url": "https://www.nintendo.com/us/news/",
@@ -769,16 +777,20 @@
         "ticker": "KNAMF",
         "category": "financials",
         "color": "yellow",
+        "lifecycle": "evergreen",
+        "event_date": "2026-03-30",
         "date": "2026-03-30",
         "source": "Konami",
         "url": "https://www.konami.com/en/",
         "title": "Konami: dividendo especial $107.50/acción",
-        "body": "Ex-date 30 mar 2026. Precio KNAMF ajustado a ~$61.77. No refleja deterioro del negocio."
+        "body": "Ex-date 30 mar 2026. Precio KNAMF ajustado a ~$61.77 tras el dividendo. No refleja deterioro del negocio."
       },
       {
         "ticker": "TTWO",
         "category": "delay",
         "color": "yellow",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-05",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
@@ -789,16 +801,20 @@
         "ticker": "NTDOY",
         "category": "market",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-18",
         "source": "Reuters",
         "url": "https://www.reuters.com/business/retail-consumer/",
         "title": "Nintendo recorta producción Switch 2 un 33%",
-        "body": "Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65 a $13.91."
+        "body": "Enfriamiento demanda EEUU/Europa. NTDOY recuperando desde $13.65."
       },
       {
         "ticker": "UBSFY",
         "category": "financials",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-16",
         "source": "Ubisoft IR",
         "url": "https://www.ubisoft.com/en-us/company/about-us/investors",
@@ -809,6 +825,8 @@
         "ticker": "SONY",
         "category": "announcement",
         "color": "blue",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-20",
         "source": "Sony Interactive",
         "url": "https://www.sie.com/en/corporate/news/",
@@ -819,6 +837,8 @@
         "ticker": "",
         "category": "market",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-01",
         "source": "Financial Times",
         "url": "https://www.ft.com/markets",
@@ -829,6 +849,8 @@
         "ticker": "CDR.WA",
         "category": "financials",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-08",
         "source": "CD Projekt IR",
         "url": "https://www.cdprojekt.com/en/investors/",
@@ -839,6 +861,8 @@
         "ticker": "CCOEY",
         "category": "announcement",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": "2027-03-31",
         "date": "2026-04-11",
         "source": "Capcom",
         "url": "https://www.capcom.co.jp/ir/english/",
@@ -849,18 +873,22 @@
     "en": [
       {
         "ticker": "CCOEY",
-        "category": "release",
-        "color": "green",
-        "date": "2026-04-15",
-        "source": "Capcom Investor Relations",
+        "category": "post_launch",
+        "color": "blue",
+        "lifecycle": "post_event",
+        "event_date": "2026-04-17",
+        "date": "2026-04-17",
+        "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launches in 4 days (Apr 17)",
-        "body": "First new Capcom IP since Dragon's Dogma. PS5/Xbox/Switch 2/PC. Test signal for CCOEY."
+        "title": "Pragmata launched 6 days ago · CCOEY flat",
+        "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
         "ticker": "TTWO",
-        "category": "release",
+        "category": "outlook",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": "2026-11-19",
         "date": "2026-04-21",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
@@ -871,6 +899,8 @@
         "ticker": "NTDOY",
         "category": "announcement",
         "color": "blue",
+        "lifecycle": "pre_event",
+        "event_date": "2026-04-30",
         "date": "2026-04-12",
         "source": "Nintendo",
         "url": "https://www.nintendo.com/us/news/",
@@ -881,46 +911,56 @@
         "ticker": "NTDOY",
         "category": "release",
         "color": "blue",
+        "lifecycle": "pre_event",
+        "event_date": "2026-11-15",
         "date": "2026-04-10",
         "source": "Nintendo",
         "url": "https://www.nintendo.com/us/news/",
         "title": "Zelda: OoT Remake confirmed for H2 2026",
-        "body": "Near the holidays. Full remake from scratch. Coincides with 40th anniversary."
+        "body": "Near the holidays. Full remake from scratch. Coincides with saga's 40th anniversary."
       },
       {
         "ticker": "KNAMF",
         "category": "financials",
         "color": "yellow",
+        "lifecycle": "evergreen",
+        "event_date": "2026-03-30",
         "date": "2026-03-30",
         "source": "Konami",
         "url": "https://www.konami.com/en/",
-        "title": "Konami: special dividend $107.50/acción",
-        "body": "Ex-date Mar 30, 2026. KNAMF price adjusted to ~$61.77. Does not reflect business deterioration."
+        "title": "Konami: special dividend $107.50/share",
+        "body": "Ex-date Mar 30, 2026. KNAMF price adjusted to ~$61.77 after the dividend. Does not reflect business deterioration."
       },
       {
         "ticker": "TTWO",
         "category": "delay",
         "color": "yellow",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-05",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
         "title": "GTA VI delayed to Nov 2026",
-        "body": "Previously May. TTWO fell ~8% but analysts see opportunity."
+        "body": "Previously May. TTWO fell ~8% but analysts see it as opportunity."
       },
       {
         "ticker": "NTDOY",
         "category": "market",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-18",
         "source": "Reuters",
         "url": "https://www.reuters.com/business/retail-consumer/",
         "title": "Nintendo cuts Switch 2 production by 33%",
-        "body": "US/Europe demand cooling. NTDOY recovering from $13.65 a $13.91."
+        "body": "US/Europe demand cooling. NTDOY recovering from $13.65."
       },
       {
         "ticker": "UBSFY",
         "category": "financials",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-16",
         "source": "Ubisoft IR",
         "url": "https://www.ubisoft.com/en-us/company/about-us/investors",
@@ -931,6 +971,8 @@
         "ticker": "SONY",
         "category": "announcement",
         "color": "blue",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-20",
         "source": "Sony Interactive",
         "url": "https://www.sie.com/en/corporate/news/",
@@ -941,6 +983,8 @@
         "ticker": "",
         "category": "market",
         "color": "red",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-01",
         "source": "Financial Times",
         "url": "https://www.ft.com/markets",
@@ -951,6 +995,8 @@
         "ticker": "CDR.WA",
         "category": "financials",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": null,
         "date": "2026-04-08",
         "source": "CD Projekt IR",
         "url": "https://www.cdprojekt.com/en/investors/",
@@ -961,11 +1007,69 @@
         "ticker": "CCOEY",
         "category": "announcement",
         "color": "green",
+        "lifecycle": "evergreen",
+        "event_date": "2027-03-31",
         "date": "2026-04-11",
         "source": "Capcom",
         "url": "https://www.capcom.co.jp/ir/english/",
         "title": "Capcom announces more unrevealed games before March 2027",
         "body": "Strong pipeline: Pragmata, Resident Evil, Monster Hunter, dormant IPs."
+      }
+    ]
+  },
+  "price_history": {
+    "TTWO": [
+      {
+        "date": "2026-04-23",
+        "price": 218.19
+      }
+    ],
+    "CCOEY": [
+      {
+        "date": "2026-04-23",
+        "price": 10.97
+      }
+    ],
+    "KNAMF": [
+      {
+        "date": "2026-04-23",
+        "price": 124.51
+      }
+    ],
+    "NTDOY": [
+      {
+        "date": "2026-04-23",
+        "price": 13.22
+      }
+    ],
+    "SQNXF": [
+      {
+        "date": "2026-04-23",
+        "price": 16.0
+      }
+    ],
+    "UBSFY": [
+      {
+        "date": "2026-04-23",
+        "price": 1.16
+      }
+    ],
+    "SONY": [
+      {
+        "date": "2026-04-23",
+        "price": 20.84
+      }
+    ],
+    "MSFT": [
+      {
+        "date": "2026-04-23",
+        "price": 432.92
+      }
+    ],
+    "CDR.WA": [
+      {
+        "date": "2026-04-23",
+        "price": 286.2
       }
     ]
   }

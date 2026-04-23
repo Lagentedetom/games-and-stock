@@ -56,7 +56,7 @@ def fetch_prices():
 
 
 def update_data(prices):
-    """Update the JSON data file with fresh prices."""
+    """Update the JSON data file with fresh prices + append to price_history."""
     with open(DATA_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
@@ -72,7 +72,25 @@ def update_data(prices):
             else:
                 analyst['price'] = f"~${prices[ticker]}"
 
+    # Append to price_history: { ticker: [{date, price}, ...] }
+    # This is additive — each day gets one entry per ticker. Allows computing
+    # 7d/30d/90d deltas in the future without extra API calls.
+    history = data.get('price_history', {})
+    MAX_DAYS = 400  # ~13 months; enough for yearly comparisons
+    for ticker, price in prices.items():
+        series = history.setdefault(ticker, [])
+        # If today's entry already exists (re-run same day), replace it
+        if series and series[-1].get('date') == today:
+            series[-1] = {'date': today, 'price': price}
+        else:
+            series.append({'date': today, 'price': price})
+        # Cap the series
+        if len(series) > MAX_DAYS:
+            history[ticker] = series[-MAX_DAYS:]
+    data['price_history'] = history
+
     print(f"\nData updated for {today}")
+    print(f"Price history: {sum(len(v) for v in history.values())} total entries across {len(history)} tickers")
 
     with open(DATA_PATH, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)

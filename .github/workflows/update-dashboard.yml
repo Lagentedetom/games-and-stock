@@ -26,10 +26,13 @@ jobs:
       - name: Install dependencies
         run: pip install requests yfinance
 
-      - name: Update stock data
+      - name: Update stock data (prices + price_history)
         run: python scripts/update_data.py
 
-      - name: Regenerate HTML dashboards
+      - name: Refresh news (purge stale pre_event, auto-generate post_launch)
+        run: python scripts/refresh_news.py
+
+      - name: Regenerate HTML dashboards (dates + analyst prices)
         run: python scripts/generate_html.py
 
       - name: Commit and push changes
