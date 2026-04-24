@@ -399,6 +399,67 @@
   .kpi-card .kpi-delta.up   { background: var(--green-dim); color: var(--green); }
   .kpi-card .kpi-delta.down { background: var(--red-dim);   color: var(--red); }
 
+  /* Search bar (Phase 2A, 24-Apr-2026) */
+  .search-wrap { position: relative; margin: 0 0 24px 0; max-width: 640px; }
+  .search-input {
+    width: 100%;
+    padding: 14px 18px 14px 44px;
+    font-family: inherit; font-size: 15px;
+    border: 1px solid var(--border); border-radius: 12px;
+    background: var(--surface); color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+  }
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(108,92,231,0.12);
+  }
+  .search-wrap:before {
+    content: "\01F50D";
+    position: absolute; left: 16px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px; pointer-events: none; opacity: 0.6;
+  }
+  .search-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    max-height: 400px; overflow-y: auto; z-index: 50; display: none;
+  }
+  .search-results.open { display: block; }
+  .search-result {
+    padding: 10px 16px; display: flex;
+    justify-content: space-between; align-items: center; gap: 12px;
+    cursor: pointer; border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .search-result:last-child { border-bottom: none; }
+  .search-result:hover, .search-result.active { background: var(--surface2); }
+  .search-result-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .search-result-name {
+    font-size: 14px; font-weight: 600; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .search-result-meta { font-size: 11px; color: var(--text-dim); }
+  .search-result-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .search-result-ticker {
+    background: var(--surface2); color: var(--accent2);
+    padding: 2px 8px; border-radius: 4px; font-size: 11px;
+    font-weight: 700; letter-spacing: 0.3px;
+  }
+  .search-result-kind {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .search-result-kind.game    { background: rgba(108,92,231,0.12); color: var(--accent2); }
+  .search-result-kind.company { background: rgba(33,150,243,0.12); color: var(--blue); }
+  .search-result-kind.external{ background: rgba(230,126,34,0.12); color: var(--orange); }
+  .search-empty { padding: 20px 16px; font-size: 13px; color: var(--text-dim); text-align: center; }
+  .search-highlight { animation: searchFlash 2s ease-in-out; }
+  @keyframes searchFlash {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(108,92,231,0); }
+    30%      { box-shadow: 0 0 0 8px rgba(108,92,231,0.35); }
+  }
+
   /* Post-event badges on news cards (Phase 1.5) */
   .news-card-badges { display: inline-flex; gap: 6px; align-items: center; }
   .news-card-badge.post {
@@ -494,6 +555,15 @@
   </div>
   <button type="button" class="newsletter-banner-cta" onclick="goToNewsletter()">Subscribe</button>
   <button type="button" class="newsletter-banner-close" aria-label="Close" onclick="dismissNewsletterBanner()">&times;</button>
+</div>
+
+<!-- SEARCH BAR (Phase 2A) -->
+<div class="search-wrap">
+  <input id="search-input" class="search-input" type="search"
+         placeholder="Search a game, company or ticker (e.g. GTA, Capcom, NTDOY)&hellip;"
+         autocomplete="off"
+         aria-label="Search game, company or ticker">
+  <div id="search-results" class="search-results" role="listbox"></div>
 </div>
 
 <!-- HEADER -->
@@ -1047,10 +1117,203 @@
       renderKpis(data);
       renderNews(data);
       renderReleased(data);
+      initSearch(data);
     } catch (err) {
       console.warn('Dashboard data load failed:', err);
     }
   });
+
+  // ═══ Phase 2A: Global search ═══
+  const EXTERNAL_CATALOG = [
+    { ticker: 'EA',     name: 'Electronic Arts',        aliases: ['EA Sports FC', 'Madden', 'FIFA', 'Battlefield', 'Apex Legends', 'The Sims'] },
+    { ticker: 'RBLX',   name: 'Roblox',                 aliases: ['Roblox Corporation'] },
+    { ticker: 'U',      name: 'Unity Technologies',     aliases: ['Unity engine', 'Unity3D'] },
+    { ticker: 'TCEHY',  name: 'Tencent Holdings',       aliases: ['Tencent', 'Honor of Kings', 'League of Legends', 'PUBG Mobile'] },
+    { ticker: 'NTES',   name: 'NetEase',                aliases: ['NetEase Games', 'Diablo Immortal', 'Naraka'] },
+    { ticker: 'NCBDY',  name: 'Bandai Namco',           aliases: ['Bandai', 'Namco', 'Tekken', 'Dragon Ball', 'Elden Ring publisher'] },
+    { ticker: 'NEXOY',  name: 'Nexon',                  aliases: ['Nexon Co', 'MapleStory', 'Dungeon Fighter'] },
+    { ticker: 'PLTK',   name: 'Playtika',               aliases: ['Playtika Holding'] },
+    { ticker: 'SEGNY',  name: 'Sega Sammy Holdings',    aliases: ['Sega', 'Sonic', 'Yakuza', 'Persona', 'Atlus', 'Sega Sammy'] },
+    { ticker: 'GRVY',   name: 'Gravity',                aliases: ['Ragnarok Online'] },
+    { ticker: 'WBD',    name: 'Warner Bros Discovery',  aliases: ['Warner Bros Games', 'Hogwarts Legacy', 'Mortal Kombat', 'WB Games'] },
+    { ticker: 'AMZN',   name: 'Amazon',                 aliases: ['Amazon Games', 'New World', 'Twitch', 'Luna'] },
+    { ticker: 'GOOGL',  name: 'Alphabet (Google)',      aliases: ['Google', 'Google Play', 'YouTube Gaming', 'Alphabet'] },
+    { ticker: 'AAPL',   name: 'Apple',                  aliases: ['App Store', 'Apple Arcade', 'iOS gaming'] },
+    { ticker: 'NFLX',   name: 'Netflix',                aliases: ['Netflix Games'] },
+  ];
+
+  function buildSearchIndex(data) {
+    const idx = [];
+    for (const tier of ['tier1','tier2','tier3']) {
+      for (const g of (data.games?.[tier] || [])) {
+        const ticker = g.ticker && g.ticker !== '—' ? g.ticker : null;
+        idx.push({
+          kind: 'game',
+          label: g.name || '',
+          meta: (g.company || '') + (ticker ? ' · $' + ticker : ''),
+          ticker,
+          searchable: [g.name, g.company, g.ticker, tier].join(' ').toLowerCase(),
+        });
+      }
+    }
+    for (const a of (data.analysts || [])) {
+      idx.push({
+        kind: 'company',
+        label: a.company,
+        meta: (a.rating ? a.rating + ' · ' : '') + (a.price || ''),
+        ticker: a.ticker,
+        searchable: [a.company, a.ticker, a.rating, 'company'].join(' ').toLowerCase(),
+      });
+    }
+    for (const ext of EXTERNAL_CATALOG) {
+      idx.push({
+        kind: 'external',
+        label: ext.name,
+        meta: 'Open in Yahoo Finance',
+        ticker: ext.ticker,
+        external: true,
+        searchable: [ext.name, ext.ticker, ...(ext.aliases||[])].join(' ').toLowerCase(),
+      });
+    }
+    return idx;
+  }
+
+  function scoreMatch(item, query) {
+    const q = query.toLowerCase().trim();
+    if (!q) return -1;
+    if (item.ticker && item.ticker.toLowerCase() === q) return 100;
+    if (item.label.toLowerCase() === q) return 90;
+    if (item.label.toLowerCase().startsWith(q)) return 80;
+    if (item.ticker && item.ticker.toLowerCase().startsWith(q)) return 70;
+    if (item.label.toLowerCase().includes(q)) return 60;
+    if (item.searchable.includes(q)) return 30;
+    return -1;
+  }
+
+  function findDomTarget(item) {
+    if (item.ticker) {
+      const tick = Array.from(document.querySelectorAll('.ticker'))
+        .find(el => el.textContent.trim() === item.ticker);
+      if (tick) {
+        const row = tick.closest('tr');
+        if (row) return row;
+      }
+    }
+    if (item.kind === 'game') {
+      const match = Array.from(document.querySelectorAll('.game-name'))
+        .find(el => el.textContent.trim() === item.label);
+      if (match) return match.closest('.game-card');
+    }
+    return null;
+  }
+
+  function renderSearchResults(matches, query) {
+    const box = document.getElementById('search-results');
+    if (!box) return;
+    if (!query) { box.classList.remove('open'); box.innerHTML = ''; return; }
+    if (matches.length === 0) {
+      box.innerHTML = `<div class="search-empty">Not in our catalog. Try another term.</div>`;
+      box.classList.add('open');
+      return;
+    }
+    const kindLabel = { game: 'Game', company: 'Company', external: 'External' };
+    box.innerHTML = matches.map((m, i) => `
+      <div class="search-result" data-idx="${i}" role="option">
+        <div class="search-result-main">
+          <div class="search-result-name">${escapeHtml(m.label)}</div>
+          <div class="search-result-meta">${escapeHtml(m.meta || '')}</div>
+        </div>
+        <div class="search-result-right">
+          ${m.ticker ? `<span class="search-result-ticker">$${escapeHtml(m.ticker)}</span>` : ''}
+          <span class="search-result-kind ${m.kind}">${kindLabel[m.kind] || m.kind}</span>
+        </div>
+      </div>
+    `).join('');
+    box.classList.add('open');
+  }
+
+  function jumpToItem(item, query) {
+    track('search_select', {
+      query, selected_ticker: item.ticker || '', kind: item.kind, lang: LANG,
+    });
+    if (item.external) {
+      window.open(`https://finance.yahoo.com/quote/${encodeURIComponent(item.ticker)}`, '_blank', 'noopener');
+      return;
+    }
+    const target = findDomTarget(item);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.remove('search-highlight');
+      void target.offsetWidth;
+      target.classList.add('search-highlight');
+      setTimeout(() => target.classList.remove('search-highlight'), 2100);
+    }
+  }
+
+  function initSearch(data) {
+    const input = document.getElementById('search-input');
+    const box = document.getElementById('search-results');
+    if (!input || !box) return;
+    const index = buildSearchIndex(data);
+    let current = [];
+    let activeIdx = -1;
+
+    const doSearch = () => {
+      const q = input.value.trim();
+      if (q.length < 1) { current = []; renderSearchResults([], ''); return; }
+      const scored = index
+        .map(it => ({ it, score: scoreMatch(it, q) }))
+        .filter(x => x.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 8)
+        .map(x => x.it);
+      current = scored;
+      activeIdx = scored.length > 0 ? 0 : -1;
+      renderSearchResults(scored, q);
+      if (q.length >= 2) {
+        track('search_query', { query: q, matches: scored.length, lang: LANG });
+      }
+    };
+
+    const highlightActive = () => {
+      box.querySelectorAll('.search-result').forEach((el, i) => {
+        el.classList.toggle('active', i === activeIdx);
+      });
+    };
+
+    input.addEventListener('input', doSearch);
+    input.addEventListener('focus', doSearch);
+    input.addEventListener('keydown', ev => {
+      if (ev.key === 'ArrowDown') {
+        ev.preventDefault();
+        if (current.length) { activeIdx = (activeIdx + 1) % current.length; highlightActive(); }
+      } else if (ev.key === 'ArrowUp') {
+        ev.preventDefault();
+        if (current.length) { activeIdx = (activeIdx - 1 + current.length) % current.length; highlightActive(); }
+      } else if (ev.key === 'Enter') {
+        ev.preventDefault();
+        if (activeIdx >= 0 && current[activeIdx]) {
+          jumpToItem(current[activeIdx], input.value.trim());
+          box.classList.remove('open');
+          input.blur();
+        }
+      } else if (ev.key === 'Escape') {
+        box.classList.remove('open'); input.blur();
+      }
+    });
+    box.addEventListener('mousedown', ev => {
+      const el = ev.target.closest('.search-result');
+      if (!el) return;
+      const i = parseInt(el.getAttribute('data-idx'), 10);
+      if (current[i]) {
+        jumpToItem(current[i], input.value.trim());
+        box.classList.remove('open');
+      }
+    });
+    document.addEventListener('click', ev => {
+      if (!ev.target.closest('.search-wrap')) box.classList.remove('open');
+    });
+  }
 })();
 </script>
 
