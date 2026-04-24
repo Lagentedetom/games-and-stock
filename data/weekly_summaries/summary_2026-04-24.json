@@ -1,0 +1,23 @@
+{
+  "week_ending": "2026-04-24",
+  "total_tweets": 13,
+  "by_type": {
+    "platform_story": 1,
+    "gaming_opinion": 1,
+    "game_analysis": 2,
+    "engagement": 1,
+    "game_hype_check": 1,
+    "game_disappointment": 2,
+    "platform_highlight": 2,
+    "market_opinion": 2,
+    "gaming_fact": 1
+  },
+  "by_slot": {
+    "weekend": 2,
+    "midday": 4,
+    "evening": 3,
+    "morning": 3,
+    "midday2": 1
+  },
+  "top_tickers": {}
+}
