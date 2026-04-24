@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~282.7 PLN",
+      "price": "~279.6 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -1105,7 +1105,7 @@
       },
       {
         "date": "2026-04-24",
-        "price": 282.7
+        "price": 279.6
       }
     ]
   }
