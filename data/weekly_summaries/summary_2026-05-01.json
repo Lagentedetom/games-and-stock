@@ -1,0 +1,18 @@
+{
+  "week_ending": "2026-05-01",
+  "total_tweets": 3,
+  "by_type": {
+    "game_hype_check": 1,
+    "platform_highlight": 1,
+    "market_opinion": 1
+  },
+  "by_slot": {
+    "weekend": 1,
+    "evening": 1,
+    "midday2": 1
+  },
+  "top_tickers": {
+    "NTDOY": 2,
+    "TTWO": 1
+  }
+}
