@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-01",
+  "last_updated": "2026-05-02",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -19,7 +19,7 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$213.76",
+      "price": "~$216.03",
       "target": "$284.80",
       "upside": "+44%",
       "upside_class": "green",
@@ -34,7 +34,7 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$10.57",
+      "price": "~$10.61",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
@@ -65,7 +65,7 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$12.17",
+      "price": "~$12.06",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
@@ -110,7 +110,7 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "~$1.11",
+      "price": "~$1.12",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
@@ -734,7 +734,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 14 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 15 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -748,18 +748,6 @@
         "url": "https://www.take2games.com/ir/",
         "title": "GTA VI: sin nuevos retrasos",
         "body": "TTWO confirma campaña de marketing este verano. 15 analistas Buy, target consenso $284.80."
-      },
-      {
-        "ticker": "NTDOY",
-        "category": "announcement",
-        "color": "blue",
-        "lifecycle": "pre_event",
-        "event_date": "2026-04-30",
-        "date": "2026-04-12",
-        "source": "Nintendo",
-        "url": "https://www.nintendo.com/us/news/",
-        "title": "Star Fox: anuncio inminente",
-        "body": "Insider NateTheHate confirma anuncio en abril 2026. Lanzamiento verano 2026 con multijugador online."
       },
       {
         "ticker": "NTDOY",
@@ -880,7 +868,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 14 days ago · CCOEY flat",
+        "title": "Pragmata launched 15 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -894,18 +882,6 @@
         "url": "https://www.take2games.com/ir/",
         "title": "GTA VI: no new delays",
         "body": "TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80."
-      },
-      {
-        "ticker": "NTDOY",
-        "category": "announcement",
-        "color": "blue",
-        "lifecycle": "pre_event",
-        "event_date": "2026-04-30",
-        "date": "2026-04-12",
-        "source": "Nintendo",
-        "url": "https://www.nintendo.com/us/news/",
-        "title": "Star Fox: announcement imminent",
-        "body": "Insider NateTheHate confirms April 2026 announcement. Summer 2026 launch with online multiplayer."
       },
       {
         "ticker": "NTDOY",
@@ -1054,6 +1030,10 @@
       {
         "date": "2026-05-01",
         "price": 213.76
+      },
+      {
+        "date": "2026-05-02",
+        "price": 216.03
       }
     ],
     "CCOEY": [
@@ -1092,6 +1072,10 @@
       {
         "date": "2026-05-01",
         "price": 10.57
+      },
+      {
+        "date": "2026-05-02",
+        "price": 10.61
       }
     ],
     "KNAMF": [
@@ -1129,6 +1113,10 @@
       },
       {
         "date": "2026-05-01",
+        "price": 124.51
+      },
+      {
+        "date": "2026-05-02",
         "price": 124.51
       }
     ],
@@ -1168,6 +1156,10 @@
       {
         "date": "2026-05-01",
         "price": 12.17
+      },
+      {
+        "date": "2026-05-02",
+        "price": 12.06
       }
     ],
     "SQNXF": [
@@ -1205,6 +1197,10 @@
       },
       {
         "date": "2026-05-01",
+        "price": 16.0
+      },
+      {
+        "date": "2026-05-02",
         "price": 16.0
       }
     ],
@@ -1244,6 +1240,10 @@
       {
         "date": "2026-05-01",
         "price": 1.11
+      },
+      {
+        "date": "2026-05-02",
+        "price": 1.12
       }
     ],
     "SONY": [
@@ -1282,6 +1282,10 @@
       {
         "date": "2026-05-01",
         "price": 20.09
+      },
+      {
+        "date": "2026-05-02",
+        "price": 19.78
       }
     ],
     "MSFT": [
@@ -1320,6 +1324,10 @@
       {
         "date": "2026-05-01",
         "price": 407.78
+      },
+      {
+        "date": "2026-05-02",
+        "price": 414.44
       }
     ],
     "CDR.WA": [
@@ -1357,6 +1365,10 @@
       },
       {
         "date": "2026-05-01",
+        "price": 275.6
+      },
+      {
+        "date": "2026-05-02",
         "price": 275.6
       }
     ]
