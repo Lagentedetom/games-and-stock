@@ -37,12 +37,16 @@ jobs:
           fi
 
       - name: Fetch tweet stats snapshot
+        # If X API quota/credits fail, do NOT block GA snapshot — keep tweet
+        # stats best-effort; success of GA stats matters more day-to-day.
+        continue-on-error: true
         run: python scripts/fetch_tweet_stats.py --days 30
 
       - name: Fetch GA4 stats snapshot (skips cleanly if secrets missing)
         run: python scripts/fetch_ga_stats.py --days 7
 
       - name: Commit snapshots
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
