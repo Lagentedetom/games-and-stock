@@ -21,7 +21,7 @@
       "rating_class": "strong-buy",
       "price": "~$238.08",
       "target": "$284.80",
-      "upside": "+44%",
+      "upside": "+20%",
       "upside_class": "green",
       "catalyst": {
         "es": "GTA VI — 19 Nov 2026",
@@ -739,15 +739,15 @@
       },
       {
         "ticker": "TTWO",
-        "category": "outlook",
+        "category": "earnings",
         "color": "green",
         "lifecycle": "evergreen",
         "event_date": "2026-11-19",
-        "date": "2026-04-21",
+        "date": "2026-05-21",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
-        "title": "GTA VI: sin nuevos retrasos",
-        "body": "TTWO confirma campaña de marketing este verano. 15 analistas Buy, target consenso $284.80."
+        "title": "GTA VI: Take-Two reitera el 19 Nov tras resultados récord",
+        "body": "Resultados Q4 (21 may): BPA $0.80 vs $0.58 esperado y net bookings récord. Take-Two reitera el lanzamiento de GTA VI el 19 Nov 2026 sin nuevos retrasos. TTWO subió +7.4% hasta ~$252, máximo en 3 meses. Consenso analistas Buy, target ~$285."
       },
       {
         "ticker": "NTDOY",
@@ -873,15 +873,15 @@
       },
       {
         "ticker": "TTWO",
-        "category": "outlook",
+        "category": "earnings",
         "color": "green",
         "lifecycle": "evergreen",
         "event_date": "2026-11-19",
-        "date": "2026-04-21",
+        "date": "2026-05-21",
         "source": "Take-Two Interactive",
         "url": "https://www.take2games.com/ir/",
-        "title": "GTA VI: no new delays",
-        "body": "TTWO confirms summer marketing campaign. 15 analysts Buy, consensus target $284.80."
+        "title": "GTA VI: Take-Two reaffirms Nov 19 after record results",
+        "body": "Q4 results (May 21): EPS $0.80 vs $0.58 expected and record net bookings. Take-Two reaffirms the GTA VI launch on Nov 19, 2026 with no new delays. TTWO rose +7.4% to ~$252, a 3-month high. Analyst consensus Buy, target ~$285."
       },
       {
         "ticker": "NTDOY",
