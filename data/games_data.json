@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-25",
+  "last_updated": "2026-07-26",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -734,7 +734,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 99 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 100 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -868,7 +868,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 99 days ago · CCOEY flat",
+        "title": "Pragmata launched 100 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -1362,6 +1362,10 @@
       {
         "date": "2026-07-25",
         "price": 231.65
+      },
+      {
+        "date": "2026-07-26",
+        "price": 231.65
       }
     ],
     "CCOEY": [
@@ -1736,6 +1740,10 @@
       {
         "date": "2026-07-25",
         "price": 10.27
+      },
+      {
+        "date": "2026-07-26",
+        "price": 10.27
       }
     ],
     "KNAMF": [
@@ -2109,6 +2117,10 @@
       },
       {
         "date": "2026-07-25",
+        "price": 124.51
+      },
+      {
+        "date": "2026-07-26",
         "price": 124.51
       }
     ],
@@ -2488,6 +2500,10 @@
       {
         "date": "2026-07-25",
         "price": 10.63
+      },
+      {
+        "date": "2026-07-26",
+        "price": 10.63
       }
     ],
     "SQNXF": [
@@ -2865,6 +2881,10 @@
       },
       {
         "date": "2026-07-25",
+        "price": 15.45
+      },
+      {
+        "date": "2026-07-26",
         "price": 15.45
       }
     ],
@@ -3244,6 +3264,10 @@
       {
         "date": "2026-07-25",
         "price": 1.06
+      },
+      {
+        "date": "2026-07-26",
+        "price": 1.06
       }
     ],
     "SONY": [
@@ -3621,6 +3645,10 @@
       },
       {
         "date": "2026-07-25",
+        "price": 20.98
+      },
+      {
+        "date": "2026-07-26",
         "price": 20.98
       }
     ],
@@ -4000,6 +4028,10 @@
       {
         "date": "2026-07-25",
         "price": 381.7
+      },
+      {
+        "date": "2026-07-26",
+        "price": 381.7
       }
     ],
     "CDR.WA": [
@@ -4377,6 +4409,10 @@
       },
       {
         "date": "2026-07-25",
+        "price": 226.2
+      },
+      {
+        "date": "2026-07-26",
         "price": 226.2
       }
     ]
