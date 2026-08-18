@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-17",
+  "last_updated": "2026-08-18",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -19,7 +19,7 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$246.95",
+      "price": "~$241.61",
       "target": "$284.80",
       "upside": "+20%",
       "upside_class": "green",
@@ -34,7 +34,7 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$13.09",
+      "price": "~$12.92",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
@@ -65,7 +65,7 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$13.99",
+      "price": "~$13.73",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~260.5 PLN",
+      "price": "~257.7 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -110,7 +110,7 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "~$1.22",
+      "price": "~$1.2",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
@@ -734,7 +734,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 122 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 123 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -868,7 +868,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 122 days ago · CCOEY flat",
+        "title": "Pragmata launched 123 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -1454,6 +1454,10 @@
       {
         "date": "2026-08-17",
         "price": 246.95
+      },
+      {
+        "date": "2026-08-18",
+        "price": 241.61
       }
     ],
     "CCOEY": [
@@ -1920,6 +1924,10 @@
       {
         "date": "2026-08-17",
         "price": 13.09
+      },
+      {
+        "date": "2026-08-18",
+        "price": 12.92
       }
     ],
     "KNAMF": [
@@ -2385,6 +2393,10 @@
       },
       {
         "date": "2026-08-17",
+        "price": 124.51
+      },
+      {
+        "date": "2026-08-18",
         "price": 124.51
       }
     ],
@@ -2856,6 +2868,10 @@
       {
         "date": "2026-08-17",
         "price": 13.99
+      },
+      {
+        "date": "2026-08-18",
+        "price": 13.73
       }
     ],
     "SQNXF": [
@@ -3325,6 +3341,10 @@
       },
       {
         "date": "2026-08-17",
+        "price": 15.45
+      },
+      {
+        "date": "2026-08-18",
         "price": 15.45
       }
     ],
@@ -3796,6 +3816,10 @@
       {
         "date": "2026-08-17",
         "price": 1.22
+      },
+      {
+        "date": "2026-08-18",
+        "price": 1.2
       }
     ],
     "SONY": [
@@ -4266,6 +4290,10 @@
       {
         "date": "2026-08-17",
         "price": 24.29
+      },
+      {
+        "date": "2026-08-18",
+        "price": 23.7
       }
     ],
     "MSFT": [
@@ -4736,6 +4764,10 @@
       {
         "date": "2026-08-17",
         "price": 495.4
+      },
+      {
+        "date": "2026-08-18",
+        "price": 480.35
       }
     ],
     "CDR.WA": [
@@ -5206,6 +5238,10 @@
       {
         "date": "2026-08-17",
         "price": 260.5
+      },
+      {
+        "date": "2026-08-18",
+        "price": 257.7
       }
     ]
   }
