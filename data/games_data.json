@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-21",
+  "last_updated": "2026-08-22",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -19,7 +19,7 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$240.15",
+      "price": "~$239.62",
       "target": "$284.80",
       "upside": "+20%",
       "upside_class": "green",
@@ -34,7 +34,7 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$13.06",
+      "price": "~$12.98",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
@@ -49,7 +49,7 @@
       "ticker": "KNAMF",
       "rating": "Buy",
       "rating_class": "buy",
-      "price": "~$124.51",
+      "price": "~$139.25",
       "price_note": "(post-div)",
       "target": "—",
       "upside": "—",
@@ -65,7 +65,7 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$13.63",
+      "price": "~$13.55",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~256.0 PLN",
+      "price": "~258.7 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -95,7 +95,7 @@
       "ticker": "SQNXF",
       "rating": "Risk",
       "rating_class": "avoid",
-      "price": "~$15.45",
+      "price": "~$18.22",
       "target": "—",
       "upside": "Caida brutal",
       "upside_class": "red",
@@ -110,7 +110,7 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "~$1.21",
+      "price": "~$1.19",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
@@ -734,7 +734,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 126 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 127 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -868,7 +868,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 126 days ago · CCOEY flat",
+        "title": "Pragmata launched 127 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -1470,6 +1470,10 @@
       {
         "date": "2026-08-21",
         "price": 240.15
+      },
+      {
+        "date": "2026-08-22",
+        "price": 239.62
       }
     ],
     "CCOEY": [
@@ -1952,6 +1956,10 @@
       {
         "date": "2026-08-21",
         "price": 13.06
+      },
+      {
+        "date": "2026-08-22",
+        "price": 12.98
       }
     ],
     "KNAMF": [
@@ -2434,6 +2442,10 @@
       {
         "date": "2026-08-21",
         "price": 124.51
+      },
+      {
+        "date": "2026-08-22",
+        "price": 139.25
       }
     ],
     "NTDOY": [
@@ -2920,6 +2932,10 @@
       {
         "date": "2026-08-21",
         "price": 13.63
+      },
+      {
+        "date": "2026-08-22",
+        "price": 13.55
       }
     ],
     "SQNXF": [
@@ -3406,6 +3422,10 @@
       {
         "date": "2026-08-21",
         "price": 15.45
+      },
+      {
+        "date": "2026-08-22",
+        "price": 18.22
       }
     ],
     "UBSFY": [
@@ -3892,6 +3912,10 @@
       {
         "date": "2026-08-21",
         "price": 1.21
+      },
+      {
+        "date": "2026-08-22",
+        "price": 1.19
       }
     ],
     "SONY": [
@@ -4378,6 +4402,10 @@
       {
         "date": "2026-08-21",
         "price": 23.58
+      },
+      {
+        "date": "2026-08-22",
+        "price": 23.92
       }
     ],
     "MSFT": [
@@ -4864,6 +4892,10 @@
       {
         "date": "2026-08-21",
         "price": 481.15
+      },
+      {
+        "date": "2026-08-22",
+        "price": 483.24
       }
     ],
     "CDR.WA": [
@@ -5350,6 +5382,10 @@
       {
         "date": "2026-08-21",
         "price": 256.0
+      },
+      {
+        "date": "2026-08-22",
+        "price": 258.7
       }
     ]
   }
