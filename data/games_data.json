@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-18",
+  "last_updated": "2026-10-19",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -19,7 +19,7 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$205.28",
+      "price": "~$204.35",
       "target": "$284.80",
       "upside": "+20%",
       "upside_class": "green",
@@ -34,7 +34,7 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$14.37",
+      "price": "~$14.5",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
@@ -49,7 +49,7 @@
       "ticker": "KNAMF",
       "rating": "Buy",
       "rating_class": "buy",
-      "price": "~$139.24",
+      "price": "~$139.25",
       "price_note": "(post-div)",
       "target": "—",
       "upside": "—",
@@ -65,7 +65,7 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$13.22",
+      "price": "~$13.44",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~262.4 PLN",
+      "price": "~257.2 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -95,7 +95,7 @@
       "ticker": "SQNXF",
       "rating": "Risk",
       "rating_class": "avoid",
-      "price": "~$18.12",
+      "price": "~$18.25",
       "target": "—",
       "upside": "Caida brutal",
       "upside_class": "red",
@@ -110,7 +110,7 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "~$1.07",
+      "price": "~$1.06",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
@@ -734,7 +734,7 @@
         "date": "2026-09-15",
         "source": "Analysis · Games & Stock",
         "url": "",
-        "title": "Marvel's Wolverine lanzó hace 33 días",
+        "title": "Marvel's Wolverine lanzó hace 34 días",
         "body": "Insomniac Games / Sony. Precio de $SONY al lanzamiento: ~$24.47. Hoy: ~$24.47 (+0.0%)."
       },
       {
@@ -746,7 +746,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 184 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 185 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -880,7 +880,7 @@
         "date": "2026-09-15",
         "source": "Analysis · Games & Stock",
         "url": "",
-        "title": "Marvel's Wolverine launched 33 days ago",
+        "title": "Marvel's Wolverine launched 34 days ago",
         "body": "Insomniac Games / Sony. $SONY price at launch: ~$24.47. Today: ~$24.47 (+0.0%)."
       },
       {
@@ -892,7 +892,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 184 days ago · CCOEY flat",
+        "title": "Pragmata launched 185 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -1726,6 +1726,10 @@
       {
         "date": "2026-10-18",
         "price": 205.28
+      },
+      {
+        "date": "2026-10-19",
+        "price": 204.35
       }
     ],
     "CCOEY": [
@@ -2440,6 +2444,10 @@
       {
         "date": "2026-10-18",
         "price": 14.37
+      },
+      {
+        "date": "2026-10-19",
+        "price": 14.5
       }
     ],
     "KNAMF": [
@@ -3154,6 +3162,10 @@
       {
         "date": "2026-10-18",
         "price": 139.24
+      },
+      {
+        "date": "2026-10-19",
+        "price": 139.25
       }
     ],
     "NTDOY": [
@@ -3872,6 +3884,10 @@
       {
         "date": "2026-10-18",
         "price": 13.22
+      },
+      {
+        "date": "2026-10-19",
+        "price": 13.44
       }
     ],
     "SQNXF": [
@@ -4590,6 +4606,10 @@
       {
         "date": "2026-10-18",
         "price": 18.12
+      },
+      {
+        "date": "2026-10-19",
+        "price": 18.25
       }
     ],
     "UBSFY": [
@@ -5308,6 +5328,10 @@
       {
         "date": "2026-10-18",
         "price": 1.07
+      },
+      {
+        "date": "2026-10-19",
+        "price": 1.06
       }
     ],
     "SONY": [
@@ -6026,6 +6050,10 @@
       {
         "date": "2026-10-18",
         "price": 24.88
+      },
+      {
+        "date": "2026-10-19",
+        "price": 24.79
       }
     ],
     "MSFT": [
@@ -6744,6 +6772,10 @@
       {
         "date": "2026-10-18",
         "price": 529.05
+      },
+      {
+        "date": "2026-10-19",
+        "price": 531.98
       }
     ],
     "CDR.WA": [
@@ -7462,6 +7494,10 @@
       {
         "date": "2026-10-18",
         "price": 262.4
+      },
+      {
+        "date": "2026-10-19",
+        "price": 257.2
       }
     ]
   }
