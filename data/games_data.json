@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-18",
+  "last_updated": "2026-11-19",
   "kpis": {
     "games_watchlist": 19,
     "tier_breakdown": "4 Tier 1 + 10 Tier 2 + 5 Tier 3",
@@ -19,7 +19,7 @@
       "ticker": "TTWO",
       "rating": "Strong Buy",
       "rating_class": "strong-buy",
-      "price": "~$221.13",
+      "price": "~$216.23",
       "target": "$284.80",
       "upside": "+20%",
       "upside_class": "green",
@@ -34,7 +34,7 @@
       "ticker": "CCOEY",
       "rating": "Outperform",
       "rating_class": "buy",
-      "price": "~$14.33",
+      "price": "~$14.55",
       "target": "—",
       "upside": "P/E 20.8x",
       "upside_class": "green",
@@ -49,7 +49,7 @@
       "ticker": "KNAMF",
       "rating": "Buy",
       "rating_class": "buy",
-      "price": "~$139.25",
+      "price": "~$187.71",
       "price_note": "(post-div)",
       "target": "—",
       "upside": "—",
@@ -65,7 +65,7 @@
       "ticker": "NTDOY",
       "rating": "Overweight",
       "rating_class": "overweight",
-      "price": "~$14.05",
+      "price": "~$14.37",
       "target": "~$17.93",
       "upside": "+29%",
       "upside_class": "green",
@@ -80,7 +80,7 @@
       "ticker": "CDR.WA",
       "rating": "Hold",
       "rating_class": "hold",
-      "price": "~281.1 PLN",
+      "price": "~271.9 PLN",
       "target": "198-294 PLN",
       "upside": "—",
       "upside_class": "",
@@ -110,7 +110,7 @@
       "ticker": "UBSFY",
       "rating": "Avoid",
       "rating_class": "avoid",
-      "price": "~$0.91",
+      "price": "~$0.88",
       "target": "—",
       "upside": "-34%",
       "upside_class": "red",
@@ -726,6 +726,18 @@
   "news": {
     "es": [
       {
+        "ticker": "TTWO",
+        "category": "post_launch",
+        "color": "blue",
+        "lifecycle": "post_event",
+        "event_date": "2026-11-19",
+        "date": "2026-11-19",
+        "source": "Analysis · Games & Stock",
+        "url": "",
+        "title": "GTA VI lanzó hace 0 días",
+        "body": "Rockstar Games / Take-Two Interactive. Precio de $TTWO al lanzamiento: ~$216.23. Hoy: ~$216.23 (+0.0%)."
+      },
+      {
         "ticker": "SONY",
         "category": "post_launch",
         "color": "blue",
@@ -734,7 +746,7 @@
         "date": "2026-09-15",
         "source": "Analysis · Games & Stock",
         "url": "",
-        "title": "Marvel's Wolverine lanzó hace 64 días",
+        "title": "Marvel's Wolverine lanzó hace 65 días",
         "body": "Insomniac Games / Sony. Precio de $SONY al lanzamiento: ~$24.47. Hoy: ~$24.47 (+0.0%)."
       },
       {
@@ -746,7 +758,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata lanzó hace 215 días · CCOEY estable",
+        "title": "Pragmata lanzó hace 216 días · CCOEY estable",
         "body": "La nueva IP de Capcom llegó el 17 abril. CCOEY cotizaba a ~$10.95 ese día y ahora en ~$10.97 (+0.18%). El mercado ya había descontado el lanzamiento: Capcom tiene una cartera suficientemente amplia (Monster Hunter, Resident Evil, Street Fighter) para que una IP nueva no mueva la aguja de forma notable."
       },
       {
@@ -860,6 +872,18 @@
     ],
     "en": [
       {
+        "ticker": "TTWO",
+        "category": "post_launch",
+        "color": "blue",
+        "lifecycle": "post_event",
+        "event_date": "2026-11-19",
+        "date": "2026-11-19",
+        "source": "Analysis · Games & Stock",
+        "url": "",
+        "title": "GTA VI launched 0 days ago",
+        "body": "Rockstar Games / Take-Two Interactive. $TTWO price at launch: ~$216.23. Today: ~$216.23 (+0.0%)."
+      },
+      {
         "ticker": "SONY",
         "category": "post_launch",
         "color": "blue",
@@ -868,7 +892,7 @@
         "date": "2026-09-15",
         "source": "Analysis · Games & Stock",
         "url": "",
-        "title": "Marvel's Wolverine launched 64 days ago",
+        "title": "Marvel's Wolverine launched 65 days ago",
         "body": "Insomniac Games / Sony. $SONY price at launch: ~$24.47. Today: ~$24.47 (+0.0%)."
       },
       {
@@ -880,7 +904,7 @@
         "date": "2026-04-17",
         "source": "Analysis · Games & Stock",
         "url": "https://www.capcom.co.jp/ir/english/news/",
-        "title": "Pragmata launched 215 days ago · CCOEY flat",
+        "title": "Pragmata launched 216 days ago · CCOEY flat",
         "body": "Capcom's new IP arrived April 17. CCOEY traded at ~$10.95 that day and sits at ~$10.97 today (+0.18%). The market had already priced the launch in: Capcom's portfolio (Monster Hunter, Resident Evil, Street Fighter) is wide enough that a new IP doesn't move the needle meaningfully."
       },
       {
@@ -1826,6 +1850,10 @@
       {
         "date": "2026-11-18",
         "price": 221.13
+      },
+      {
+        "date": "2026-11-19",
+        "price": 216.23
       }
     ],
     "CCOEY": [
@@ -2664,6 +2692,10 @@
       {
         "date": "2026-11-18",
         "price": 14.33
+      },
+      {
+        "date": "2026-11-19",
+        "price": 14.55
       }
     ],
     "KNAMF": [
@@ -3502,6 +3534,10 @@
       {
         "date": "2026-11-18",
         "price": 139.25
+      },
+      {
+        "date": "2026-11-19",
+        "price": 187.71
       }
     ],
     "NTDOY": [
@@ -4344,6 +4380,10 @@
       {
         "date": "2026-11-18",
         "price": 14.05
+      },
+      {
+        "date": "2026-11-19",
+        "price": 14.37
       }
     ],
     "SQNXF": [
@@ -5185,6 +5225,10 @@
       },
       {
         "date": "2026-11-18",
+        "price": 22.33
+      },
+      {
+        "date": "2026-11-19",
         "price": 22.33
       }
     ],
@@ -6028,6 +6072,10 @@
       {
         "date": "2026-11-18",
         "price": 0.91
+      },
+      {
+        "date": "2026-11-19",
+        "price": 0.88
       }
     ],
     "SONY": [
@@ -6870,6 +6918,10 @@
       {
         "date": "2026-11-18",
         "price": 26.67
+      },
+      {
+        "date": "2026-11-19",
+        "price": 27.36
       }
     ],
     "MSFT": [
@@ -7712,6 +7764,10 @@
       {
         "date": "2026-11-18",
         "price": 505.31
+      },
+      {
+        "date": "2026-11-19",
+        "price": 516.04
       }
     ],
     "CDR.WA": [
@@ -8554,6 +8610,10 @@
       {
         "date": "2026-11-18",
         "price": 281.1
+      },
+      {
+        "date": "2026-11-19",
+        "price": 271.9
       }
     ]
   }
